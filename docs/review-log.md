@@ -2,6 +2,16 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here. Keep entries short and newest entries near the top.
 
+## 2026-04-28 Automation Registry Setup
+
+| Item | Content |
+| --- | --- |
+| Work | Added the Codex Automation registry, runbook, and log format so autp can continue automatically except for human-confirmation stop conditions |
+| Changed Files | `docs/automation-registry.md`, `docs/automation-runbook.md`, `docs/automation-log.md`, `docs/current-status.md`, `docs/review-log.md` |
+| Verification | `npm run verify` attempted but could not run because `npm` is not available on PATH in this Codex desktop environment |
+| Safety Check | No app feature implementation, no env values, no billing, no external posting, no service role key use, no RLS weakening, no production DB changes, and no final public launch |
+| Next Recommended Task | Open the requested PR from `codex/automation-registry`, then run Daily Project Sweep to choose the next safe task |
+
 ## 2026-04-28 Role Skill Bootstrap
 
 | Item | Content |
