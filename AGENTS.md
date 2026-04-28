@@ -3,81 +3,59 @@
 ## Project
 
 - Repository: `tanpatsu1/autp`
-- Product: `autp`, a multi-purpose URL / brand / link manager.
-- Stack target: Next.js App Router, TypeScript, Supabase, Vercel.
-- Primary goal: build in small, verifiable steps that can be deployed by Vercel.
+- Project: `autp`
+- Stack: Next.js / TypeScript / Supabase / Vercel
+- Operating mode: `AutomationFoundation`
 
-## Automation workflow
+Codex should move the project forward automatically unless a task hits `HumanConfirmationRequired`.
 
-Before starting any task:
+## Required Reading Before Work
 
-1. Read `docs/current-status.md`.
-2. Read `docs/feedback-inbox.md`.
-3. Check whether the task is blocked by missing secrets, missing environment variables, or missing product decisions.
-4. Prefer the smallest useful change that moves the MVP forward.
+Read these files before choosing or executing a task:
 
-During work:
+1. `docs/current-status.md`
+2. `docs/automation-policy.md`
+3. `docs/task-board.md`
+4. `docs/feedback-inbox.md`
+5. `docs/compact-context.md`
+6. `docs/verification-loop.md`
+7. `docs/role-map.md`
+8. `docs/skill-registry.md`
+9. `docs/automation-registry.md`
 
-1. Keep changes focused.
-2. Do not rewrite unrelated files.
-3. Do not introduce unnecessary dependencies.
-4. Do not hardcode secrets or credentials.
-5. Do not create `.env.local` or commit real environment values.
-6. Use the environment variable names already documented.
-7. Keep UI bright, clean, simple, and immediately understandable.
+## Core Rules
 
-Before finishing:
+- Use `TaskBoardLoop` to choose the next safe task.
+- Use `HumanGate` for actions that require human confirmation.
+- Use `ReviewGate` before closing work.
+- Use `VerificationLoop` after code, CI, or config changes.
+- Keep changes small, reversible, and aligned with the current task.
+- Do not implement the full URL-saving MVP during automation-foundation work.
+- Do not write real environment values.
+- Do not change Supabase production DB.
+- Do not charge money, purchase anything, post externally, or execute final production launch.
 
-1. Run the available checks when possible:
-   - `npm run lint`
-   - `npm run build`
-   - any existing tests
-2. If commands cannot run, explain why.
-3. Update `docs/current-status.md` with what changed, what works, and what remains.
-4. Append a short entry to `docs/review-log.md`.
-5. If user feedback was handled, mark it in `docs/feedback-inbox.md`.
+## HumanConfirmationRequired
 
-## Done definition
+Stop and write the item to `docs/feedback-inbox.md` before:
 
-A task is done only when:
+- SNS posting
+- Posting to X / Instagram / YouTube / TikTok / Discord / Reddit
+- Public posting to external websites
+- Billing, purchases, paid plan changes, or domain purchases
+- Production data deletion
+- DB table deletion
+- Weakening RLS
+- Exposing env values or secrets
+- Using service role keys
+- Final public production launch
 
-- The requested behavior is implemented or the blocker is clearly identified.
-- The app still builds, or the exact build blocker is documented.
-- No secret value is exposed.
-- Status docs are updated.
-- The next recommended task is written clearly.
+## Verification
 
-## Supabase rules
+When tooling is available, run:
 
-Use these public client variables only:
+```bash
+npm run verify
+```
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-
-Never expose these in client code, logs, docs, or examples:
-
-- service role key
-- database password
-- JWT secret
-- access tokens
-- refresh tokens
-
-## Product direction
-
-The MVP should support:
-
-- Saving URLs with title, URL, category, tags, memo, favorite/bookmark state.
-- Multiple use cases such as fashion brands, hospitals, tools, shops, and references.
-- Clean list and card views.
-- Search, filtering, and grouping by category/tag.
-- Future account-based data separation through Supabase Auth.
-
-## PR expectations
-
-For each PR or task result, report:
-
-- Summary
-- Files changed
-- Verification commands and results
-- Known limitations
-- Next suggested task
+If verification cannot run, record the exact blocker in `docs/review-log.md`.
