@@ -14,8 +14,17 @@
 - Supabase browser client helper is present.
 - Secret values are not committed.
 - Local `.env.local` is intentionally not included.
-- Automation policy is now added in `docs/automation-policy.md`.
-- `AGENTS.md` now instructs Codex to read `docs/automation-policy.md` before work.
+- Automation policy is added in `docs/automation-policy.md`.
+- Task management docs are added for autonomous operation.
+
+## Automation Docs
+
+- `docs/task-board.md`: source for Now / Next / Later / Blocked task selection.
+- `docs/feedback-inbox.md`: human-confirmation queue and unresolved decisions.
+- `docs/review-log.md`: work history, verification status, and next recommendation.
+- `docs/compact-context.md`: short shared context for future Codex runs.
+- `docs/verification-loop.md`: lint / typecheck / build / Vercel verification flow.
+- `docs/role-map.md`: Orchestrator, Product, Design, Implementation, Review Gate, QA, Growth, and Launch responsibilities.
 
 ## Automation Policy
 
@@ -30,12 +39,12 @@
 
 ## Open Issues
 
-- Local verification was not run for this docs-only policy update.
+- Local verification was not run for this docs-only update.
 - Supabase live connection is not verified.
 
 ## Next Step
 
-Use `docs/automation-policy.md` and `docs/task-board.md` to choose the next safe automated task. Do not implement the URL-saving MVP as part of policy-only work.
+Start with the highest safe item in `docs/task-board.md`. Current recommended task: run the verification loop when local npm or CI is available, then review starter app readiness.
 
 ## Updated
 
