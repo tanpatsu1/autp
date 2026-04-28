@@ -7,14 +7,15 @@
 - Stack target: Next.js App Router, TypeScript, Supabase, Vercel.
 - Primary goal: build in small, verifiable steps that can be deployed by Vercel.
 
-## Automation workflow
+## Automation Workflow
 
 Before starting any task:
 
 1. Read `docs/current-status.md`.
-2. Read `docs/feedback-inbox.md`.
-3. Check whether the task is blocked by missing secrets, missing environment variables, or missing product decisions.
-4. Prefer the smallest useful change that moves the MVP forward.
+2. Read `docs/automation-policy.md`.
+3. Read `docs/feedback-inbox.md`.
+4. Check whether the task is blocked by missing secrets, missing environment variables, missing product decisions, or a human-confirmation requirement.
+5. Prefer the smallest useful change that moves the MVP forward.
 
 During work:
 
@@ -37,7 +38,7 @@ Before finishing:
 4. Append a short entry to `docs/review-log.md`.
 5. If user feedback was handled, mark it in `docs/feedback-inbox.md`.
 
-## Done definition
+## Done Definition
 
 A task is done only when:
 
@@ -47,7 +48,7 @@ A task is done only when:
 - Status docs are updated.
 - The next recommended task is written clearly.
 
-## Supabase rules
+## Supabase Rules
 
 Use these public client variables only:
 
@@ -62,7 +63,7 @@ Never expose these in client code, logs, docs, or examples:
 - access tokens
 - refresh tokens
 
-## Product direction
+## Product Direction
 
 The MVP should support:
 
@@ -72,7 +73,7 @@ The MVP should support:
 - Search, filtering, and grouping by category/tag.
 - Future account-based data separation through Supabase Auth.
 
-## PR expectations
+## PR Expectations
 
 For each PR or task result, report:
 
