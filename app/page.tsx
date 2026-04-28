@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { isSupabaseConfigured } from "../lib/supabase/client";
 
 const statusItems = [
@@ -93,4 +94,4 @@ const styles = {
     color: "#344054",
     lineHeight: 1.8
   }
-} satisfies Record<string, React.CSSProperties>;
+} satisfies Record<string, CSSProperties>;
