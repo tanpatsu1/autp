@@ -31,6 +31,20 @@
 - `docs/skill-registry.md`: English skill names and purposes.
 - `docs/automation-registry.md`: English automation loop names and triggers.
 
+## Role Skills
+
+- `.agents/skills/autp-orchestrator/SKILL.md`: task selection, role routing, and HumanGate routing.
+- `.agents/skills/autp-skill-discovery/SKILL.md`: skill auditing, registry maintenance, and future skill proposals.
+- `.agents/skills/autp-product/SKILL.md`: MVP scope, acceptance criteria, product tradeoffs, and product handoffs.
+- `.agents/skills/autp-design/SKILL.md`: bright, clean UI/UX guidance, accessibility, and responsive polish.
+- `.agents/skills/autp-data-model/SKILL.md`: safe data-model, Supabase schema, and RLS proposal workflow.
+- `.agents/skills/autp-implementation/SKILL.md`: small, verifiable implementation and CI/build fixes.
+- `.agents/skills/autp-review-gate/SKILL.md`: bug-first review, policy checks, verification gaps, and docs drift checks.
+- `.agents/skills/autp-qa/SKILL.md`: local, preview, browser, and command-based verification workflow.
+- `.agents/skills/autp-growth/SKILL.md`: local growth, onboarding, FAQ, and launch copy drafts without external posting.
+- `.agents/skills/autp-launch/SKILL.md`: release-readiness preparation with final public launch gated by human approval.
+- `.agents/skills/autp-automation-runner/SKILL.md`: routine safe automation cycles for task-board progress, CI fixes, review feedback, and docs upkeep.
+
 ## Open Issues
 
 - Supabase live connection is not verified.
@@ -38,7 +52,13 @@
 
 ## Next Task
 
-Use `TaskBoardLoop` to select the first open safe item from `docs/task-board.md`. The current recommendation is `NEXT-001`: define the smallest URL-saving MVP scope in docs only.
+Review the `codex/role-skills` PR, then use `TaskBoardLoop` to select the first open safe item from `docs/task-board.md`. The current recommendation is `NEXT-001`: define the smallest URL-saving MVP scope in docs only.
+
+## Verification Status
+
+- `quick_validate.py` passed for all 11 `.agents/skills/**/SKILL.md` files.
+- `.agents/skills/**/SKILL.md` contains no TODO markers and no non-ASCII characters.
+- `npm run verify` passed locally: lint, typecheck, and build completed successfully.
 
 ## Updated
 
