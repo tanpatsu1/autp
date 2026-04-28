@@ -44,9 +44,13 @@
 - Local `npm run verify` could not run in the Codex desktop environment because `npm` is not available on PATH.
 - Supabase live connection is not verified.
 
+## Verification Status
+
+- GitHub Actions CI for PR #3 completed successfully on 2026-04-28.
+
 ## Next Step
 
-Review the GitHub Actions CI result on the PR. If it fails, use the first failing Typecheck, Lint, or Build step as the next Codex auto-fix target.
+Continue with the next safe MVP task from `docs/task-board.md`; if a future CI run fails, use the first failing Typecheck, Lint, or Build step as the next Codex auto-fix target.
 
 ## Updated
 
