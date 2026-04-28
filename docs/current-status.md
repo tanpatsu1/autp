@@ -29,6 +29,9 @@
 - `docs/role-map.md`: Orchestrator, Product, Design, Implementation, Review Gate, QA, Growth, and Launch responsibilities.
 - `docs/skill-registry.md`: active, proposed, and deprecated autp Skill inventory.
 - `docs/skill-discovery-log.md`: record of Skill audits, findings, proposals, and actions.
+- `docs/automation-registry.md`: recurring Codex Automation definitions, frequencies, inputs, outputs, Skills, and stop conditions.
+- `docs/automation-runbook.md`: operator steps for starting, stopping, verifying, and logging automation cycles.
+- `docs/automation-log.md`: history format and run log for scheduled or on-demand automation cycles.
 
 ## Role Skills
 
@@ -62,13 +65,14 @@
 
 ## Verification Status
 
+- Automation registry setup on 2026-04-28 is docs-only; `npm run verify` was attempted but could not run because `npm` is not available on PATH in this Codex desktop environment.
 - GitHub Actions CI for PR #3 completed successfully on 2026-04-28.
 - Role Skill validation completed on 2026-04-28: all 11 `.agents/skills/**/SKILL.md` files passed `quick_validate.py`.
 - `npm run lint`, `npm run typecheck`, and `npm run build` could not run locally because `npm` is not available on PATH in this Codex desktop environment.
 
 ## Next Step
 
-Open the requested PR from `codex/role-skills`, then use `autp-orchestrator` or `autp-automation-runner` to continue with the next safe MVP task from `docs/task-board.md`.
+Open the requested PR from `codex/automation-registry`, then run the first Daily Project Sweep to select the next safe MVP task from `docs/task-board.md`.
 
 ## Updated
 
