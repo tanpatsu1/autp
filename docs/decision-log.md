@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-29-010 - Synthesize Product Direction Council Recommendation
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted with changes |
+| Decider | Orchestrator / Council Synthesis |
+| Roles Consulted | Product, Growth, Design, Data Model, Implementation, QA, Automation, Review Gate |
+| Context | Product Direction Council role files compared future directions for autp after the URL Saving MVP, including generic URL management, AI bookmarks, fashion/brand, shopping candidates, hospital/life information, student workflows, SNS-found info saving, and broader decision support. |
+| Options Considered | Generic URL manager; AI bookmark organizer; fashion / brand manager; shopping candidate manager; hospital / life information manager; student links / assignments / procedures manager; SNS-found product / shop / info saver; broad personal decision workspace; creator / small-team brand link manager. |
+| Decision | Adopt a council recommendation, not a final user decision: autp should proceed toward an AI-ready private decision board for saved links, introduced first through shopping / purchase candidates, with fashion / brand as an early template, student research as a secondary template, and hospital / life information deferred until stronger privacy and claim guardrails exist. |
+| Rationale | This direction is clearer and more monetizable than generic URL management, safer than hospital/service as a lead vertical, more broadly adoptable than fashion-only, and naturally extends the current URL/title/category/tag/memo/favorite/search/card-list MVP. |
+| Risks / Tradeoffs | The direction still needs user confirmation; shopping can tempt price tracking, affiliate, and purchase flows; AI features require persistence, consent, evaluation, and cost controls; sensitive verticals require stronger Review Gate and QA. |
+| Follow-up | Complete `NEXT-006` preview verification, then run `NEXT-008` to confirm or revise the user's preferred direction before Supabase/Auth persistence or new feature work. |
+| Links | `docs/council/product-direction/synthesis.md`, `docs/product-direction.md`, `docs/roadmap.md`, `docs/feature-priority.md`, `docs/growth-strategy.md`, `docs/monetization-notes.md` |
+
 ### DEC-2026-04-29-009 - Create Product Direction Council Workspace Without Choosing Direction
 
 | Field | Content |

@@ -17,7 +17,8 @@
 - `NEXT-002` URL-saving data model, Supabase schema proposal, and RLS policy proposal are documented in docs only.
 - `NEXT-003` URL Saving MVP is implemented as a local-first UI with URL registration, title, category, tags, memo, favorite, listing, search, edit, delete, and card/list view switching.
 - `NEXT-003` URL Saving MVP local smoke QA passed for the MVP flows; no High or Medium issues are currently recorded.
-- Product Direction Council docs are set up under `docs/council/product-direction/` for later role-by-role product direction discussion; no direction has been chosen.
+- Product Direction Council role inputs have been synthesized. The council recommendation is an AI-ready private decision board for saved links, introduced first through shopping / purchase candidates, with fashion / brand as an early template and sensitive verticals deferred.
+- Product direction planning docs now summarize candidate comparison, roadmap, feature priorities, growth strategy, and monetization notes without implementing new features.
 
 ## Open Issues
 
@@ -28,7 +29,7 @@
 
 ## Next Task
 
-`NEXT-006` remains the recommended next safe task: Vercel Verification checks the URL Saving MVP deployment / preview and records the result.
+`NEXT-006` remains the recommended next safe task: Vercel Verification checks the URL Saving MVP deployment / preview and records the result. After that, the user should confirm or adjust the Product Direction Council recommendation before Supabase/Auth persistence work begins.
 
 ## Verification Status
 
@@ -40,6 +41,7 @@
 - Conflict prevention update is docs-only and final `npm run verify` passed on 2026-04-29.
 - Product Direction Council setup is docs-only. Pre-edit `npm install` and `npm run verify` passed on 2026-04-29.
 - Product Direction Council setup Pre-PR sync found the branch up to date with `origin/main`; final `npm run verify` passed on 2026-04-29.
+- Product Direction Council synthesis is docs-only. Pre-edit `npm install` and `npm run verify` passed on 2026-04-29; final `npm run verify` passed on 2026-04-29.
 
 ## Updated
 
