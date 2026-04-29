@@ -170,10 +170,9 @@ using (owner_id = auth.uid())
 with check (owner_id = auth.uid());
 
 drop policy if exists categories_delete_owner on public.categories;
-create policy categories_delete_owner
-on public.categories for delete
-to authenticated
-using (owner_id = auth.uid());
+-- Category deletion is intentionally deferred until category-management behavior
+-- is reviewed. Keep this drop so rerunning the draft removes older delete policy
+-- versions instead of preserving a broader surface.
 
 drop policy if exists tags_select_owner on public.tags;
 create policy tags_select_owner
@@ -195,10 +194,8 @@ using (owner_id = auth.uid())
 with check (owner_id = auth.uid());
 
 drop policy if exists tags_delete_owner on public.tags;
-create policy tags_delete_owner
-on public.tags for delete
-to authenticated
-using (owner_id = auth.uid());
+-- Tag deletion is intentionally deferred until tag-management behavior is
+-- reviewed. Users can replace saved_url_tags links without deleting tag rows.
 
 drop policy if exists saved_urls_select_owner on public.saved_urls;
 create policy saved_urls_select_owner
@@ -256,9 +253,12 @@ to authenticated
 using (owner_id = auth.uid());
 
 grant usage on schema public to authenticated;
-grant select, insert, update, delete on
+grant select, insert, update on
   public.categories,
-  public.tags,
+  public.tags
+to authenticated;
+
+grant select, insert, update, delete on
   public.saved_urls,
   public.saved_url_tags
 to authenticated;

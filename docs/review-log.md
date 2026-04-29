@@ -2,6 +2,20 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-30 Supabase/Auth/RLS Persistence Post-Merge QA
+
+| Item | Content |
+| --- | --- |
+| Work | Ran post-merge QA for Supabase/Auth/RLS Persistence on `codex/qa-supabase-persistence`. Checked local verification, dev startup, local demo save/list/reload persistence, Supabase-configured unsigned behavior with dummy public env names, owner-scoped query design, migration/RLS posture, env/secret safety, production-SQL safety, and Vercel commit status. |
+| Changed Files | `supabase/migrations/20260430000000_url_saving_persistence.sql`, `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, `docs/decision-log.md` |
+| Verification | Passed: `npm install`, `npm run verify`, local dev HTTP 200, headless Edge CDP local demo save with URL/title/category/tags/memo/favorite, list mode, reload persistence through `localStorage`, Supabase-configured unsigned save denial using dummy public env names, secret/env scan, `git diff --check`, and final `npm run verify`. |
+| Browser / Dev Check | `agent-browser`, `gh`, and `vercel` CLIs were unavailable in PATH. Dev/UI checks used `npm run dev`, HTTP 200 checks, and headless Edge CDP. |
+| Vercel Check | GitHub commit status for merge commit `37f42043c7bc8457fca37fba3f41929d4866d524` reports `Vercel` success. Direct deployment body verification was not completed because the status target is a Vercel dashboard URL and project/team access was not available through local CLI. |
+| Findings | High: none. Medium: the migration draft granted authenticated users delete policies/privileges on their own `categories` and `tags`, while `docs/rls-policy.md` defers category/tag deletion until category-management behavior is approved. Fixed by dropping those policies and granting category/tag `select`, `insert`, and `update` only. Low: none recorded. |
+| Review Gate | Passed with blocker: RLS posture is owner-scoped after the migration draft fix; no service role key, real env value, production DB change, SQL execution, RLS weakening, billing, external posting, iframe, extension, scraping, AI, domain purchase, or production launch was performed. |
+| Remaining Blockers | Live Supabase Auth sign-in, database persistence after reload, and two-user RLS denial still require a safe local/preview Supabase project, public env values outside the repo, and reviewed migration application outside production automation. |
+| Next Recommended Task | `NEXT-015`: QA / Vercel / Supabase Verification after `BLOCKED-005` is resolved. |
+
 ## 2026-04-30 Supabase/Auth/RLS Persistence Implementation
 
 | Item | Content |
