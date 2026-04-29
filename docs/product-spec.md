@@ -26,6 +26,7 @@ Users need a low-friction way to keep URLs with enough context to recognize and 
 - Let a user browse saved URLs in list/card views.
 - Let a user search by URL, title, category, tags, and memo.
 - Leave Data Model enough detail to draft a safe Supabase schema and RLS proposal.
+- Keep the MVP compatible with future automated task discovery, role review, safe PR creation, failure diagnosis, and docs sync.
 
 ## Non-Goals
 
@@ -34,7 +35,7 @@ Users need a low-friction way to keep URLs with enough context to recognize and 
 - No billing, paid plans, purchases, or domain actions.
 - No browser extension.
 - No advanced fashion, hospital, or other vertical mode.
-- No automatic metadata scraping, recommendations, AI summaries, or bulk import/export in the first MVP.
+- No automatic metadata scraping, complete background scraping, AI automatic classification, recommendations, AI summaries, or bulk import/export in the first MVP.
 - No code implementation in `NEXT-001`.
 - No Supabase production database change.
 
@@ -54,9 +55,11 @@ The first MVP should include these user-visible features:
 
 The first MVP should treat saved URLs as private user-owned records. Authentication implementation is not decided in this Product task, but NEXT-002 must design the data shape and RLS posture so records can be safely scoped to the owning user before feature implementation.
 
+The first MVP should also remain automation-ready: requirements, data fields, and handoff notes must be concrete enough for future role-based review, automated verification, safe-fix PRs, and docs sync without requiring humans to restate the product boundary.
+
 ## Out Of Scope
 
-The first MVP excludes social publishing, public profiles, public URL collections, billing, paid upgrades, domains, multi-user collaboration, browser-extension capture, vertical workflow modes, automatic metadata fetching, import/export, recommendations, and AI-generated summaries.
+The first MVP excludes social publishing, public profiles, public URL collections, billing, paid upgrades, domains, multi-user collaboration, browser-extension capture, vertical workflow modes, automatic metadata fetching, complete automatic scraping, AI automatic classification, import/export, recommendations, and AI-generated summaries.
 
 ## Screens
 
@@ -90,6 +93,16 @@ The first MVP excludes social publishing, public profiles, public URL collection
 | `created_at` | Yes | Default sorting and audit context. |
 | `updated_at` | Yes | Edit recency and sync context. |
 
+## Automation Compatibility
+
+This MVP spec aligns with the near-autonomous automation goal by keeping the first product boundary deterministic, reviewable, and safe:
+
+- `RoleCouncilLoop` can review the spec because included features, deferred features, screens, flows, and data items are explicit.
+- `PRAutoReviewLoop` can later compare implementation PRs against stable acceptance criteria and HumanGate exclusions.
+- `VercelFailureLoop` and `SupabasePreviewDiagnosticsLoop` should be able to separate code bugs, platform constraints, preview env-name issues, and Supabase preview limitations from product scope.
+- `DocsSyncLoop` should keep `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, and `docs/decision-log.md` aligned after each safe batch.
+- Automation may propose future enrichment features, but MVP data remains user-entered until a later reviewed decision changes that.
+
 ## Acceptance Criteria
 
 - The Product spec defines the smallest useful URL-saving behavior.
@@ -97,6 +110,7 @@ The first MVP excludes social publishing, public profiles, public URL collection
 - The spec lists MVP screens and core user flows.
 - The spec defines saved URL data items for the Data Model role.
 - The spec asks Design, Data Model, Growth, Implementation, QA, and Review Gate for concrete review.
+- The spec is compatible with the near-autonomous safe development goal and gives future automation loops stable review inputs.
 - The spec performs no code implementation and no production database action.
 
 ## Role Impact
@@ -105,10 +119,10 @@ The first MVP excludes social publishing, public profiles, public URL collection
 | --- | --- |
 | Product | Owns the MVP boundary and keeps deferred features out of first implementation. |
 | Design | Review screen structure, empty states, responsive behavior, card/list clarity, and form hierarchy. |
-| Data Model | Draft schema, RLS, ownership boundaries, search/indexing, and migration notes in docs only. |
-| Implementation | Review feasibility, affected app routes/components, validation path, and later verification strategy. |
-| Review Gate | Confirm no HumanGate item, implementation, env value, production DB change, or scope drift. |
-| QA | Translate acceptance criteria into local verification and later browser-flow checks. |
+| Data Model | Draft schema, RLS, ownership boundaries, search/indexing, generated type expectations, preview diagnostics, and migration notes in docs only. |
+| Implementation | Review feasibility, affected app routes/components, validation path, later verification strategy, and safe PR boundaries. |
+| Review Gate | Confirm no HumanGate item, implementation, env value, production DB change, scope drift, or contradiction with automation policy. |
+| QA | Translate acceptance criteria into local verification, CI checks, preview checks, and later browser-flow checks. |
 | Growth | Review positioning and onboarding implications without external posting. |
 | Launch | Keep final public launch blocked until human approval. |
 
@@ -120,6 +134,7 @@ The first MVP excludes social publishing, public profiles, public URL collection
 | Include automatic metadata fetching | Better default titles and richer cards. | Adds fetch reliability, parsing, security, and preview complexity. | Defer. |
 | Include public collections/sharing | Stronger growth loop. | Adds privacy, abuse, launch, and permission risks. | Defer. |
 | Include vertical modes from day one | More tailored use cases. | Splits the product before the core save/search loop is proven. | Defer. |
+| Include AI classification or complete scraping | Could reduce user effort later. | Adds automation reliability, cost, safety, privacy, and review complexity before the base data model exists. | Defer. |
 
 ## Risks And Mitigations
 
@@ -130,11 +145,13 @@ The first MVP excludes social publishing, public profiles, public URL collection
 | Search requirements exceed simple MVP implementation. | Medium | Start with keyword search over selected fields; defer advanced ranking. |
 | Auth and RLS assumptions are unclear. | High | Product requires `owner_id`; NEXT-002 must define RLS before implementation. |
 | Public or paid actions slip into MVP. | High | HumanGate table marks these as No for this task; deferred features stay out of scope. |
+| MVP spec is too ambiguous for future autonomous review. | Medium | Keep screens, data items, acceptance criteria, and NEXT-002 handoff concrete enough for automated review and docs sync. |
 
 ## Verification Plan
 
 - For `NEXT-001`, run `npm run verify` after docs changes when tooling is available.
 - Review Gate checks that the change is docs-only and did not implement the URL-saving MVP.
+- Review Gate checks that the scope does not contradict the automation goal, HumanGate boundaries, or DocsSync expectations.
 - Later Implementation/QA should verify save, search, edit, favorite, and card/list flows after approved implementation begins.
 
 ## HumanGate Check
@@ -162,7 +179,7 @@ The first MVP excludes social publishing, public profiles, public URL collection
 | Field | Content |
 | --- | --- |
 | Decision | Accepted |
-| Required Changes | Use this spec and `docs/mvp-scope.md` as the source for NEXT-002; do not implement the URL-saving MVP in this task. |
+| Required Changes | Use this spec and `docs/mvp-scope.md` as the source for NEXT-002; include automation-ready schema/RLS/type/diagnostic notes; do not implement the URL-saving MVP in this task. |
 | Decision Log ID | `DEC-2026-04-29-002` |
 | Next Owner | Data Model |
 | Next Action | `NEXT-002`: Draft non-destructive Supabase schema and RLS proposal in docs only. |
@@ -177,10 +194,10 @@ The first MVP excludes social publishing, public profiles, public URL collection
 | Related Task | `NEXT-001`, `NEXT-002` |
 | Status | Ready |
 | Summary | The smallest URL-saving MVP is defined as private manual URL saving with title, category, tags, memo, favorite, list/search, and card/list display. |
-| Approved Scope | Draft schema and RLS proposal for saved URLs, ownership, category, tags, memo, favorite, timestamps, and search support. |
+| Approved Scope | Draft schema and RLS proposal for saved URLs, ownership, category, tags, memo, favorite, timestamps, search support, generated type expectations, preview diagnostics, and rollback notes. |
 | Out of Scope | No production DB changes, no env values, no service role keys, no weakened RLS, no public posting, no billing, no implementation. |
 | Key Decisions | `DEC-2026-04-29-002` |
-| Open Questions | Category text vs table; tags array vs normalized tables; search/index strategy; delete behavior boundary. |
+| Open Questions | Category text vs table; tags array vs normalized tables; search/index strategy; delete behavior boundary; RLS test cases; generated type workflow; Supabase Preview diagnostics. |
 | Verification | `NEXT-001` docs should pass `npm run verify`; NEXT-002 should remain docs-only unless separately approved. |
 | HumanGate Items | None |
 | Next Action | Data Model writes the Supabase schema and RLS proposal for `NEXT-002`. |

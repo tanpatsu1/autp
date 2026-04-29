@@ -37,6 +37,8 @@ The first MVP is a private URL manager with manual URL registration, lightweight
 | Browser extension | Useful later, but it expands implementation and release surface. |
 | Fashion, hospital, or other advanced vertical modes | Specialized workflows should wait until the generic URL-saving flow is stable. |
 | Automatic page metadata scraping | Nice-to-have; manual title entry is enough for the first MVP scope. |
+| Complete automatic scraping | Future automation may propose safe capture or enrichment flows, but MVP should not depend on background scraping reliability. |
+| AI automatic classification | Future automation may suggest categories or tags later, but MVP keeps user-controlled metadata as the source of truth. |
 | Bulk import/export | Not required for the first useful save-and-find loop. |
 | Recommendations, ranking, or AI summaries | Adds cost, policy, and quality questions before the basic product is proven. |
 | Public launch execution | Final public production launch remains HumanConfirmationRequired. |
@@ -98,6 +100,18 @@ Deletion is a product-level open detail for Implementation and Review Gate: loca
 | `created_at` | Yes | Sort and audit timestamp. | Database timestamp. |
 | `updated_at` | Yes | Recency and edit timestamp. | Database timestamp or trigger proposal. |
 
+## Automation Goal Compatibility
+
+The MVP should support autp's near-autonomous safe development goal without adding autonomous user-facing behavior in the first release.
+
+- Product scope remains small, explicit, and docs-first so `RoleCouncilLoop` can review it before implementation.
+- User-provided URL, title, category, tags, memo, and favorite state remain the source of truth for MVP data.
+- Automatic scraping, AI classification, public posting, billing, and launch actions stay deferred or HumanGate-protected.
+- Screens, flows, data items, and acceptance criteria are written so future `PRAutoReviewLoop`, QA, and Review Gate checks can map requirements to tests.
+- Data Model should produce schema, RLS, index, migration, and type notes that future automated implementation and safe-fix PRs can consume.
+- Supabase Preview Branch limits or missing environment constraints should be documented as diagnostics, not treated as product scope or app bugs.
+- Docs updates for this MVP should remain compatible with `DocsSyncLoop`: status, task board, review log, decision log, and handoff records should name the next owner and exact next action.
+
 ## Acceptance Criteria
 
 - The MVP scope is documented in `docs/mvp-scope.md`.
@@ -105,6 +119,7 @@ Deletion is a product-level open detail for Implementation and Review Gate: loca
 - In-scope and out-of-scope features are explicit enough to prevent scope drift.
 - Screens and user flows cover saving, finding, reviewing, and updating saved URLs.
 - Saved URL data items are defined for the next Data Model / Supabase Schema task.
+- The MVP scope does not conflict with the near-autonomous automation goal in `docs/automation-policy.md`, `docs/automation-runbook.md`, and `docs/automation-registry.md`.
 - No app feature implementation, env value, production DB change, billing, external posting, or final public launch is performed.
 
 ## Handoff To NEXT-002
@@ -118,3 +133,5 @@ NEXT-002 should draft a non-destructive Supabase schema and RLS proposal in docs
 - What indexes are needed for URL/title/category/tag/memo search?
 - How can migrations be drafted without touching the production database?
 - What implementation-facing TypeScript types or generated types will be needed later?
+- Which schema notes, RLS test cases, rollback notes, and generated type expectations should future automated PR review use?
+- How should Supabase Preview Branch limits, missing preview env names, or platform constraints be diagnosed separately from schema or app bugs?

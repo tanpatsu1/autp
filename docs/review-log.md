@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 URL Saving MVP Automation Alignment
+
+| Item | Content |
+| --- | --- |
+| Work | Re-read the latest automation goal, automation policy, automation runbook, automation registry, and decision log; aligned the URL-saving MVP scope with future role council review, PR auto-review inputs, Vercel/Supabase diagnostics, and DocsSync expectations without expanding MVP implementation scope |
+| Changed Files | `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, `docs/decision-log.md` |
+| Verification | Passed: `npm run verify` (`lint`, `typecheck`, `build`) |
+| Review Gate | Passed: docs-only scope, HumanGate safety, no implementation, and no contradiction with the near-autonomous automation goal |
+| Safety Check | Docs-only change; no code implementation, no env values, no billing, no external posting, no Supabase production DB changes, no weaker RLS, no service role key use, and no final production launch |
+| Remaining Blockers | Supabase live connection is not verified; final public production launch remains `HumanConfirmationRequired` |
+| Next Recommended Task | `NEXT-002`: Data Model drafts an automation-ready Supabase schema/RLS proposal with type expectations, RLS tests, rollback notes, search/index notes, and Supabase Preview diagnostics |
+
 ## 2026-04-29 URL Saving MVP Scope
 
 | Item | Content |

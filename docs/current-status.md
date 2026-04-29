@@ -20,6 +20,7 @@
 - `TaskBoardLoop`, `HumanGate`, `ReviewGate`, and `VerificationLoop` are documented as the default operating loops.
 - Role Collaboration / Debate Protocol docs are added for proposal, review, decision, handoff, and cross-role debate.
 - `NEXT-001` URL-saving MVP scope is documented in `docs/mvp-scope.md` and `docs/product-spec.md`.
+- `NEXT-001` was aligned with the near-autonomous automation goal so future role review, automated PR review, QA, and DocsSync loops can consume stable MVP requirements.
 
 ## Automation Docs
 
@@ -53,6 +54,7 @@ Use `TaskBoardLoop` to select the first open safe item from `docs/task-board.md`
 
 - Role collaboration protocol update is docs-only. `npm run verify` passed on 2026-04-29.
 - URL-saving MVP scope update is docs-only. Verification is recorded in `docs/review-log.md`.
+- URL-saving MVP automation-goal alignment is docs-only. `npm run verify` passed on 2026-04-29.
 
 ## Updated
 
