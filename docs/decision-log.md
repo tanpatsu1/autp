@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-29-005 - Adopt Conflict Prevention And Branch Hygiene Rules
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted |
+| Decider | Orchestrator |
+| Roles Consulted | Automation Runner, Orchestrator, Review Gate, QA |
+| Context | Shared docs such as `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, and `docs/decision-log.md` were likely to conflict when multiple Codex PRs edited broad status and log sections. |
+| Options Considered | Continue ad hoc branch updates; ask humans to resolve PR conflicts; require Codex to sync from `main` at branch start, before PR creation, and while PRs wait for merge. |
+| Decision | Codex must update from `main` before new branchable work, sync with latest `main` before PR creation, keep waiting PR branches current, and resolve ordinary PR conflicts directly before pushing a follow-up commit. |
+| Rationale | Keeping branches close to `main` and narrowing shared docs edits reduces repeated conflicts without adding GitHub Actions, code implementation, env changes, Supabase production changes, billing, or launch actions. |
+| Risks / Tradeoffs | Extra verification and sync steps add time to each automation cycle, but they are cheaper than repeated manual conflict repair. |
+| Follow-up | `NEXT-005`: Automation designs a docs separation plan for detailed task logs in `docs/tasks/`, `docs/status/`, or `docs/logs/` while the next immediate task remains `NEXT-002`. |
+| Links | `docs/automation-policy.md`, `docs/automation-runbook.md`, `docs/collaboration-protocol.md`, `docs/task-board.md`, `docs/current-status.md` |
+
 ### DEC-2026-04-29-004 - Align URL Saving MVP Scope With Automation Goal
 
 | Field | Content |

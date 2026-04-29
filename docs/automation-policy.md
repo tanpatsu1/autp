@@ -25,6 +25,8 @@ Codex may do these without asking:
 - typecheck fixes
 - verification runs
 - safe auto-fixes after failed verification
+- branch synchronization with `main`
+- merge conflict resolution on Codex-owned PR branches
 - PR creation
 - PR review
 - marketing copy drafts
@@ -49,6 +51,66 @@ Codex may automatically fix:
 - ordinary build mistakes
 - CI failures caused by code quality issues
 - missing docs caused by recent changes
+- merge conflicts in Codex-owned branches when the fix preserves branch work and current `main`
+
+## Branch Hygiene Required
+
+Codex must keep working branches close to `main` to reduce repeated conflicts in shared docs.
+
+### Branch Start Rule
+
+Before starting a new branchable task, Codex must update from `main`:
+
+```bash
+git checkout main
+git pull origin main
+npm install
+npm run verify
+git checkout -b <work-branch>
+```
+
+If local uncommitted work from another task exists, Codex must preserve it instead of overwriting it. A separate clean worktree is allowed when it avoids mixing unrelated changes.
+
+### Pre-PR Sync Rule
+
+Before creating a PR, Codex must sync the PR branch with the latest `main`. If conflicts appear, Codex resolves them, removes conflict markers, runs `npm run verify`, and only then creates the PR.
+
+### Pre-Merge Sync Rule
+
+If `main` changes while a PR is waiting to merge, Codex must update the PR branch from latest `main`. If conflicts appear, Codex resolves them and adds a follow-up commit after `npm run verify` passes.
+
+### Conflict Auto-Fix Rule
+
+Codex must not hand ordinary PR conflicts back to the human by default. Codex should:
+
+- inspect the conflict files,
+- compare `main` and branch diffs,
+- keep the branch work that belongs to the PR,
+- incorporate the newer `main` state,
+- remove conflict markers,
+- run `npm run verify`,
+- push an additional PR commit.
+
+Stop at `HumanGate` only if resolving the conflict would require secrets, billing, production data deletion, weaker RLS, service role keys, external posting, or final production launch.
+
+### Shared Docs Edit Rule
+
+These files are conflict-prone and must be edited narrowly:
+
+- `docs/current-status.md`
+- `docs/review-log.md`
+- `docs/task-board.md`
+- `docs/decision-log.md`
+
+Use these rules:
+
+- Keep `docs/current-status.md` short and limited to the current state.
+- Treat `docs/review-log.md` as append-only.
+- Treat `docs/decision-log.md` as append-only.
+- In `docs/task-board.md`, change only the selected task row unless adding a clearly needed follow-up row.
+- Do not add duplicate lines with the same meaning.
+- Do not leave stale `Next Task` text behind.
+- At the end of work, name exactly one next task.
 
 ## ReviewGateRequired
 
