@@ -22,6 +22,7 @@
 | NEXT-004 | Open | Growth | Draft launch copy, FAQ, and onboarding text | Drafts exist locally and nothing is posted externally |
 | NEXT-005 | Open | Automation | Design docs separation plan for detailed task logs currently crowding `docs/current-status.md` | Choose between `docs/tasks/`, `docs/status/`, or `docs/logs/` and document migration rules without moving history prematurely |
 | NEXT-006 | In Progress | QA / Review Gate / Vercel Verification | Complete URL Saving MVP verification; local smoke QA has passed and Vercel deployment / preview confirmation is next | Vercel preview loads, core MVP flows are checked in deployment, no High or Medium issues are found or any blockers are logged |
+| NEXT-007 | Open | Product Direction Council | Fill role-specific product direction council files without choosing a final direction | Product, Growth, Design, Data Model, Implementation, QA, Automation, Review Gate, and Orchestrator notes are added in their assigned files only |
 
 ## Later
 

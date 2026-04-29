@@ -17,6 +17,7 @@
 - `NEXT-002` URL-saving data model, Supabase schema proposal, and RLS policy proposal are documented in docs only.
 - `NEXT-003` URL Saving MVP is implemented as a local-first UI with URL registration, title, category, tags, memo, favorite, listing, search, edit, delete, and card/list view switching.
 - `NEXT-003` URL Saving MVP local smoke QA passed for the MVP flows; no High or Medium issues are currently recorded.
+- Product Direction Council docs are set up under `docs/council/product-direction/` for later role-by-role product direction discussion; no direction has been chosen.
 
 ## Open Issues
 
@@ -37,6 +38,8 @@
 - URL-saving data model and RLS proposal is docs-only. Final `npm run verify` passed on 2026-04-29.
 - Branch hygiene was followed: work started from latest `origin/main`, pre-edit verification passed, and Pre-PR sync found the branch up to date.
 - Conflict prevention update is docs-only and final `npm run verify` passed on 2026-04-29.
+- Product Direction Council setup is docs-only. Pre-edit `npm install` and `npm run verify` passed on 2026-04-29.
+- Product Direction Council setup Pre-PR sync found the branch up to date with `origin/main`; final `npm run verify` passed on 2026-04-29.
 
 ## Updated
 
