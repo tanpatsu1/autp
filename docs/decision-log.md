@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-30-003 - Defer Category And Tag Delete Policies
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-30 |
+| Status | Accepted with changes |
+| Decider | QA / Review Gate |
+| Roles Consulted | QA, Data Model, Review Gate |
+| Context | Post-merge QA found the Supabase/Auth/RLS persistence migration draft allowed authenticated users to delete their own `categories` and `tags`, while the RLS policy proposal defers category/tag deletion until category-management behavior is reviewed. |
+| Options Considered | Leave owner-scoped category/tag delete policies because they do not cross user boundaries; remove the policies and privileges until category/tag management is explicitly designed; block the whole persistence implementation. |
+| Decision | Remove category/tag delete policy creation from the migration draft and grant authenticated users `select`, `insert`, and `update` only for `categories` and `tags`. Keep saved URL and join-row delete behavior because the app's URL deletion path requires it and remains owner-scoped. |
+| Rationale | This keeps the migration draft aligned with the documented RLS posture and narrows the data mutation surface without weakening any required MVP behavior. |
+| Risks / Tradeoffs | Orphan category/tag cleanup is deferred until category/tag management is designed. This is acceptable because the app does not currently expose category/tag deletion. |
+| Follow-up | `NEXT-015` should verify live Auth, persistence, reload behavior, and two-user RLS denial after a safe local/preview Supabase setup is provided. |
+| Links | `supabase/migrations/20260430000000_url_saving_persistence.sql`, `docs/rls-policy.md`, `docs/review-log.md`, `docs/task-board.md` |
+
 ### DEC-2026-04-30-002 - Implement Supabase Auth Persistence With RLS Draft
 
 | Field | Content |
