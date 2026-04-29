@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-29-011 - Confirm User Direction For Private Decision Board
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted with changes |
+| Decider | User / Orchestrator |
+| Roles Consulted | Product Direction Council, Product, Growth, Design, Data Model, Implementation, QA, Automation, Review Gate |
+| Context | The user reviewed the Product Direction Council recommendation, the Review Gate result, the User Decision Pack, and weakness / capture-friction analysis before the next major product build. |
+| Options Considered | Proceed as an AI-ready private decision board for saved links; lead with fashion / brand board; lead with hospital / life information; build iframe / embedded browsing now; continue as a generic URL manager without capture-friction planning. |
+| Decision | Proceed as an AI-ready private decision board for saved links, first entered through shopping / purchase candidates. Keep fashion / brand board as an early template candidate. Defer hospital / life information because privacy, trust, and advice-risk are higher. Treat capture friction, quiet distribution, and AI-discovered weaknesses as planning inputs. Keep iframe / embedded browsing research-only. |
+| Rationale | This accepts the council's strongest direction while preserving user control and safety boundaries. Shopping / purchase candidates are clear and lower risk; fashion remains available as a visual early template; sensitive life/hospital workflows need stronger guardrails; capture friction must be addressed before the product can become habitual. |
+| Risks / Tradeoffs | Manual URL capture may remain a habit risk until baseline planning and later capture improvements are addressed. The private-board value may be harder to spread without demoable examples. Persistence still needs Auth/RLS verification. |
+| Follow-up | Add `NEXT-009` Capture Friction Baseline Planning before or alongside `NEXT-010` Supabase/Auth/RLS Persistence. Add Automation v2 docs/rubrics before large AI, template, sharing, or monetization expansion. |
+| Links | `docs/user-direction-confirmation.md`, `docs/user-decision-pack.md`, `docs/council/product-direction/synthesis.md`, `docs/council/product-direction/review-gate.md`, `docs/task-board.md`, `docs/review-log.md` |
+
 ### DEC-2026-04-29-010 - Synthesize Product Direction Council Recommendation
 
 | Field | Content |
