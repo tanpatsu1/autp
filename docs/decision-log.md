@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-29-005 - Adopt URL Saving Data Model And RLS Proposal
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted |
+| Decider | Orchestrator |
+| Roles Consulted | Product, Data Model, Implementation, QA, Review Gate |
+| Context | `NEXT-002` needed a docs-only Supabase data model and RLS proposal for the private URL Saving MVP before implementation begins. |
+| Options Considered | Store category and tags as plain fields on `saved_urls`; use normalized `categories`, `tags`, and `saved_url_tags`; add persistent user display preferences in the first schema. |
+| Decision | Use `saved_urls`, `categories`, `tags`, and `saved_url_tags` as the MVP schema proposal; keep card/list display mode as UI state for the MVP; require owner-scoped RLS for all user-owned rows. |
+| Rationale | Normalized categories and tags keep search/filter behavior reviewable without overloading `saved_urls`, while deferring `user_preferences` avoids schema work that is not needed for the first card/list toggle. |
+| Risks / Tradeoffs | The normalized tag model requires join queries and slightly more implementation work, but it avoids array search ambiguity and cross-user label leakage. |
+| Follow-up | `NEXT-003`: Implementation builds the private URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs. |
+| Links | `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/review-log.md`, `docs/task-board.md` |
+
 ### DEC-2026-04-29-004 - Align URL Saving MVP Scope With Automation Goal
 
 | Field | Content |
@@ -40,7 +56,7 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 | Status | Accepted with changes |
 | Decider | Orchestrator |
 | Roles Consulted | Product, Data Model, Implementation, QA, Review Gate, Automation |
-| Context | After the latest automation goal update, `NEXT-001` needed a follow-up pass to ensure the MVP scope does not contradict near-autonomous safe development. |
+| Context | After `DEC-2026-04-29-003`, `NEXT-001` needed a follow-up pass to ensure the MVP scope does not contradict the near-autonomous safe development goal. |
 | Options Considered | Leave MVP scope unchanged; add automation-only implementation work to MVP; keep the MVP manual and private while making the docs and NEXT-002 handoff automation-ready. |
 | Decision | Keep the first URL-saving MVP manual, private, and docs-only for `NEXT-001`, while adding explicit compatibility with future role council review, PR auto-review, Vercel/Supabase diagnostics, and DocsSync loops. |
 | Rationale | This preserves the smallest useful MVP and avoids implementation or HumanGate actions, while giving future automation enough stable requirements, data fields, acceptance criteria, and handoff notes to operate safely. |
@@ -48,6 +64,21 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 | Follow-up | `NEXT-002`: Data Model drafts an automation-ready Supabase schema/RLS proposal with generated type expectations, RLS test cases, migration and rollback notes, search/index notes, and Supabase Preview diagnostic boundaries. |
 | Links | `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/automation-policy.md`, `docs/automation-runbook.md`, `docs/automation-registry.md`, `docs/task-board.md`, `docs/review-log.md` |
 
+### DEC-2026-04-29-003 - Adopt Near-Autonomous Safe Development Goal
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted |
+| Decider | Orchestrator |
+| Roles Consulted | Product, Design, Data Model, Implementation, QA, Review Gate, Automation |
+| Context | autp needs a clear final automation goal that goes beyond manual prompts while preserving safety gates for dangerous actions. |
+| Options Considered | Keep on-demand `TaskBoardLoop` only; fully automate every action including dangerous operations; pursue near-autonomous safe development with strict HumanGate boundaries. |
+| Decision | Adopt near-autonomous safe development as the automation goal: Codex should periodically discover tasks, run docs-based role reviews, create safe PRs, investigate CI/Vercel/Supabase-preview failures, and update docs automatically, while humans approve direction, dangerous changes, and final production launch. |
+| Rationale | This gives autp a clear automation north star without allowing unattended billing, secrets, production DB changes, weaker RLS, external posting, or launch execution. |
+| Risks / Tradeoffs | More automation requires stronger review records and diagnostics, but the HumanGate keeps dangerous actions out of unattended execution. |
+| Follow-up | `NEXT-005`: Automation designs the implementation plan for scheduled discovery, role council review, PR merge-candidate checks, Vercel failure diagnosis, Supabase preview diagnostics, and docs sync. |
+| Links | `docs/automation-policy.md`, `docs/automation-registry.md`, `docs/automation-runbook.md`, `docs/task-board.md`, `docs/current-status.md`, `docs/review-log.md` |
 
 ### DEC-2026-04-29-002 - Define Smallest URL Saving MVP Scope
 

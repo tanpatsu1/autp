@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 URL Saving Data Model And RLS Proposal
+
+| Item | Content |
+| --- | --- |
+| Work | Drafted the URL Saving MVP data model, non-destructive Supabase schema proposal, RLS policy proposal, search/listing guidance, type expectations, preview diagnostics, rollback notes, and Implementation handoff |
+| Changed Files | `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, `docs/decision-log.md` |
+| Verification | Passed: `npm run verify` (`lint`, `typecheck`, `build`) |
+| Review Gate | Passed: docs-only scope, private per-user ownership, RLS-preserving proposal, no SQL implementation, verification passed, and clear NEXT-003 handoff |
+| Safety Check | Docs-only change; no SQL migration, no app feature implementation, no env values, no billing, no external posting, no Supabase production DB changes, no weaker RLS, no service role key use, and no final production launch |
+| Remaining Blockers | Supabase live connection is not verified; final public production launch remains `HumanConfirmationRequired` |
+| Next Recommended Task | `NEXT-003`: Implementation builds the private URL Saving MVP from `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/data-model.md`, `docs/supabase-schema.md`, and `docs/rls-policy.md` |
+
 ## 2026-04-29 URL Saving MVP Automation Alignment
 
 | Item | Content |
@@ -13,6 +25,18 @@ Codex records work history, verification status, safety checks, and next recomme
 | Safety Check | Docs-only change; no code implementation, no env values, no billing, no external posting, no Supabase production DB changes, no weaker RLS, no service role key use, and no final production launch |
 | Remaining Blockers | Supabase live connection is not verified; final public production launch remains `HumanConfirmationRequired` |
 | Next Recommended Task | `NEXT-002`: Data Model drafts an automation-ready Supabase schema/RLS proposal with type expectations, RLS tests, rollback notes, search/index notes, and Supabase Preview diagnostics |
+
+## 2026-04-29 Automation Goal Update
+
+| Item | Content |
+| --- | --- |
+| Work | Documented the final automation goal as near-autonomous safe development, separated safe automation scope from HumanGate-only actions, recorded the decision, and added the next automation implementation-planning task |
+| Changed Files | `docs/automation-policy.md`, `docs/automation-runbook.md`, `docs/automation-registry.md`, `docs/task-board.md`, `docs/current-status.md`, `docs/decision-log.md`, `docs/review-log.md` |
+| Verification | Passed: `npm run verify` (`lint`, `typecheck`, `build`) |
+| Review Gate | Passed: docs-only scope, safe automation and HumanGate boundaries are separated, and no prohibited implementation or external action was performed |
+| Safety Check | Docs-only change; no code implementation, no GitHub Actions implementation, no env values, no billing, no external posting, no Supabase production DB changes, no weaker RLS, no service role key use, and no final production launch |
+| Remaining Blockers | Supabase live connection is not verified; final public production launch remains `HumanConfirmationRequired` |
+| Next Recommended Task | `NEXT-005`: design the implementation plan for scheduled task discovery, role council review, PR merge-candidate checks, Vercel failure diagnosis, Supabase preview diagnostics, and docs sync |
 
 ## 2026-04-29 URL Saving MVP Scope
 
@@ -37,6 +61,28 @@ Codex records work history, verification status, safety checks, and next recomme
 | Safety Check | Docs-only change; no app feature implementation, no env values, no billing, no external posting, no Supabase production DB changes, no weaker RLS, no service role key use, and no final production launch |
 | Remaining Blockers | Supabase live connection is not verified; final public production launch remains `HumanConfirmationRequired` |
 | Next Recommended Task | `NEXT-001`: Product drafts the smallest URL-saving MVP scope using `docs/proposal-template.md`; Design, Data Model, Growth, and Implementation review it before Orchestrator records the decision |
+
+## 2026-04-29 Live Automation Setup
+
+| Item | Content |
+| --- | --- |
+| Work | Activated `TaskBoardLoop` as the first live-operation automation and documented the prompt, priority order, Skill selection, HumanGate routing, verification rule, and completion output |
+| Changed Files | `docs/automation-registry.md`, `docs/automation-runbook.md`, `docs/current-status.md`, `docs/review-log.md` |
+| Verification | Passed: `npm run verify` (`lint`, `typecheck`, `build`) |
+| Safety Check | No URL-saving MVP implementation, no env values, no billing, no external posting, no Supabase production DB changes, no RLS weakening, no service role key use, and no final production launch |
+| Remaining Blockers | Supabase live connection is not verified; final public production launch requires human confirmation |
+| Next Recommended Task | Use `TaskBoardLoop` by saying `次進めて`; it should select `NEXT-001` unless a newer safe `Now` task appears |
+
+## 2026-04-28 Role Skills
+
+| Item | Content |
+| --- | --- |
+| Work | Created 11 role-specific Codex Skills for autp multi-department automation and updated the skill registry/discovery docs |
+| Changed Files | `.agents/skills/autp-orchestrator/SKILL.md`, `.agents/skills/autp-skill-discovery/SKILL.md`, `.agents/skills/autp-product/SKILL.md`, `.agents/skills/autp-design/SKILL.md`, `.agents/skills/autp-data-model/SKILL.md`, `.agents/skills/autp-implementation/SKILL.md`, `.agents/skills/autp-review-gate/SKILL.md`, `.agents/skills/autp-qa/SKILL.md`, `.agents/skills/autp-growth/SKILL.md`, `.agents/skills/autp-launch/SKILL.md`, `.agents/skills/autp-automation-runner/SKILL.md`, `docs/skill-registry.md`, `docs/skill-discovery-log.md`, `docs/current-status.md`, `docs/review-log.md` |
+| Verification | Passed: all 11 Skill files passed `quick_validate.py`; no non-ASCII characters or TODO markers remain in `.agents/skills/**/SKILL.md`; `npm run verify` passed locally (`lint`, `typecheck`, `build`) |
+| Safety Check | No app feature implementation, no env values, no billing, no external posting, no Supabase production DB changes, and no final production launch |
+| Remaining Blockers | Supabase live connection is not verified; final public production launch requires human confirmation |
+| Next Recommended Task | Review the `codex/role-skills` PR, then continue with `NEXT-001`: define the smallest URL-saving MVP scope in docs only |
 
 ## 2026-04-28 AutomationFoundation
 
