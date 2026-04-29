@@ -18,6 +18,7 @@
 - Local `npm run verify` passes.
 - GitHub Actions CI is added at `.github/workflows/ci.yml`.
 - `TaskBoardLoop`, `HumanGate`, `ReviewGate`, and `VerificationLoop` are documented as the default operating loops.
+- Role Collaboration / Debate Protocol docs are added for proposal, review, decision, handoff, and cross-role debate.
 
 ## Automation Docs
 
@@ -30,6 +31,11 @@
 - `docs/verification-loop.md`: lint / typecheck / build / Vercel flow.
 - `docs/skill-registry.md`: English skill names and purposes.
 - `docs/automation-registry.md`: English automation loop names and triggers.
+- `docs/collaboration-protocol.md`: role collaboration, debate, Orchestrator decision flow, and HumanGate routing.
+- `docs/proposal-template.md`: standard proposal format for role-driven work.
+- `docs/review-protocol.md`: role review, counterproposal, risk, and recommendation format.
+- `docs/decision-log.md`: important decision record and decision template.
+- `docs/handoff-protocol.md`: role-to-role handoff format and checks.
 
 ## Open Issues
 
@@ -38,8 +44,12 @@
 
 ## Next Task
 
-Use `TaskBoardLoop` to select the first open safe item from `docs/task-board.md`. The current recommendation is `NEXT-001`: define the smallest URL-saving MVP scope in docs only.
+Use `TaskBoardLoop` to select the first open safe item from `docs/task-board.md`. The current recommendation is `NEXT-001`: define the smallest URL-saving MVP scope in docs only. Product should use `docs/proposal-template.md`, then Design, Data Model, Growth, and Implementation should review through `docs/review-protocol.md`; Orchestrator should record the final decision in `docs/decision-log.md`.
+
+## Verification Status
+
+- Role collaboration protocol update is docs-only. `npm run verify` passed on 2026-04-29.
 
 ## Updated
 
-- 2026-04-28
+- 2026-04-29

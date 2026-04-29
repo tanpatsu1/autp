@@ -9,6 +9,7 @@
 | NOW-001 | Done | Orchestrator | Establish `AutomationFoundation` docs, CI, and verify scripts | Foundation docs exist, CI exists, and `npm run verify` is defined |
 | NOW-002 | Done | QA | Run `VerificationLoop` when local npm or CI is available | lint, typecheck, and build pass or blockers are logged |
 | NOW-003 | Done | Review Gate | Review starter app readiness without implementing URL-saving MVP | Findings are classified and safe follow-up tasks are added |
+| NOW-004 | Done | Orchestrator | Establish Role Collaboration / Debate Protocol | Proposal, review, decision, handoff, and cross-role debate docs exist |
 
 ## Next
 
@@ -46,4 +47,4 @@
 
 ## Next Selected Task
 
-`NEXT-001` is the next safe autonomous task. It is docs-only product scoping and does not require secrets, billing, external posting, production DB changes, or final launch.
+`NEXT-001` is the next safe autonomous task. It is docs-only product scoping and does not require secrets, billing, external posting, production DB changes, or final launch. Product should use `docs/proposal-template.md`; other roles should review with `docs/review-protocol.md`; Orchestrator should record important decisions in `docs/decision-log.md`.
