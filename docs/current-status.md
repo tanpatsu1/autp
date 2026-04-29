@@ -33,6 +33,7 @@
 - `docs/verification-loop.md`: lint / typecheck / build / Vercel flow.
 - `docs/skill-registry.md`: English skill names and purposes.
 - `docs/automation-registry.md`: English automation loop names and triggers.
+- `docs/automation-runbook.md`: live-operation instructions for `TaskBoardLoop` and related loops.
 - `docs/collaboration-protocol.md`: role collaboration, debate, Orchestrator decision flow, and HumanGate routing.
 - `docs/proposal-template.md`: standard proposal format for role-driven work.
 - `docs/review-protocol.md`: role review, counterproposal, risk, and recommendation format.
@@ -43,6 +44,13 @@
 - `docs/data-model.md`: URL Saving MVP entities, relationships, search/listing shape, type expectations, and Implementation handoff.
 - `docs/supabase-schema.md`: non-destructive Supabase table, column, index, migration-safety, and preview-diagnostic proposal.
 - `docs/rls-policy.md`: Supabase Auth ownership assumptions, RLS policy matrix, invariants, test cases, and Review Gate checks.
+
+## Collaboration Setup
+
+- `Role Collaboration / Debate Protocol` is documented so role chats can operate as professional departments.
+- Product can draft proposals, Design / Data Model / Growth / Implementation can review, Orchestrator can synthesize decisions, and Review Gate can check safety and quality before handoff.
+- Important decisions should be recorded in `docs/decision-log.md`.
+- Role handoffs should use `docs/handoff-protocol.md`.
 
 ## Role Skills
 
@@ -61,8 +69,8 @@
 ## Live Automation Setup
 
 - First active automation: `TaskBoardLoop`.
-- Trigger phrase: `次進めて`.
-- `docs/automation-runbook.md` now contains the exact `TaskBoardLoop` prompt, priority order, Skill selection guide, HumanGate rules, verification rules, and completion output.
+- Trigger phrase: configured in `docs/automation-runbook.md`.
+- `docs/automation-runbook.md` contains the exact `TaskBoardLoop` prompt, priority order, Skill selection guide, HumanGate rules, verification rules, and completion output.
 - `TaskBoardLoop` should select the first safe `Open` task from `docs/task-board.md`, choose the required Skill, route human-gated items to `docs/feedback-inbox.md`, and otherwise continue through implementation or docs work, verification, review, docs updates, and PR creation.
 - This setup did not implement the URL-saving MVP.
 
@@ -89,15 +97,15 @@ The next automation-specific task is `NEXT-005`: design the implementation plan 
 
 ## Verification Status
 
+- Latest local verification passed: `npm run verify` completed lint, typecheck, and build.
+- URL-saving data model and RLS proposal is docs-only. `npm run verify` passed on 2026-04-29.
 - Automation goal update is docs-only. `npm run verify` passed on 2026-04-29.
 - Live automation setup is docs-only. `npm run verify` passed on 2026-04-29.
-- `quick_validate.py` passed for all 11 `.agents/skills/**/SKILL.md` files.
-- `.agents/skills/**/SKILL.md` contains no TODO markers and no non-ASCII characters.
-- `npm run verify` passed locally: lint, typecheck, and build completed successfully.
 - Role collaboration protocol update is docs-only. `npm run verify` passed on 2026-04-29.
 - URL-saving MVP scope update is docs-only. Verification is recorded in `docs/review-log.md`.
 - URL-saving MVP automation-goal alignment is docs-only. Verification is recorded in `docs/review-log.md`.
-- URL-saving data model and RLS proposal is docs-only. `npm run verify` passed on 2026-04-29.
+- `quick_validate.py` passed for all 11 `.agents/skills/**/SKILL.md` files.
+- `.agents/skills/**/SKILL.md` contains no TODO markers and no non-ASCII characters.
 
 ## Updated
 

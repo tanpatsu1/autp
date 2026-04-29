@@ -11,6 +11,21 @@ Automation names are English and define repeatable project loops.
 | `CIFixLoop` | CI fails | Inspect first actionable failure, patch safe issue, rerun or document | Stop for paid plan, secret, or destructive production requirements |
 | `LaunchPrepLoop` | Launch preparation starts | Draft checklist and copy locally | Stop before public post or final production launch |
 
+## Activation Priority
+
+| Priority | Automation Name | Operating Mode | Why |
+| --- | --- | --- | --- |
+| 1 | `TaskBoardLoop` | Active first | It turns short instructions into the next safe task, chooses Skills, advances one small batch, and updates docs. |
+| 2 | `VerificationLoop` | Support loop | It runs after code, config, CI, or risky docs changes selected by `TaskBoardLoop`. |
+| 3 | `ReviewGate` | Support loop | It checks scope, safety, verification, and docs before work is considered done. |
+| 4 | `FeedbackInboxLoop` | Support loop | It captures human-gated items without performing them. |
+| 5 | `CIFixLoop` | On demand | It runs only when CI, lint, typecheck, or build fails. |
+| 6 | `LaunchPrepLoop` | Later / on demand | It prepares local launch materials but cannot execute public launch. |
+
+## First Active Automation
+
+`TaskBoardLoop` is the first automation to use in live operation. A short request like `next`, `continue`, or `次進めて` should be interpreted as a request to run `TaskBoardLoop`.
+
 ## Registry Rule
 
 Codex should prefer these automations over ad hoc decisions. If an automation conflicts with `docs/automation-policy.md`, the policy wins.
