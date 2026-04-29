@@ -19,6 +19,8 @@
 - GitHub Actions CI is added at `.github/workflows/ci.yml`.
 - `TaskBoardLoop`, `HumanGate`, `ReviewGate`, and `VerificationLoop` are documented as the default operating loops.
 - Role Collaboration / Debate Protocol docs are added for proposal, review, decision, handoff, and cross-role debate.
+- `NEXT-001` URL-saving MVP scope is documented in `docs/mvp-scope.md` and `docs/product-spec.md`.
+- `NEXT-001` was aligned with the near-autonomous automation goal so future role review, automated PR review, QA, and DocsSync loops can consume stable MVP requirements.
 
 ## Automation Docs
 
@@ -37,6 +39,8 @@
 - `docs/review-protocol.md`: role review, counterproposal, risk, and recommendation format.
 - `docs/decision-log.md`: important decision record and decision template.
 - `docs/handoff-protocol.md`: role-to-role handoff format and checks.
+- `docs/mvp-scope.md`: smallest URL-saving MVP scope, deferred features, screens, flows, data items, and NEXT-002 handoff.
+- `docs/product-spec.md`: Product proposal/spec for the smallest URL-saving MVP and review prompts for other roles.
 
 ## Role Skills
 
@@ -96,13 +100,16 @@
 
 ## Next Task
 
-Use `TaskBoardLoop` by saying `次進めて`. The first selected task should be `NEXT-001`: define the smallest URL-saving MVP scope in docs only. Product should use `docs/proposal-template.md`, then Design, Data Model, Growth, and Implementation should review through `docs/review-protocol.md`; Orchestrator should record the final decision in `docs/decision-log.md`.
+Use `TaskBoardLoop` to select the first open safe item from `docs/task-board.md`. The first selected task should be `NEXT-002`: Data Model drafts the URL-saving Supabase schema/RLS proposal.
 
 ## Verification Status
+
 - Live automation setup is docs-only. `npm run verify` passed on 2026-04-29.
 - `quick_validate.py` passed for all 11 `.agents/skills/**/SKILL.md` files.
 - `.agents/skills/**/SKILL.md` contains no TODO markers and no non-ASCII characters.
 - Role collaboration protocol update is docs-only. `npm run verify` passed on 2026-04-29.
+- URL-saving MVP scope update is docs-only. Verification is recorded in `docs/review-log.md`.
+- URL-saving MVP automation-goal alignment is docs-only. `npm run verify` passed on 2026-04-29.
 - Latest local verification passed: lint, typecheck, and build completed successfully.
 
 ## Updated
