@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-30 Supabase/Auth/RLS Persistence Implementation
+
+| Item | Content |
+| --- | --- |
+| Work | Implemented `NEXT-010` Supabase/Auth/RLS Persistence foundation. Added Supabase Auth magic-link sign-in, owner-scoped Supabase persistence for save/list/edit/delete/favorite/search display data, a local demo fallback when public Supabase env names are not configured, and a non-production migration draft for private saved URLs, categories, tags, joins, RLS, owner immutability, `capture_source`, and `organization_state`. |
+| Changed Files | `app/saved-url-manager.tsx`, `app/saved-url-manager.module.css`, `lib/supabase/saved-urls.ts`, `supabase/migrations/20260430000000_url_saving_persistence.sql`, `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/review-log.md`, `docs/feedback-inbox.md`, `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md` |
+| Verification | Passed: pre-edit `npm install`, pre-edit `npm run verify`, implementation `npm run lint`, `npm run typecheck`, `npm run build`, final `npm run verify`, and local dev HTTP 200 at `http://localhost:3002` on 2026-04-30. |
+| Review Gate | Implementation self-check found no High or Medium issues. The migration draft preserves owner-scoped RLS and same-owner category/tag joins. Live Auth, preview schema application, reload persistence, and two-user RLS denial remain follow-up verification because automation did not use real env values or run SQL. |
+| Safety Check | No real env values, service role key, production DB change, SQL execution against production, RLS weakening, billing, external posting, scraping, AI, iframe, bookmarklet, Web Share Target, Chrome extension, public sharing, domain purchase, or production launch. |
+| Remaining Blockers | Supabase public env values and migration application must be provided/applied only in a safe local or preview environment. Cross-device persistence and cross-user denial need QA against that environment. |
+| Next Recommended Task | `NEXT-014`: Review Gate / Supabase Persistence Review, then `NEXT-015`: QA / Vercel / Supabase Verification. |
+
 ## 2026-04-30 Capture Friction Baseline Review Gate
 
 | Item | Content |

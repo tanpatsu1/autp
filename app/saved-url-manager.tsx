@@ -1,21 +1,18 @@
 "use client";
 
+import type { User } from "@supabase/supabase-js";
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import {
+  deleteSavedUrl,
+  fetchSavedUrls,
+  saveSavedUrl,
+  toggleSavedUrlFavorite,
+  type ViewSavedUrl
+} from "@/lib/supabase/saved-urls";
+import { createBrowserSupabaseClient } from "@/lib/supabase/client";
 import styles from "./saved-url-manager.module.css";
 
 type ViewMode = "cards" | "list";
-
-type SavedUrl = {
-  id: string;
-  url: string;
-  title: string;
-  category: string;
-  tags: string[];
-  memo: string;
-  isFavorite: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
 
 type UrlForm = {
   url: string;
@@ -42,21 +39,45 @@ const emptyForm: UrlForm = {
 };
 
 export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) {
-  const [items, setItems] = useState<SavedUrl[]>([]);
+  const [items, setItems] = useState<ViewSavedUrl[]>([]);
   const [form, setForm] = useState<UrlForm>(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [viewMode, setViewMode] = useState<ViewMode>("cards");
   const [error, setError] = useState("");
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [authEmail, setAuthEmail] = useState("");
+  const [authMessage, setAuthMessage] = useState("");
+  const supabase = useMemo(() => createBrowserSupabaseClient(), []);
 
   useEffect(() => {
+    if (supabase) {
+      let isMounted = true;
+
+      supabase.auth.getUser().then(({ data }) => {
+        if (isMounted) {
+          setUser(data.user);
+        }
+      });
+
+      const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+        setUser(session?.user ?? null);
+      });
+
+      return () => {
+        isMounted = false;
+        data.subscription.unsubscribe();
+      };
+    }
+
     const timeoutId = window.setTimeout(() => {
       const stored = window.localStorage.getItem(storageKey);
 
       if (stored) {
         try {
-          setItems(JSON.parse(stored) as SavedUrl[]);
+          setItems(JSON.parse(stored) as ViewSavedUrl[]);
         } catch {
           setItems([]);
         }
@@ -66,13 +87,48 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
     }, 0);
 
     return () => window.clearTimeout(timeoutId);
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
-    if (hasLoaded) {
+    if (!supabase) {
+      return;
+    }
+
+    if (!user) {
+      const timeoutId = window.setTimeout(() => {
+        setItems([]);
+        setHasLoaded(true);
+      }, 0);
+
+      return () => window.clearTimeout(timeoutId);
+    }
+
+    let isMounted = true;
+
+    fetchSavedUrls(supabase, user.id)
+      .then((savedUrls) => {
+        if (isMounted) {
+          setItems(savedUrls);
+          setHasLoaded(true);
+        }
+      })
+      .catch((loadError: Error) => {
+        if (isMounted) {
+          setError(loadError.message);
+          setHasLoaded(true);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [supabase, user]);
+
+  useEffect(() => {
+    if (!supabase && hasLoaded) {
       window.localStorage.setItem(storageKey, JSON.stringify(items));
     }
-  }, [hasLoaded, items]);
+  }, [hasLoaded, items, supabase]);
 
   const filteredItems = useMemo(() => {
     const keyword = search.trim().toLowerCase();
@@ -113,7 +169,7 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
     setForm((current) => ({ ...current, [field]: value }));
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const parsedUrl = parseUrl(form.url);
@@ -125,7 +181,7 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
 
     const now = new Date().toISOString();
     const title = form.title.trim() || fallbackTitle(parsedUrl);
-    const nextItem: SavedUrl = {
+    const nextItem: ViewSavedUrl = {
       id: editingId ?? crypto.randomUUID(),
       url: parsedUrl,
       title,
@@ -133,11 +189,44 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
       tags: parseTags(form.tags),
       memo: form.memo.trim(),
       isFavorite: form.isFavorite,
+      captureSource: "manual_form",
+      organizationState: getOrganizationState(form),
       createdAt: editingId
         ? items.find((item) => item.id === editingId)?.createdAt ?? now
         : now,
       updatedAt: now
     };
+
+    if (supabase && user) {
+      try {
+        setIsSaving(true);
+        await saveSavedUrl(
+          supabase,
+          user.id,
+          {
+            url: nextItem.url,
+            title: nextItem.title,
+            category: nextItem.category,
+            tags: nextItem.tags,
+            memo: nextItem.memo,
+            isFavorite: nextItem.isFavorite
+          },
+          editingId ?? undefined
+        );
+        setItems(await fetchSavedUrls(supabase, user.id));
+        resetForm();
+      } catch (saveError) {
+        setError(saveError instanceof Error ? saveError.message : "Unable to save URL.");
+      } finally {
+        setIsSaving(false);
+      }
+      return;
+    }
+
+    if (supabase && !user) {
+      setError("Sign in before saving private URLs.");
+      return;
+    }
 
     setItems((current) => {
       if (!editingId) {
@@ -150,7 +239,7 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
     resetForm();
   }
 
-  function startEdit(item: SavedUrl) {
+  function startEdit(item: ViewSavedUrl) {
     setEditingId(item.id);
     setForm({
       url: item.url,
@@ -169,24 +258,94 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
     setError("");
   }
 
-  function toggleFavorite(id: string) {
+  async function toggleFavorite(targetItem: ViewSavedUrl) {
+    if (supabase && user) {
+      try {
+        await toggleSavedUrlFavorite(supabase, user.id, targetItem);
+        setItems(await fetchSavedUrls(supabase, user.id));
+      } catch (favoriteError) {
+        setError(
+          favoriteError instanceof Error
+            ? favoriteError.message
+            : "Unable to update favorite."
+        );
+      }
+      return;
+    }
+
     const now = new Date().toISOString();
 
     setItems((current) =>
-      current.map((item) =>
-        item.id === id
-          ? { ...item, isFavorite: !item.isFavorite, updatedAt: now }
-          : item
+      current.map((currentItem) =>
+        currentItem.id === targetItem.id
+          ? {
+              ...currentItem,
+              isFavorite: !currentItem.isFavorite,
+              updatedAt: now
+            }
+          : currentItem
       )
     );
   }
 
-  function deleteItem(id: string) {
+  async function deleteItem(id: string) {
+    if (supabase && user) {
+      try {
+        await deleteSavedUrl(supabase, user.id, id);
+        setItems(await fetchSavedUrls(supabase, user.id));
+      } catch (deleteError) {
+        setError(
+          deleteError instanceof Error ? deleteError.message : "Unable to delete URL."
+        );
+      }
+
+      if (editingId === id) {
+        resetForm();
+      }
+      return;
+    }
+
     setItems((current) => current.filter((item) => item.id !== id));
 
     if (editingId === id) {
       resetForm();
     }
+  }
+
+  async function handleAuthSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!supabase) {
+      return;
+    }
+
+    const email = authEmail.trim();
+
+    if (!email) {
+      setAuthMessage("Enter an email address.");
+      return;
+    }
+
+    const { error: authError } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: window.location.origin
+      }
+    });
+
+    setAuthMessage(
+      authError ? authError.message : "Check your email for a sign-in link."
+    );
+  }
+
+  async function handleSignOut() {
+    if (!supabase) {
+      return;
+    }
+
+    await supabase.auth.signOut();
+    setAuthMessage("");
+    resetForm();
   }
 
   return (
@@ -197,9 +356,40 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
           <h1 className={styles.title}>Saved URLs</h1>
         </div>
         <div className={styles.modeBadge}>
-          {isSupabaseConfigured ? "Supabase env detected" : "Local demo mode"}
+          {supabase && user
+            ? "Supabase persistence"
+            : isSupabaseConfigured
+              ? "Sign in required"
+              : "Local demo mode"}
         </div>
       </section>
+
+      {supabase ? (
+        <section className={styles.authPanel} aria-label="Authentication">
+          {user ? (
+            <>
+              <span>{user.email ?? "Signed in"}</span>
+              <button type="button" onClick={handleSignOut}>
+                Sign out
+              </button>
+            </>
+          ) : (
+            <form onSubmit={handleAuthSubmit}>
+              <label className={styles.authField}>
+                <span>Email</span>
+                <input
+                  type="email"
+                  value={authEmail}
+                  onChange={(event) => setAuthEmail(event.target.value)}
+                  placeholder="you@example.com"
+                />
+              </label>
+              <button type="submit">Send link</button>
+            </form>
+          )}
+          {authMessage ? <p>{authMessage}</p> : null}
+        </section>
+      ) : null}
 
       <section className={styles.metrics} aria-label="Saved URL summary">
         <Metric label="Saved" value={items.length} />
@@ -282,8 +472,8 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
 
           {error ? <p className={styles.error}>{error}</p> : null}
 
-          <button className={styles.primaryButton} type="submit">
-            {isEditing ? "Save changes" : "Save URL"}
+          <button className={styles.primaryButton} type="submit" disabled={isSaving}>
+            {isSaving ? "Saving..." : isEditing ? "Save changes" : "Save URL"}
           </button>
         </form>
 
@@ -367,11 +557,11 @@ function SavedUrlItem({
   onEdit,
   onToggleFavorite
 }: {
-  item: SavedUrl;
+  item: ViewSavedUrl;
   mode: ViewMode;
   onDelete: (id: string) => void;
-  onEdit: (item: SavedUrl) => void;
-  onToggleFavorite: (id: string) => void;
+  onEdit: (item: ViewSavedUrl) => void;
+  onToggleFavorite: (item: ViewSavedUrl) => void;
 }) {
   return (
     <article className={mode === "cards" ? styles.card : styles.listRow}>
@@ -381,7 +571,7 @@ function SavedUrlItem({
             aria-label={item.isFavorite ? "Remove favorite" : "Mark favorite"}
             className={item.isFavorite ? styles.favoriteActive : styles.favoriteButton}
             type="button"
-            onClick={() => onToggleFavorite(item.id)}
+            onClick={() => onToggleFavorite(item)}
           >
             Fav
           </button>
@@ -468,6 +658,12 @@ function parseTags(value: string) {
       seen.add(normalized);
       return true;
     });
+}
+
+function getOrganizationState(form: UrlForm): "needs_review" | "organized" {
+  return form.category.trim() || form.tags.trim() || form.memo.trim()
+    ? "organized"
+    : "needs_review";
 }
 
 function formatDate(value: string) {
