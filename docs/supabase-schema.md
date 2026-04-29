@@ -2,7 +2,7 @@
 
 ## Scope
 
-This is a non-destructive Supabase schema proposal for `NEXT-002`. It is not a runnable migration and does not apply SQL to any Supabase project. Production database changes, real environment values, service role keys, table deletion, and weaker RLS remain prohibited.
+This is a non-destructive Supabase schema proposal for `NEXT-002` and the `NEXT-010` persistence implementation. The reviewed migration draft is stored at `supabase/migrations/20260430000000_url_saving_persistence.sql`, but automation did not run it against any Supabase project. Production database changes, real environment values, service role keys, table deletion, and weaker RLS remain prohibited.
 
 ## Proposed Tables
 
@@ -18,6 +18,8 @@ This is a non-destructive Supabase schema proposal for `NEXT-002`. It is not a r
 | `category_id` | `uuid` | No | `null` | References `public.categories.id`; must belong to same owner |
 | `memo` | `text` | No | `null` | Private user note |
 | `is_favorite` | `boolean` | Yes | `false` | Favorite marker |
+| `capture_source` | `text` | Yes | `manual_form` | Initial save pathway; later reviewed values can support `fast_save`, `bookmarklet`, `web_share`, `extension`, or `import` |
+| `organization_state` | `text` | Yes | `needs_review` | Explicit organize-later state for URL-only saves; allowed values are `needs_review` and `organized` |
 | `created_at` | `timestamptz` | Yes | Current timestamp | Set by database |
 | `updated_at` | `timestamptz` | Yes | Current timestamp | Updated by trigger or app-side update path |
 
@@ -64,6 +66,7 @@ Recommended constraints:
 
 | Column | Type | Required | Default | Constraints / Notes |
 | --- | --- | --- | --- | --- |
+| `owner_id` | `uuid` | Yes | Current authenticated user | Included in the migration draft to make owner-scoped RLS and same-owner composite foreign keys explicit |
 | `saved_url_id` | `uuid` | Yes | None | References `public.saved_urls.id` |
 | `tag_id` | `uuid` | Yes | None | References `public.tags.id` |
 | `created_at` | `timestamptz` | Yes | Current timestamp | Link timestamp |
@@ -72,6 +75,7 @@ Recommended constraints:
 
 - Primary key: `saved_url_id`, `tag_id`.
 - A link is valid only when the saved URL owner and tag owner are the same authenticated user.
+- The migration draft enforces this with composite `(id, owner_id)` references from `saved_url_tags` to both `saved_urls` and `tags`.
 - Deleting a saved URL may cascade to its join rows after Implementation and Review Gate confirm user-owned delete behavior.
 - Deleting a tag may remove only its join rows after Implementation and Review Gate confirm tag-management behavior.
 
@@ -110,6 +114,10 @@ If later approved, proposed fields are:
 
 Fetch saved URLs for `auth.uid()` ordered by `updated_at desc, created_at desc`, including category and tag labels. RLS should make explicit owner filters a second layer of clarity, not the only protection.
 
+### URL-Only Save Readiness
+
+The persistence path can insert a valid private row with URL, authenticated owner, fallback title, `capture_source = manual_form`, `organization_state = needs_review`, default favorite, nullable category, zero tag links, nullable memo, and database timestamps. Later fast-save work can reuse the same table by changing only the reviewed `capture_source` value and UI/API entry point.
+
 ### Search
 
 For MVP, use a simple keyword strategy:
@@ -135,6 +143,7 @@ Future migration drafting should be non-destructive:
 - avoid table drops or production data deletion;
 - keep rollback notes limited to disabling the feature path or reverting unreleased migrations in preview/local environments;
 - do not run migrations against production from automation.
+- review `supabase/migrations/20260430000000_url_saving_persistence.sql` before applying it to local or preview Supabase.
 
 ## Supabase Preview Diagnostics
 

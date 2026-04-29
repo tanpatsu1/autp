@@ -25,10 +25,12 @@
 | NEXT-007 | Done | Product Direction Council / Orchestrator | Fill role-specific product direction council files and synthesize the direction without implementing new features | Product, Growth, Design, Data Model, Implementation, QA, Automation, Review Gate, and Orchestrator synthesis notes exist; product direction docs are ready for the user's final decision |
 | NEXT-008 | Done | Product / Orchestrator | Confirm or revise the Product Direction Council recommendation with the user before the next major product build | User confirmed the direction in `docs/user-direction-confirmation.md`: AI-ready private decision board for saved links, first wedged through shopping / purchase candidates, with capture friction tracked as a product risk |
 | NEXT-009 | Done | Product / Design / Orchestrator | Capture Friction Baseline Planning | `docs/capture-friction-baseline.md` defines URL-only fast save, minimal required fields, later organization, private-data handling, persistence handoff, and research-only capture boundaries |
-| NEXT-010 | Open | Implementation / Data Model / QA | Supabase/Auth/RLS Persistence | Existing MVP persists private owner-scoped records with reviewed Auth/RLS checks, supports the URL-only fast-save baseline, and uses no AI, sharing, billing, scraping, service role key, or production DB change from automation |
+| NEXT-010 | In Review | Implementation / Data Model / QA | Supabase/Auth/RLS Persistence | App code, Supabase Auth flow, owner-scoped persistence helper, and non-production RLS migration draft exist; live Supabase application and two-user verification remain follow-up QA |
 | NEXT-011 | Waiting | Automation / Review Gate | Automation v2 / Autonomous Planning System docs and rubrics | Task scoring, council synthesis checklist, PR readiness checklist, Vercel failure taxonomy, Supabase diagnostics, AI evaluation rubric, and DocsSync rules exist before large AI/templates/sharing/monetization expansion |
 | NEXT-012 | Open | Orchestrator | Task-board hygiene | Stale task wording and selection ordering are cleaned up without changing product behavior |
 | NEXT-013 | Waiting | Product / Design / Implementation | Organization / retrieval improvements | Category/tag/favorite filters, sort, empty/loading/error/no-results states, and mobile retrieval comfort are planned or implemented after persistence |
+| NEXT-014 | Open | Review Gate | Supabase Persistence Review | Review code, migration draft, docs, RLS posture, env safety, and Auth/persistence behavior before treating `NEXT-010` as complete |
+| NEXT-015 | Waiting | QA / Vercel / Supabase Verification | Verify Supabase/Auth/RLS persistence in preview or safe local Supabase | Auth sign-in, URL save/list/edit/delete/favorite/search, reload persistence, and two-user RLS denial are verified without production DB changes |
 
 ## Later
 
@@ -57,4 +59,4 @@
 
 ## Next Selected Task
 
-`NEXT-006` remains the active deployment / preview verification track. After preview verification, `NEXT-010` is the next major implementation candidate: Supabase/Auth/RLS Persistence should preserve the URL-only fast-save baseline from `docs/capture-friction-baseline.md`.
+`NEXT-014` is the next safe task: Review Gate / Supabase Persistence Review should inspect this `NEXT-010` implementation and migration draft before `NEXT-015` runs QA / Vercel / Supabase Verification.

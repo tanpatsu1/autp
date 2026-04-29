@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-30-002 - Implement Supabase Auth Persistence With RLS Draft
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-30 |
+| Status | Accepted with changes |
+| Decider | Orchestrator |
+| Roles Consulted | Data Model, Implementation, QA, Review Gate |
+| Context | `NEXT-010` needed to move the local-first URL Saving MVP toward Supabase Auth, owner-scoped database persistence, RLS, reload/cross-device durability, and the URL-only fast-save baseline without writing env values or changing production DB. |
+| Options Considered | Keep localStorage only; block all work until live Supabase is verified; implement a client-side Supabase Auth/persistence path with a non-production migration draft and local demo fallback. |
+| Decision | Add Supabase Auth magic-link sign-in and owner-scoped persistence when public Supabase env names are configured. Keep local demo mode when Supabase is not configured. Draft local/preview SQL for `saved_urls`, `categories`, `tags`, `saved_url_tags`, RLS policies, same-owner constraints, `capture_source`, and `organization_state`, but do not run SQL against production. |
+| Rationale | This makes the current MVP ready for durable private records while preserving safety: no real env values, no service role key, no production DB change, no RLS weakening, and no external capture-channel scope creep. |
+| Risks / Tradeoffs | Live Supabase Auth, migration application, preview schema, and two-user RLS denial are not verified in this automation run because real env values and production DB changes are prohibited. The first implementation uses client-side owner filters plus RLS; a later QA pass must prove policies in a safe Supabase environment. |
+| Follow-up | `NEXT-014`: Review Gate / Supabase Persistence Review. Then `NEXT-015`: QA / Vercel / Supabase Verification for sign-in, reload persistence, CRUD/search/favorite, and cross-user denial. |
+| Links | `app/saved-url-manager.tsx`, `lib/supabase/saved-urls.ts`, `supabase/migrations/20260430000000_url_saving_persistence.sql`, `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, `docs/review-log.md` |
+
 ### DEC-2026-04-30-001 - Adopt URL-Only Fast Save As Capture Baseline
 
 | Field | Content |
