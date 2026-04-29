@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 URL Saving MVP Local Smoke QA
+
+| Item | Content |
+| --- | --- |
+| Work | Recorded the local smoke QA result for `NEXT-003` URL Saving MVP and prepared the task state for Vercel deployment / preview confirmation. |
+| Changed Files | `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, `docs/decision-log.md` |
+| Verification | Passed before this documentation update: `npm install`, `npm run verify`, lint, typecheck, build, `npm run dev`, and local startup at `http://localhost:3001`. Local MVP checks passed for URL registration, title, category, tags, memo, favorite toggle, listing, search, card/list switching, and MVP-acceptable page-refresh behavior. Final documentation verification also passed: `npm run verify` on 2026-04-29. |
+| Review Gate | Passed for local smoke QA documentation: no High or Medium issues are recorded at this stage, and the remaining verification work is deployment / preview confirmation. |
+| Safety Check | Docs-only change; no code implementation, no env values, no service role key use, no Supabase production DB change, no SQL production execution, no RLS weakening, no billing, no external posting, and no final production launch. |
+| Remaining Blockers | Vercel deployment / preview behavior still needs confirmation. Supabase-backed persistence and RLS test execution remain blocked on safe preview/local Supabase setup; final public production launch remains `HumanConfirmationRequired`. |
+| Next Recommended Task | `NEXT-006`: Vercel Verification checks the URL Saving MVP deployment / preview, confirms the core MVP flows in deployment, and logs any blockers. |
+
 ## 2026-04-29 URL Saving MVP Implementation
 
 | Item | Content |

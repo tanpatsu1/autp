@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-29-008 - Accept NEXT-003 Local Smoke QA And Move To Vercel Verification
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted |
+| Decider | QA / CI / Vercel Verification |
+| Roles Consulted | QA, Review Gate, Vercel Verification |
+| Context | `NEXT-003` URL Saving MVP needed its local QA result formally recorded before proceeding to deployment / preview verification. |
+| Options Considered | Reopen implementation before preview checks; accept the local smoke QA result and move to Vercel verification; defer all verification until Supabase-backed persistence exists. |
+| Decision | Accept the local smoke QA result for `NEXT-003` and keep `NEXT-006` focused on Vercel deployment / preview confirmation. |
+| Rationale | Local verification has already passed for install, verify, lint, typecheck, build, dev startup, URL registration, title, category, tags, memo, favorite toggle, listing, search, card/list switching, and MVP-acceptable page-refresh behavior, with no High or Medium issues recorded. |
+| Risks / Tradeoffs | Deployment-specific runtime behavior is still unverified, and Supabase-backed persistence remains deferred until safe preview/local Supabase setup is available. |
+| Follow-up | `NEXT-006`: Vercel Verification confirms the deployment / preview loads, repeats core MVP flow checks, and logs any blocker before Product Direction or Growth Strategy Council work proceeds. |
+| Links | `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md` |
+
 ### DEC-2026-04-29-007 - Implement URL Saving MVP Local-First Until Supabase Is Verified
 
 | Field | Content |

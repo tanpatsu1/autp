@@ -21,7 +21,7 @@
 | NEXT-003 | Done | Implementation | Implement URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs | Local MVP UI supports URL save, list, edit, delete, favorite, search, category, tags, memo, and card/list flows; Supabase remains documented as unverified |
 | NEXT-004 | Open | Growth | Draft launch copy, FAQ, and onboarding text | Drafts exist locally and nothing is posted externally |
 | NEXT-005 | Open | Automation | Design docs separation plan for detailed task logs currently crowding `docs/current-status.md` | Choose between `docs/tasks/`, `docs/status/`, or `docs/logs/` and document migration rules without moving history prematurely |
-| NEXT-006 | Open | QA / Review Gate | Review URL Saving MVP PR and verify Vercel preview behavior | Review Gate passes, preview loads, core MVP flows are checked, and any blockers are logged |
+| NEXT-006 | In Progress | QA / Review Gate / Vercel Verification | Complete URL Saving MVP verification; local smoke QA has passed and Vercel deployment / preview confirmation is next | Vercel preview loads, core MVP flows are checked in deployment, no High or Medium issues are found or any blockers are logged |
 
 ## Later
 
@@ -50,4 +50,4 @@
 
 ## Next Selected Task
 
-`NEXT-006` is the recommended next safe task. QA / Review Gate should review the URL Saving MVP PR, confirm the Vercel preview loads, verify save, list, edit, favorite, search, category, tag, memo, and card/list behavior, and log any blockers.
+`NEXT-006` is the recommended next safe task. Vercel Verification should confirm the URL Saving MVP deployment / preview loads, verify save, list, edit, favorite, search, category, tag, memo, and card/list behavior in deployment, and log any blockers.
