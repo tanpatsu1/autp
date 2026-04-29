@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 URL Saving MVP Scope
+
+| Item | Content |
+| --- | --- |
+| Work | Defined the smallest URL-saving MVP scope in docs only, including included features, deferred features, screens, user flows, saved URL data items, role review prompts, and NEXT-002 Data Model handoff |
+| Changed Files | `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, `docs/decision-log.md` |
+| Verification | Passed: `npm run verify` (`lint`, `typecheck`, `build`) |
+| Review Gate | Passed: docs-only scope, MVP boundaries and deferred features are explicit, NEXT-002 handoff is clear, and no unsafe action was performed |
+| Safety Check | Docs-only change; no app feature implementation, no env values, no billing, no external posting, no Supabase production DB changes, no weaker RLS, no service role key use, and no final production launch |
+| Remaining Blockers | Supabase live connection is not verified; final public production launch remains `HumanConfirmationRequired` |
+| Next Recommended Task | `NEXT-002`: Data Model drafts the URL-saving Supabase schema and RLS proposal in docs only from `docs/mvp-scope.md` and `docs/product-spec.md` |
+
 ## 2026-04-29 Role Collaboration Protocol
 
 | Item | Content |

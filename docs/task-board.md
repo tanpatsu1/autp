@@ -15,8 +15,8 @@
 
 | ID | Status | Owner | Task | Done When |
 | --- | --- | --- | --- | --- |
-| NEXT-001 | Open | Product | Define smallest URL-saving MVP scope | Scope is documented without production DB changes |
-| NEXT-002 | Open | Implementation | Draft non-destructive Supabase schema and RLS proposal | Draft exists in docs only |
+| NEXT-001 | Done | Product | Define smallest URL-saving MVP scope | Scope is documented without production DB changes |
+| NEXT-002 | Open | Data Model | Draft URL-saving data model and non-destructive Supabase schema/RLS proposal | Draft exists in docs only |
 | NEXT-003 | Open | Design | Improve first screen clarity and responsive polish | UI remains simple and verification-safe |
 | NEXT-004 | Open | Growth | Draft launch copy, FAQ, and onboarding text | Drafts exist locally and nothing is posted externally |
 
@@ -47,4 +47,4 @@
 
 ## Next Selected Task
 
-`NEXT-001` is the next safe autonomous task. It is docs-only product scoping and does not require secrets, billing, external posting, production DB changes, or final launch. Product should use `docs/proposal-template.md`; other roles should review with `docs/review-protocol.md`; Orchestrator should record important decisions in `docs/decision-log.md`.
+`NEXT-002` is the next safe autonomous task. It is a docs-only Data Model task to draft the URL-saving Supabase schema and RLS proposal from `docs/mvp-scope.md` and `docs/product-spec.md`; it must not change the production database, write real env values, weaken RLS, or use service role keys.
