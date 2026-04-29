@@ -85,6 +85,21 @@ Priority:
 5. Add decision status and decision notes after the saved-link foundation is stable.
 6. Keep mobile capture and retrieval comfortable.
 
+## Capture Friction Position
+
+Capture friction is a first-class product risk. The current "copy URL, open autp, paste, fill fields, save, return" flow is acceptable only as an earliest MVP baseline. It should not be treated as the long-term capture strategy.
+
+Adopt URL-only fast save as the initial capture baseline:
+
+- URL is the only user-required save-time input.
+- Title, category, tags, memo, and favorite can be edited after save.
+- Blank titles should receive a deterministic fallback title from the URL.
+- Uncategorized, untagged, and memo-empty links remain valid records.
+- Fast-saved links should be easy to organize later.
+- Supabase/Auth/RLS persistence should allow inserting a valid owner-scoped saved URL with URL, fallback title, defaults, and timestamps only.
+
+`docs/capture-friction-baseline.md` is the source for the capture baseline. iframe / embedded browsing remains research-only. Bookmarklet, Web Share Target, and Chrome extension capture are later candidates after persistence and auth are stable.
+
 ## Genre Expansion Position
 
 Genres should be templates over one core model:
@@ -109,12 +124,13 @@ AI should be assistive and user-confirmed:
 
 AI should not auto-post, purchase, provide medical/financial/legal advice, silently overwrite user taxonomy, or become required for core save/find flows.
 
-## User Decision Needed
+## Confirmed Direction And Open Planning
 
-The user should confirm:
+The user has confirmed the direction in `docs/user-direction-confirmation.md`: autp should proceed as an AI-ready private decision board for saved links, first entered through shopping / purchase candidates. Fashion / brand remains an early template candidate, and hospital / life information remains deferred.
 
-- recommended direction: AI-ready private decision board for saved links;
-- first wedge: shopping / purchase candidates versus fashion / brand versus broader decision board;
-- whether Supabase/Auth persistence is the next implementation priority;
-- whether Automation v2 should come before AI and vertical templates;
-- which first template should follow generic decision fields.
+Open planning items:
+
+- Vercel deployment / preview verification.
+- Supabase/Auth/RLS persistence for the existing MVP.
+- Implementation of the URL-only fast-save baseline after persistence assumptions are clear.
+- Automation v2 docs and rubrics before large AI, template, sharing, or monetization expansion.
