@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 Conflict Prevention And Branch Hygiene
+
+| Item | Content |
+| --- | --- |
+| Work | Documented branch start, Pre-PR sync, Pre-Merge sync, conflict auto-fix, and shared docs edit rules to reduce repeated merge conflicts in shared project docs. |
+| Changed Files | `docs/automation-runbook.md`, `docs/automation-policy.md`, `docs/collaboration-protocol.md`, `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/review-log.md` |
+| Verification | Passed: Pre-PR sync found the branch already up to date with `origin/main`; final `npm run verify` passed (`lint`, `typecheck`, `build`). |
+| Review Gate | Passed: docs-only operational rules, no code implementation, no CI workflow implementation, no env changes, no Supabase production DB changes, no billing, and no production launch. |
+| Safety Check | Docs-only change; conflict auto-fix rules still stop for `HumanConfirmationRequired` actions. |
+| Remaining Blockers | Supabase live connection is not verified; final public production launch remains `HumanConfirmationRequired`. |
+| Next Recommended Task | `NEXT-002`: Data Model drafts the URL-saving Supabase schema/RLS proposal in docs only. |
+
 ## 2026-04-29 URL Saving MVP Automation Alignment
 
 | Item | Content |

@@ -19,6 +19,7 @@ This protocol makes each Codex chat act as a professional project role while sti
 - The Orchestrator decides only after checking Product value, UX clarity, data safety, implementation cost, QA confidence, growth impact, launch risk, and Review Gate findings.
 - Review Gate can stop or redirect work when it finds safety, policy, verification, or contradiction risks.
 - App implementation starts only after the proposal, review, decision, and handoff steps are complete.
+- Before PR creation or merge readiness, the working branch must be synchronized with latest `main` and verified.
 
 ## Role Responsibilities
 
@@ -94,6 +95,20 @@ For every meaningful collaboration cycle, update:
 - Handoff: the target docs file or `docs/review-log.md`.
 - Status: `docs/current-status.md` and `docs/task-board.md` when the task state changes.
 
+## Shared Docs Coordination
+
+Shared project docs are edited with conflict prevention in mind:
+
+- Keep `docs/current-status.md` short: current state, open issues, one next task, and latest verification only.
+- Append to `docs/review-log.md`; do not rewrite older entries during unrelated work.
+- Append to `docs/decision-log.md`; do not reorder existing decisions during unrelated work.
+- In `docs/task-board.md`, update only the selected task row unless adding a needed follow-up task.
+- Do not add duplicate statements with the same meaning.
+- Remove stale `Next Task` references before finishing.
+- End with exactly one explicit next task.
+
+If a PR conflict appears in these docs, Codex resolves it by preserving the PR's intended work, incorporating the newer `main` state, deleting conflict markers, running `npm run verify`, and pushing a follow-up commit.
+
 ## Next Intended Use
 
-The next safe use of this protocol is `NEXT-001`: Product drafts the smallest URL-saving MVP scope. Design, Data Model, Growth, and Implementation review it before Orchestrator records the decision and hands approved scope to Implementation.
+The next safe use of this protocol is `NEXT-002`: Data Model drafts the URL-saving Supabase schema/RLS proposal in docs only, with Review Gate and QA checking safety before any implementation starts.
