@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-29-011 - Add Capture Friction To Product Direction
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted with changes |
+| Decider | Orchestrator |
+| Roles Consulted | Product, Growth, Design, Implementation, QA, Review Gate |
+| Context | The user broadly accepted the Product Direction / User Decision Pack but identified missing analysis around save-flow friction, distribution weakness, and the iframe / site-inside-browsing hypothesis. |
+| Options Considered | Keep the existing direction unchanged; accept iframe / embedded browsing as a feature; treat capture friction as a first-class product risk while keeping iframe research-only. |
+| Decision | Keep the AI-ready private decision board direction and shopping / purchase candidate wedge, but add capture-friction baseline planning, earlier growth/demo validation, safer capture-channel sequencing, and explicit iframe deferral. |
+| Rationale | Manual URL paste is acceptable for the earliest MVP but too slow as a long-term habit loop. Safer capture improvements fit the roadmap better than embedded external browsing, which has compatibility, security, privacy, terms, and UX risks. |
+| Risks / Tradeoffs | Adding capture work too early can bloat the persistence PR, while deferring all capture improvements can make the product useful but unused. The roadmap therefore separates a small docs baseline from later implementation slices. |
+| Follow-up | `NEXT-010`: Product / Design defines capture-friction baseline acceptance criteria before large feature expansion. |
+| Links | `docs/council/product-direction/weakness-capture-friction.md`, `docs/product-direction.md`, `docs/roadmap.md`, `docs/feature-priority.md`, `docs/growth-strategy.md`, `docs/user-decision-pack.md`, `docs/task-board.md`, `docs/review-log.md` |
+
 ### DEC-2026-04-29-010 - Synthesize Product Direction Council Recommendation
 
 | Field | Content |

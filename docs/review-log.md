@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 Weakness And Capture Friction Analysis
+
+| Item | Content |
+| --- | --- |
+| Work | Added Product Direction / User Decision Pack weakness analysis for save-flow friction, distribution risk, iframe / embedded browsing feasibility, capture-channel alternatives, positioning wording, roadmap sequencing, and HumanGate safety. |
+| Changed Files | `docs/council/product-direction/weakness-capture-friction.md`, `docs/product-direction.md`, `docs/roadmap.md`, `docs/feature-priority.md`, `docs/growth-strategy.md`, `docs/user-decision-pack.md`, `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/review-log.md` |
+| Verification | Initial `npm run verify` failed because `eslint` was unavailable in the clean worktree. Ran `npm install`, then final `npm run verify` passed on 2026-04-29 (`lint`, `typecheck`, `build`). |
+| Review Gate | Passed: docs-only scope, no code implementation, no feature implementation, iframe kept research-only, capture channels sequenced safely, and HumanGate boundaries remain explicit. |
+| Safety Check | No bookmarklet, extension, iframe, scraping, AI summary, env value, service role key, Supabase production DB change, SQL execution, RLS weakening, billing, external posting, purchase flow, affiliate activation, domain purchase, or final production launch. |
+| Remaining Blockers | Vercel deployment / preview behavior still needs confirmation; the user still needs to confirm final direction, first wording, capture priority, and whether iframe remains research-only. |
+| Next Recommended Task | `NEXT-006` remains first: Vercel Verification. Then `NEXT-008` user direction confirmation and `NEXT-010` capture-friction baseline planning before large feature expansion. |
+
 ## 2026-04-29 Product Direction Council Synthesis Review Gate
 
 | Item | Content |

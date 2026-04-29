@@ -2,7 +2,7 @@
 
 ## Roadmap Principle
 
-Do not rush into new features before the foundation is trustworthy. autp should move from a local-first URL MVP to a private persisted decision board, then add organization, templates, automation, AI, and monetization in controlled stages.
+Do not rush into new features before the foundation is trustworthy. autp should move from a local-first URL MVP to a private persisted decision board, while treating low-friction capture as part of the foundation. Then add organization, templates, automation, AI, and monetization in controlled stages.
 
 ## Phase 0: Current Verification
 
@@ -19,6 +19,25 @@ Exit criteria:
 - Preview result is recorded.
 - No High or Medium Review Gate issue is open for the current MVP.
 
+## Phase 0.5: Capture Friction Baseline
+
+Goal: make sure the first persisted product does not preserve a too-slow save habit.
+
+This is a small product/design planning slice, not a large new feature push.
+
+- Define paste-only fast save expectations.
+- Keep title, category, tags, memo, and favorite helpful but not all required at capture time.
+- Require clear saved confirmation and easy later editing.
+- Document mobile capture expectations.
+- Decide whether optional title fetch belongs in the first persistence slice or the next small slice.
+- Treat saved URLs, metadata, memos, tags, categories, searches, and capture sources as private data.
+
+Exit criteria:
+
+- Capture acceptance criteria are documented before major expansion.
+- iframe / embedded external browsing is explicitly research-only.
+- Bookmarklet, Web Share Target, and extension ideas are sequenced after persistence and auth review.
+
 ## Phase 1: Supabase/Auth/RLS Persistence
 
 Goal: make the existing MVP durable and private.
@@ -28,7 +47,8 @@ Goal: make the existing MVP durable and private.
 - Persist saved URLs, categories, tags, joins, memo, favorite, and timestamps.
 - Verify signed-out denial and two-user separation.
 - Keep public env names only.
-- Do not add AI, sharing, billing, templates, scraping, or public launch.
+- Do not add AI, sharing, billing, templates, scraping, iframe browsing, extension work, or public launch.
+- Preserve the capture baseline rather than expanding the persistence PR into multiple capture channels.
 
 Exit criteria:
 
@@ -41,6 +61,8 @@ Exit criteria:
 
 Goal: make the base product feel useful every day.
 
+- Paste-only fast save if not included in Phase 1.
+- Optional title fetch with SSRF, metadata, tracking, and terms review if approved for a small slice.
 - Category filter.
 - Tag filter.
 - Favorite filter.
@@ -54,6 +76,7 @@ Exit criteria:
 - Users can quickly find saved items without relying on AI.
 - Filter/search behavior is owner-scoped and verified.
 - UX remains simple on mobile and desktop.
+- Saving a new candidate is fast enough that organization can happen after capture.
 
 ## Phase 3: Generic Decision Support
 
@@ -127,6 +150,9 @@ Exit criteria:
 
 Goal: explore sustainable growth after the core habit works.
 
+- Growth positioning test for "save-to-decide", "private shortlist", "shopping board", and "saved links with context."
+- Screenshot-friendly demo boards using non-sensitive sample content.
+- Short non-public demo script that shows scattered links becoming a shortlist.
 - Onboarding and FAQ drafts.
 - Non-public launch copy drafts.
 - Free/paid plan sketches.
@@ -143,7 +169,22 @@ Exit criteria:
 
 1. Finish `NEXT-006` preview verification.
 2. User confirms or adjusts the recommended product direction.
-3. Plan and implement Supabase/Auth/RLS persistence for the current MVP only.
-4. Add organization/retrieval improvements.
-5. Add generic decision support.
-6. Add Automation v2 docs and rubrics before larger AI or vertical expansion.
+3. Add a docs-only capture-friction baseline for fast paste, minimal required fields, mobile comfort, private-data handling, and iframe deferral.
+4. Plan and implement Supabase/Auth/RLS persistence for the current MVP only.
+5. Add the first safe capture improvement slice if it was not included in persistence: paste-only fast save or optional title fetch after review.
+6. Add organization/retrieval improvements.
+7. Add generic decision support.
+8. Add Automation v2 docs and rubrics before larger AI or vertical expansion.
+
+## Capture Channel Timing
+
+| Capture Channel | Roadmap Decision |
+| --- | --- |
+| Manual URL paste | Keep as the safe baseline. |
+| Paste-only fast save | Early, before large feature expansion. |
+| Optional title fetch | Early only after security/privacy review. |
+| Bookmarklet | After persistence and stable auth/session handling. |
+| Mobile share sheet / Web Share Target | After persistence and PWA/auth review; likely before Chrome extension for mobile-first users. |
+| Chrome extension | Later, after core habit and board value are proven. |
+| Site-internal search / browsing | Research only; do not build before the board itself is strong. |
+| iframe / embedded external browsing | Research-only and not an implementation roadmap item now. |

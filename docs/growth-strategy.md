@@ -8,6 +8,8 @@ autp should not try to grow as "another bookmark app." The first growth wedge sh
 
 This is concrete, easy to show, and close to behavior people already have: scattered tabs, screenshots, chat messages, notes, wishlists, and saved posts.
 
+The main growth risk is that this can still feel too quiet. A private board does not naturally spread unless the capture moment and the before/after story are easy to show.
+
 ## Initial Audience
 
 Primary:
@@ -31,6 +33,7 @@ Near-term message:
 - "A private board for things you might buy."
 - "Turn scattered tabs into a shortlist."
 - "Keep the link, the reason, and the next decision together."
+- "Save-to-decide, not just bookmark."
 
 Avoid:
 
@@ -45,6 +48,7 @@ Avoid:
 | Loop | Near-Term Form | Later Form |
 | --- | --- | --- |
 | Save now, decide later | User saves candidates with notes and favorites | Reminders, status, decision history |
+| Capture from browsing | Fast paste and clear saved confirmation | Bookmarklet, share target, or browser extension after review |
 | Screenshot-friendly boards | Private card/list views for shopping and fashion examples | Shareable boards only after HumanGate-approved launch planning |
 | Template adoption | Shopping and fashion examples in onboarding | Purpose-built templates for school, services, travel, gifts |
 | AI assistance | Not a growth promise yet | Summaries, grouping, comparison briefs, tag suggestions |
@@ -55,7 +59,9 @@ Avoid:
 These are local planning ideas only, not posting instructions:
 
 - short demo screenshots of shopping candidate boards;
+- short before/after demo: scattered tabs or copied links become a private shortlist;
 - onboarding examples for fashion, gadgets, furniture, gifts, and travel;
+- wording tests for "shopping board", "decision board", "saved links with context", "save-to-decide", and "private shortlist";
 - FAQ that explains privacy, local-first limitations, and future sync;
 - comparison with browser bookmarks without attacking competitors;
 - small private beta script after Supabase/Auth persistence works;
@@ -82,8 +88,20 @@ Before any public launch or serious growth push:
 | Risk | Mitigation |
 | --- | --- |
 | Sounds like generic bookmarks | Lead with decision and candidate language. |
+| Saving feels too slow | Make capture friction a product priority: fast paste first, then reviewed share/bookmarklet channels. |
+| Useful but not demoable | Prepare non-sensitive sample boards that show notes, favorites, and decision status. |
 | Too narrow as fashion-only | Use fashion as a template inside shopping / decision boards. |
 | Sensitive hospital use harms trust | Keep hospital/life info private and later; avoid advice claims. |
 | AI overclaim | Frame AI as optional assistance after evaluation. |
 | Monetization too early | Prove habit and persistence before paid plans. |
 | Public sharing leaks private context | Defer sharing until permissions and launch policy are ready. |
+
+## Capture And Distribution Strategy
+
+Saving improvements should be treated as growth work as well as product work. The easier it is to save while browsing, the easier the product is to describe:
+
+- "I save products from anywhere into one private shortlist."
+- "I paste a link now and organize it later."
+- "I keep why I saved it next to the link."
+
+Do not lead growth with iframe / embedded browsing. It is difficult to make reliable, many sites block it, and it can create privacy and terms concerns. Use it only as a research comparison point against safer capture channels.

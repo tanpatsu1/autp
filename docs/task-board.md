@@ -24,6 +24,8 @@
 | NEXT-006 | In Progress | QA / Review Gate / Vercel Verification | Complete URL Saving MVP verification; local smoke QA has passed and Vercel deployment / preview confirmation is next | Vercel preview loads, core MVP flows are checked in deployment, no High or Medium issues are found or any blockers are logged |
 | NEXT-007 | Done | Product Direction Council / Orchestrator | Fill role-specific product direction council files and synthesize the direction without implementing new features | Product, Growth, Design, Data Model, Implementation, QA, Automation, Review Gate, and Orchestrator synthesis notes exist; product direction docs are ready for the user's final decision |
 | NEXT-008 | Open | Product / Orchestrator | Confirm or revise the Product Direction Council recommendation with the user before the next major product build | User confirms whether autp should proceed as an AI-ready private decision board for saved links, first wedged through shopping / purchase candidates, or chooses a different direction |
+| NEXT-009 | Done | Product Direction / Growth / Review Gate | Add weakness, capture-friction, iframe feasibility, positioning, and distribution analysis to the Product Direction decision docs without implementation | Weakness analysis exists, roadmap/priority/growth/user-decision docs are updated, iframe is research-only, HumanGate risks are explicit, and verification passes |
+| NEXT-010 | Open | Product / Design | Define capture-friction baseline acceptance criteria before large feature expansion | Fast paste, minimal required fields, save confirmation, mobile capture expectations, private-data handling, and iframe deferral are documented as implementation-ready criteria |
 
 ## Later
 
@@ -32,6 +34,8 @@
 | LATER-001 | Waiting | Implementation | Implement URL-saving MVP after scope and schema are reviewed | Feature works with public Supabase env names only |
 | LATER-002 | Waiting | QA | Add automated coverage for core flows | Tests cover save, edit, filtering, and basic responsive behavior |
 | LATER-003 | Waiting | Launch | Prepare final release checklist | Checklist is ready; final launch waits for human approval |
+| LATER-004 | Waiting | Product / Implementation | Research bookmarklet and Web Share Target capture channels after persistence and auth are stable | A comparison note covers usability, auth/session behavior, permissions, privacy copy, and verification path before implementation |
+| LATER-005 | Waiting | Product / Security Review | Research capture-in-context alternatives, including why iframe / embedded browsing should remain deferred unless proven safe | Security, privacy, terms, and UX risks are reviewed without building embedded browsing |
 
 ## Blocked
 

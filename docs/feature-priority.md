@@ -2,7 +2,7 @@
 
 ## Priority Rule
 
-Prioritize features that make the current saved-link loop more durable, private, searchable, and decision-oriented. Defer features that require high trust, public surfaces, money, service role keys, production DB changes, or unsupported AI quality.
+Prioritize features that make the current saved-link loop more durable, private, fast to capture, searchable, and decision-oriented. Defer features that require high trust, public surfaces, money, service role keys, production DB changes, external site embedding, scraping, or unsupported AI quality.
 
 ## P0: Must Happen Before Expansion
 
@@ -11,6 +11,7 @@ Prioritize features that make the current saved-link loop more durable, private,
 | P0 | Vercel preview verification for current MVP | Confirms the existing app works outside local development. |
 | P0 | Supabase/Auth persistence | Required for real private saved collections and cross-device use. |
 | P0 | RLS owner separation checks | Blocks cross-user data leakage. |
+| P0 | Capture-friction baseline | Prevents the persisted product from locking in a slow copy-open-paste-fill-save habit. |
 | P0 | Public env-name diagnostics only | Keeps secrets out of repo and avoids unsafe fixes. |
 | P0 | Review Gate and `npm run verify` for every PR | Keeps automation safe and reversible. |
 
@@ -18,6 +19,9 @@ Prioritize features that make the current saved-link loop more durable, private,
 
 | Priority | Feature / Work | Why |
 | --- | --- | --- |
+| P1 | Paste-only fast save | Lets users save first and organize later. |
+| P1 | Clear saved confirmation | Builds trust that the captured link is safe. |
+| P1 | Optional title fetch after review | Reduces typing, but needs security/privacy review before implementation. |
 | P1 | Category filter | Makes the existing category field useful for retrieval. |
 | P1 | Tag filter | Makes user labels actionable without AI. |
 | P1 | Favorite filter | Helps users shortlist important candidates. |
@@ -44,6 +48,14 @@ Prioritize features that make the current saved-link loop more durable, private,
 | P3 | Vercel failure taxonomy | Separates app bugs from env, platform, and schema drift. |
 | P3 | Supabase preview diagnostics | Prevents unsafe RLS weakening or service-role workarounds. |
 | P3 | AI evaluation rubric | Prepares AI features before implementation. |
+
+## P3b: Capture Channel Research
+
+| Priority | Feature / Work | Why |
+| --- | --- | --- |
+| P3 | Bookmarklet research | Good desktop capture candidate after auth and persistence are stable. |
+| P3 | Web Share Target / mobile share research | Strong mobile capture candidate for links found in browsers and supported apps. |
+| P3 | Capture-in-context comparison | Compare bookmarklet, share target, extension, site search, and iframe before building. |
 
 ## P4: Templates
 
@@ -73,6 +85,9 @@ Prioritize features that make the current saved-link loop more durable, private,
 | Billing / paid plans / affiliate activation | HumanGate and business-policy risk. |
 | Automatic price tracking | Data reliability, scraping, and claim risk. |
 | Automatic page scraping | Reliability, security, and prompt-injection risk. |
+| iframe / embedded external browsing | Many sites block embedding; security, privacy, terms, and UX risks are high. |
+| Site-internal external web search | Source, ranking, query privacy, and product-focus risks are not justified before core board value is proven. |
+| Chrome extension implementation | Useful later, but requires permissions, release process, and privacy copy after core habit proof. |
 | Multi-user collaboration | Permissions and RLS complexity. |
 | Hospital-specific recommendations | Medical-adjacent claim and trust risk. |
 | AI automatic classification in background | Privacy, cost, and user-control risk. |
