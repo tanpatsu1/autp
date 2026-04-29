@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 User Decision Pack Review Gate
+
+| Item | Content |
+| --- | --- |
+| Work | Reviewed and updated the User Decision Pack for Product Direction Council. Added capture-friction, useful-but-quiet, iframe research-only, capture-friction baseline, and additional weakness discovery policy notes. |
+| Changed Files | `docs/user-decision-pack.md`, `docs/review-log.md` |
+| Verification | Passed: final `npm run verify` on 2026-04-29 after this review update. |
+| Review Gate | Approve equivalent: no High or Medium issues found. The pack remains docs-only decision support and does not approve implementation of iframe, embedded browsing, public posting, monetization, AI, scraping, or production changes. |
+| Safety Check | No code implementation, new feature, env values, service role key, Supabase production DB change, SQL execution, RLS weakening, billing, external posting, domain purchase, or production launch. |
+| Remaining Blockers | Vercel deployment / preview behavior still needs confirmation; user final product-direction choice is required before major product build. |
+| Next Recommended Task | `NEXT-006`: Vercel Verification, then `NEXT-008`: user direction confirmation with capture-friction baseline planning before or alongside persistence planning. |
+
 ## 2026-04-29 Product Direction Council Synthesis Review Gate
 
 | Item | Content |
