@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 URL Saving Data Model And RLS Proposal
+
+| Item | Content |
+| --- | --- |
+| Work | Drafted the URL Saving MVP data model, non-destructive Supabase schema proposal, RLS policy proposal, search/listing guidance, type expectations, preview diagnostics, rollback notes, and Implementation handoff. |
+| Changed Files | `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, `docs/decision-log.md` |
+| Verification | Passed: pre-edit `npm install`, pre-edit `npm run verify`, Pre-PR sync with latest `origin/main`, and final `npm run verify` (`lint`, `typecheck`, `build`). |
+| Review Gate | Passed: docs-only scope, private per-user ownership, RLS-preserving proposal, no SQL implementation, verification passed, and clear NEXT-003 handoff. |
+| Safety Check | Docs-only change; no SQL migration, no app feature implementation, no env values, no billing, no external posting, no Supabase production DB changes, no weaker RLS, no service role key use, and no final production launch. |
+| Remaining Blockers | Supabase live connection is not verified; final public production launch remains `HumanConfirmationRequired`. |
+| Next Recommended Task | `NEXT-003`: Implementation builds the private URL Saving MVP from `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/data-model.md`, `docs/supabase-schema.md`, and `docs/rls-policy.md`. |
+
 ## 2026-04-29 Conflict Prevention And Branch Hygiene
 
 | Item | Content |

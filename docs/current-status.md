@@ -14,6 +14,7 @@
 - Role collaboration, MVP scope, and automation-goal alignment are documented.
 - Branch hygiene is now documented: start from latest `main`, sync before PR creation, keep merge-waiting PRs current, and let Codex resolve ordinary PR conflicts.
 - Shared docs rules are now documented for `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, and `docs/decision-log.md`.
+- `NEXT-002` URL-saving data model, Supabase schema proposal, and RLS policy proposal are documented in docs only.
 
 ## Open Issues
 
@@ -23,15 +24,13 @@
 
 ## Next Task
 
-`NEXT-002` is the one next safe autonomous task: Data Model drafts the URL-saving Supabase schema/RLS proposal in docs only.
+`NEXT-003` is the one next safe autonomous task: Implementation builds the private URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs.
 
 ## Verification Status
 
-- Conflict prevention update is docs-only and started from latest `origin/main` in branch `codex/conflict-prevention`.
-- Pre-edit `npm install` completed with no vulnerabilities.
-- Pre-edit `npm run verify` passed on 2026-04-29.
-- Pre-PR sync found the branch already up to date with `origin/main`.
-- Final `npm run verify` passed on 2026-04-29.
+- URL-saving data model and RLS proposal is docs-only. Final `npm run verify` passed on 2026-04-29.
+- Branch hygiene was followed: work started from latest `origin/main`, pre-edit verification passed, and Pre-PR sync found the branch up to date.
+- Conflict prevention update is docs-only and final `npm run verify` passed on 2026-04-29.
 
 ## Updated
 

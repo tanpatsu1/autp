@@ -17,8 +17,8 @@
 | ID | Status | Owner | Task | Done When |
 | --- | --- | --- | --- | --- |
 | NEXT-001 | Done | Product | Define smallest URL-saving MVP scope | Scope is documented without production DB changes |
-| NEXT-002 | Open | Data Model | Draft URL-saving data model and non-destructive Supabase schema/RLS proposal with automation-ready type, test, migration, rollback, and preview-diagnostic notes | Draft exists in docs only and can be reviewed by future RoleCouncil, PR auto-review, QA, and DocsSync loops |
-| NEXT-003 | Open | Design | Improve first screen clarity and responsive polish | UI remains simple and verification-safe |
+| NEXT-002 | Done | Data Model | Draft URL-saving data model and non-destructive Supabase schema/RLS proposal with automation-ready type, test, migration, rollback, and preview-diagnostic notes | Draft exists in docs only and can be reviewed by future RoleCouncil, PR auto-review, QA, and DocsSync loops |
+| NEXT-003 | Open | Implementation | Implement URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs | Private authenticated URL save, list, edit, favorite, search, and card/list flows work with reviewed schema and RLS |
 | NEXT-004 | Open | Growth | Draft launch copy, FAQ, and onboarding text | Drafts exist locally and nothing is posted externally |
 | NEXT-005 | Open | Automation | Design docs separation plan for detailed task logs currently crowding `docs/current-status.md` | Choose between `docs/tasks/`, `docs/status/`, or `docs/logs/` and document migration rules without moving history prematurely |
 
@@ -49,4 +49,4 @@
 
 ## Next Selected Task
 
-`NEXT-002` is the one next safe autonomous task. It is a docs-only Data Model task to draft the URL-saving Supabase schema and RLS proposal from `docs/mvp-scope.md` and `docs/product-spec.md`; it should include generated type expectations, RLS test cases, rollback notes, search/index notes, and Supabase Preview diagnostics for future automation loops. It must not change the production database, write real env values, weaken RLS, or use service role keys.
+`NEXT-003` is the one next safe autonomous task. Implementation should build the private URL Saving MVP from `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/data-model.md`, `docs/supabase-schema.md`, and `docs/rls-policy.md`. It must keep RLS enabled, avoid service role keys and real env values, avoid production DB changes from automation, and verify save, list, edit, favorite, search, and card/list behavior.
