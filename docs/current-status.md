@@ -45,6 +45,14 @@
 - `.agents/skills/autp-launch/SKILL.md`: release-readiness preparation with final public launch gated by human approval.
 - `.agents/skills/autp-automation-runner/SKILL.md`: routine safe automation cycles for task-board progress, CI fixes, review feedback, and docs upkeep.
 
+## Live Automation Setup
+
+- First active automation: `TaskBoardLoop`.
+- Trigger phrase: `次進めて`.
+- `docs/automation-runbook.md` now contains the exact `TaskBoardLoop` prompt, priority order, Skill selection guide, HumanGate rules, verification rules, and completion output.
+- `TaskBoardLoop` should select the first safe `Open` task from `docs/task-board.md`, choose the required Skill, route human-gated items to `docs/feedback-inbox.md`, and otherwise continue through implementation or docs work, verification, review, docs updates, and PR creation.
+- This setup did not implement the URL-saving MVP.
+
 ## Open Issues
 
 - Supabase live connection is not verified.
@@ -52,14 +60,15 @@
 
 ## Next Task
 
-Review the `codex/role-skills` PR, then use `TaskBoardLoop` to select the first open safe item from `docs/task-board.md`. The current recommendation is `NEXT-001`: define the smallest URL-saving MVP scope in docs only.
+Use `TaskBoardLoop` by saying `次進めて`. The first selected task should be `NEXT-001`: define the smallest URL-saving MVP scope in docs only, unless a newer safe `Now` task appears.
 
 ## Verification Status
 
+- Live automation setup is docs-only. `npm run verify` passed on 2026-04-29.
 - `quick_validate.py` passed for all 11 `.agents/skills/**/SKILL.md` files.
 - `.agents/skills/**/SKILL.md` contains no TODO markers and no non-ASCII characters.
 - `npm run verify` passed locally: lint, typecheck, and build completed successfully.
 
 ## Updated
 
-- 2026-04-28
+- 2026-04-29
