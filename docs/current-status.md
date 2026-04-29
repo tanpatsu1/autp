@@ -19,6 +19,8 @@
 - `NEXT-003` URL Saving MVP local smoke QA passed for the MVP flows; no High or Medium issues are currently recorded.
 - Product Direction Council role inputs have been synthesized. The council recommendation is an AI-ready private decision board for saved links, introduced first through shopping / purchase candidates, with fashion / brand as an early template and sensitive verticals deferred.
 - Product direction planning docs now summarize candidate comparison, roadmap, feature priorities, growth strategy, and monetization notes without implementing new features.
+- `NEXT-008` user direction confirmation is recorded in `docs/user-direction-confirmation.md`: autp should proceed as an AI-ready private decision board for saved links, first entered through shopping / purchase candidates, with fashion / brand kept as an early template and hospital / life information deferred.
+- Capture friction is now a first-class product risk. The "copy URL, open autp, paste, fill fields, save, return" flow is tracked as a weakness; iframe / embedded browsing remains research-only and is not approved for implementation.
 
 ## Open Issues
 
@@ -26,10 +28,11 @@
 - Vercel deployment / preview behavior for the URL Saving MVP still needs confirmation before broader release readiness work.
 - Final public production launch remains blocked by `HumanConfirmationRequired`.
 - Detailed task logs still need a separation plan so `docs/current-status.md` can stay short.
+- Capture-friction baseline planning is needed before or alongside Supabase/Auth/RLS persistence planning.
 
 ## Next Task
 
-`NEXT-006` remains the recommended next safe task: Vercel Verification checks the URL Saving MVP deployment / preview and records the result. After that, the user should confirm or adjust the Product Direction Council recommendation before Supabase/Auth persistence work begins.
+`NEXT-009` is the recommended next product-planning task: Capture Friction Baseline Planning. Supabase/Auth/RLS persistence remains the next major implementation candidate after direction confirmation and capture-friction baseline planning, while `NEXT-006` still tracks deployment / preview verification.
 
 ## Verification Status
 
@@ -42,6 +45,7 @@
 - Product Direction Council setup is docs-only. Pre-edit `npm install` and `npm run verify` passed on 2026-04-29.
 - Product Direction Council setup Pre-PR sync found the branch up to date with `origin/main`; final `npm run verify` passed on 2026-04-29.
 - Product Direction Council synthesis is docs-only. Pre-edit `npm install` and `npm run verify` passed on 2026-04-29; final `npm run verify` passed on 2026-04-29.
+- User direction confirmation is docs-only. `npm run verify` passed on 2026-04-29 after the confirmation docs update.
 
 ## Updated
 

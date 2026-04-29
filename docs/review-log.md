@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 User Direction Confirmation Review Gate
+
+| Item | Content |
+| --- | --- |
+| Work | Recorded `NEXT-008` user direction confirmation. The user conditionally approved the Product Direction Council recommendation: AI-ready private decision board for saved links, first entered through shopping / purchase candidates; fashion / brand remains an early template; hospital / life information is deferred; capture friction and quiet distribution are tracked risks; iframe / embedded browsing remains research-only. |
+| Changed Files | `docs/user-direction-confirmation.md`, `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/review-log.md` |
+| Verification | Passed: `npm run verify` on 2026-04-29 after this docs update. |
+| Review Gate | Approve equivalent: docs-only direction record, no code implementation, no new feature, no iframe, no embedded browsing, no browser extension, no bookmarklet, no scraping, no env values, no service role key, no SQL, no Supabase production DB change, no RLS weakening, no billing, no external posting, and no production launch. |
+| Safety Check | Public sharing, SNS/external posting, billing, purchases, purchase flows, affiliate activation, domains, production destructive actions, weaker RLS, service role keys, real env values, and final public launch remain HumanGate. |
+| Remaining Blockers | Vercel deployment / preview behavior still needs confirmation; Supabase live connection, Auth, RLS verification, and capture-friction baseline planning remain future work. |
+| Next Recommended Task | `NEXT-009`: Capture Friction Baseline Planning before or alongside `NEXT-010` Supabase/Auth/RLS Persistence planning. |
+
 ## 2026-04-29 User Decision Pack Review Gate
 
 | Item | Content |
