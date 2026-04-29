@@ -18,9 +18,10 @@
 | --- | --- | --- | --- | --- |
 | NEXT-001 | Done | Product | Define smallest URL-saving MVP scope | Scope is documented without production DB changes |
 | NEXT-002 | Done | Data Model | Draft URL-saving data model and non-destructive Supabase schema/RLS proposal with automation-ready type, test, migration, rollback, and preview-diagnostic notes | Draft exists in docs only and can be reviewed by future RoleCouncil, PR auto-review, QA, and DocsSync loops |
-| NEXT-003 | Open | Implementation | Implement URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs | Private authenticated URL save, list, edit, favorite, search, and card/list flows work with reviewed schema and RLS |
+| NEXT-003 | Done | Implementation | Implement URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs | Local MVP UI supports URL save, list, edit, delete, favorite, search, category, tags, memo, and card/list flows; Supabase remains documented as unverified |
 | NEXT-004 | Open | Growth | Draft launch copy, FAQ, and onboarding text | Drafts exist locally and nothing is posted externally |
 | NEXT-005 | Open | Automation | Design docs separation plan for detailed task logs currently crowding `docs/current-status.md` | Choose between `docs/tasks/`, `docs/status/`, or `docs/logs/` and document migration rules without moving history prematurely |
+| NEXT-006 | Open | QA / Review Gate | Review URL Saving MVP PR and verify Vercel preview behavior | Review Gate passes, preview loads, core MVP flows are checked, and any blockers are logged |
 
 ## Later
 
@@ -49,4 +50,4 @@
 
 ## Next Selected Task
 
-`NEXT-003` is the one next safe autonomous task. Implementation should build the private URL Saving MVP from `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/data-model.md`, `docs/supabase-schema.md`, and `docs/rls-policy.md`. It must keep RLS enabled, avoid service role keys and real env values, avoid production DB changes from automation, and verify save, list, edit, favorite, search, and card/list behavior.
+`NEXT-006` is the recommended next safe task. QA / Review Gate should review the URL Saving MVP PR, confirm the Vercel preview loads, verify save, list, edit, favorite, search, category, tag, memo, and card/list behavior, and log any blockers.

@@ -2,6 +2,19 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 URL Saving MVP Implementation
+
+| Item | Content |
+| --- | --- |
+| Work | Implemented the URL Saving MVP UI on the Next.js home route with local-first persistence: URL registration, title fallback, category, tags, memo, favorite toggling, listing, search, edit, delete, and card/list view switching. |
+| Changed Files | `app/page.tsx`, `app/saved-url-manager.tsx`, `app/saved-url-manager.module.css`, `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, `docs/decision-log.md` |
+| Verification | Passed: pre-edit `npm install`, pre-edit `npm run verify`, implementation `npm run verify`, and local dev server HTTP 200 at `http://localhost:3000`. |
+| Review Gate | Passed with follow-up: scope matches NEXT-003, local-first persistence is acceptable because Supabase live connection is unverified, and NEXT-006 should perform PR/preview QA and Review Gate confirmation. |
+| Safety Check | No env values, no service role key, no Supabase production DB change, no SQL production execution, no RLS weakening, no billing, no external posting, and no final production launch. |
+| Supabase Status | Not connected for this implementation because runtime public env values, authenticated user flow, reviewed migrations, and preview schema/RLS application are not verified. The MVP uses browser `localStorage` until those items are ready. |
+| Remaining Blockers | Supabase-backed persistence and RLS test execution remain blocked on safe preview/local Supabase setup; final public production launch remains `HumanConfirmationRequired`. |
+| Next Recommended Task | `NEXT-006`: QA / Review Gate reviews the PR, checks the Vercel preview, and verifies save, list, edit, favorite, search, category, tag, memo, and card/list behavior. |
+
 ## 2026-04-29 URL Saving Data Model And RLS Proposal
 
 | Item | Content |

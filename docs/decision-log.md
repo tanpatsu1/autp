@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-29-007 - Implement URL Saving MVP Local-First Until Supabase Is Verified
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted with changes |
+| Decider | Orchestrator |
+| Roles Consulted | Implementation, Data Model, QA, Review Gate |
+| Context | `NEXT-003` needed a working URL Saving MVP while Supabase live connection, auth flow, reviewed migrations, and preview schema/RLS application were still unverified. |
+| Options Considered | Block implementation until Supabase is fully configured; write directly to Supabase from the client now; implement a local-first MVP UI and document Supabase follow-up requirements. |
+| Decision | Implement the URL Saving MVP as a local-first `localStorage` UI for this PR, keep the existing Supabase helper read-only, and document the missing Supabase setup before database-backed persistence. |
+| Rationale | This proves the required save, list, edit, favorite, search, metadata, and card/list flows without adding env values, using service role keys, changing production DB, running SQL, or weakening RLS. |
+| Risks / Tradeoffs | Data is browser-local until Supabase preview/local setup is completed, so cross-device persistence and RLS tests are deferred. |
+| Follow-up | `NEXT-006`: QA / Review Gate verifies the PR and Vercel preview, then a later implementation task can connect the UI to reviewed Supabase migrations and RLS in a safe preview/local environment. |
+| Links | `app/saved-url-manager.tsx`, `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md` |
+
 ### DEC-2026-04-29-006 - Adopt URL Saving Data Model And RLS Proposal
 
 | Field | Content |
