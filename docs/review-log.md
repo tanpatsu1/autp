@@ -2,6 +2,17 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 Live Automation Setup
+
+| Item | Content |
+| --- | --- |
+| Work | Activated `TaskBoardLoop` as the first live-operation automation and documented the prompt, priority order, Skill selection, HumanGate routing, verification rule, and completion output |
+| Changed Files | `docs/automation-registry.md`, `docs/automation-runbook.md`, `docs/current-status.md`, `docs/review-log.md` |
+| Verification | Passed: `npm run verify` (`lint`, `typecheck`, `build`) |
+| Safety Check | No URL-saving MVP implementation, no env values, no billing, no external posting, no Supabase production DB changes, no RLS weakening, no service role key use, and no final production launch |
+| Remaining Blockers | Supabase live connection is not verified; final public production launch requires human confirmation |
+| Next Recommended Task | Use `TaskBoardLoop` by saying `次進めて`; it should select `NEXT-001` unless a newer safe `Now` task appears |
+
 ## 2026-04-28 Role Skills
 
 | Item | Content |
