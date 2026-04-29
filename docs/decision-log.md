@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-29-006 - Adopt URL Saving Data Model And RLS Proposal
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted |
+| Decider | Orchestrator |
+| Roles Consulted | Product, Data Model, Implementation, QA, Review Gate |
+| Context | `NEXT-002` needed a docs-only Supabase data model and RLS proposal for the private URL Saving MVP before implementation begins. |
+| Options Considered | Store category and tags as plain fields on `saved_urls`; use normalized `categories`, `tags`, and `saved_url_tags`; add persistent user display preferences in the first schema. |
+| Decision | Use `saved_urls`, `categories`, `tags`, and `saved_url_tags` as the MVP schema proposal; keep card/list display mode as UI state for the MVP; require owner-scoped RLS for all user-owned rows. |
+| Rationale | Normalized categories and tags keep search/filter behavior reviewable without overloading `saved_urls`, while deferring `user_preferences` avoids schema work that is not needed for the first card/list toggle. |
+| Risks / Tradeoffs | The normalized tag model requires join queries and slightly more implementation work, but it avoids array search ambiguity and cross-user label leakage. |
+| Follow-up | `NEXT-003`: Implementation builds the private URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs. |
+| Links | `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/review-log.md`, `docs/task-board.md` |
+
 ### DEC-2026-04-29-005 - Adopt Conflict Prevention And Branch Hygiene Rules
 
 | Field | Content |
