@@ -16,20 +16,24 @@
 - Shared docs rules are now documented for `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, and `docs/decision-log.md`.
 - `NEXT-002` URL-saving data model, Supabase schema proposal, and RLS policy proposal are documented in docs only.
 - `NEXT-003` URL Saving MVP is implemented as a local-first UI with URL registration, title, category, tags, memo, favorite, listing, search, edit, delete, and card/list view switching.
+- `NEXT-003` URL Saving MVP local smoke QA passed for the MVP flows; no High or Medium issues are currently recorded.
 
 ## Open Issues
 
 - Supabase live connection is not verified. Runtime public env values, authenticated user flow, reviewed migrations, and preview schema/RLS application are still needed before replacing local `localStorage` persistence with Supabase-backed persistence.
+- Vercel deployment / preview behavior for the URL Saving MVP still needs confirmation before broader release readiness work.
 - Final public production launch remains blocked by `HumanConfirmationRequired`.
 - Detailed task logs still need a separation plan so `docs/current-status.md` can stay short.
 
 ## Next Task
 
-`NEXT-006` is the recommended next safe task: QA / Review Gate reviews the URL Saving MVP PR, checks the Vercel preview, and verifies the core MVP flows.
+`NEXT-006` remains the recommended next safe task: Vercel Verification checks the URL Saving MVP deployment / preview and records the result.
 
 ## Verification Status
 
 - URL Saving MVP implementation: `npm run verify` passed on 2026-04-29. Local dev server responded with HTTP 200 at `http://localhost:3000`.
+- URL Saving MVP local smoke QA passed on 2026-04-29 at `http://localhost:3001`: URL registration, title, category, tags, memo, favorite toggle, listing, search, card/list switching, and MVP-acceptable page-refresh behavior were confirmed. No High or Medium issues are recorded.
+- Local smoke QA documentation update: final `npm run verify` passed on 2026-04-29.
 - URL-saving data model and RLS proposal is docs-only. Final `npm run verify` passed on 2026-04-29.
 - Branch hygiene was followed: work started from latest `origin/main`, pre-edit verification passed, and Pre-PR sync found the branch up to date.
 - Conflict prevention update is docs-only and final `npm run verify` passed on 2026-04-29.
