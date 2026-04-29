@@ -13,6 +13,16 @@ This pack turns the Product Direction Council synthesis and the merged Review Ga
 - Low follow-ups: keep Automation v2 from slipping behind larger feature expansion; clean up stale `LATER-001` wording in a later task-board hygiene pass.
 - HumanGate items requested or executed: 0.
 
+## Additional User Feedback Incorporated
+
+The user broadly accepts the direction, but raised a material concern: autp may be useful yet fail to become habitual if saving requires copy URL, open autp, paste, fill fields, save, and return to the original context.
+
+This pack now adds three caveats:
+
+- Capture friction is a first-class product risk.
+- Distribution and "useful but quiet" risk need earlier growth planning.
+- iframe / site-inside-browsing is a hypothesis to evaluate, not a feature to accept now.
+
 ## 1. Recommended Direction
 
 autp should become an AI-ready private decision board for saved links.
@@ -59,9 +69,40 @@ Proceed with:
 - Public sharing, public collections, SNS posting, or SEO pages.
 - Billing, paid plans, affiliate activation, paid domains, or purchase flows.
 - Automatic price tracking or automatic scraping.
+- iframe / embedded external browsing implementation.
+- Site-internal external search or browser-like surfaces.
+- Chrome extension implementation.
 - Multi-user collaboration.
 - Hospital / life information as the first headline product.
 - Vertical-specific schemas before the generic saved-link and decision loop is proven.
+
+## 5.5 Weaknesses To Track
+
+| Weakness | Impact | Direction |
+| --- | --- | --- |
+| Manual save flow is slow | Users may not save enough links for the board to become useful. | Add fast capture planning before large feature expansion. |
+| Private boards are hard to spread | The value can be invisible to others. | Use demo boards, screenshots, and short videos with non-sensitive examples. |
+| Shopping can sound like a wishlist | Users may miss the decision-board value. | Emphasize notes, favorites, status, and "why saved." |
+| AI-ready wording is abstract | First-time users may not understand current value. | Use concrete user-facing wording, keep AI as roadmap language. |
+| iframe idea is tempting but risky | Many sites block embedding; privacy/security/terms risks are high. | Keep as research-only and prefer safer capture channels. |
+
+### Additional Weakness Discovery Policy
+
+The listed weaknesses are not exhaustive. Future Product / Growth / QA / Automation reviews should actively search for additional adoption, retention, capture, privacy, distribution, and differentiation weaknesses even when the user has not explicitly named them. Any weakness that could affect habit formation, growth, trust, or long-term monetization should be added to roadmap planning before large feature expansion.
+
+## 5.6 Capture Method Summary
+
+| Method | Recommendation |
+| --- | --- |
+| Manual URL paste | Keep as safe MVP baseline. |
+| Paste-only fast save | Early priority; lets users organize later. |
+| URL paste with optional title fetch | Early candidate after security/privacy review. |
+| Bookmarklet | Consider after persistence and stable auth. |
+| Mobile share sheet / Web Share Target | Strong mobile candidate after persistence/PWA review. |
+| Chrome extension | Later; higher permission, release, and privacy burden. |
+| Site-internal search/browsing | Research only; do not build before core board value is proven. |
+| iframe / embedded external browsing | Do not implement now; high compatibility, security, privacy, terms, and UX risk. |
+| SNS/EC save helpers | Later per-channel research; avoid external posting and scraping. |
 
 ## 6. Next Task Candidates
 
@@ -70,9 +111,11 @@ Proceed with:
 | `NEXT-006`: Vercel preview verification | Confirms the current URL Saving MVP works outside local development | Do first if preview is available |
 | `NEXT-008`: user direction confirmation | Records whether the user accepts or changes the council recommendation | Do before major product build |
 | Supabase/Auth/RLS persistence | Turns the local-first MVP into trusted private saved data | First major implementation after direction and preview |
+| Capture-friction baseline | Defines fast paste, minimal required fields, mobile comfort, and private-data handling | Add before or alongside persistence planning |
 | Organization and retrieval improvements | Filters, sort, empty/error states, mobile polish | After persistence |
 | Generic decision-support fields | Status, decision note, pros/cons or next-check | After persistence and retrieval |
 | Automation v2 docs/rubrics | Keeps future autonomous work safer and more reliable | Do before large AI/templates expansion |
+| Growth demo / wording validation | Makes the quiet private-board value easier to explain | Plan early; no external posting without HumanGate |
 | Task-board hygiene | Fixes the stale `LATER-001` wording noted by Review Gate | Low-priority cleanup |
 
 ## 7. Automation v2 vs Supabase/Auth/Persistence
@@ -87,8 +130,9 @@ Practical order:
 
 1. Preview verification.
 2. User direction confirmation.
-3. Supabase/Auth/RLS persistence for the existing MVP only.
-4. Automation v2 docs/rubrics before AI, templates, sharing, monetization, or larger vertical work.
+3. Capture-friction baseline as a small docs/product/design slice.
+4. Supabase/Auth/RLS persistence for the existing MVP only.
+5. Automation v2 docs/rubrics before AI, templates, sharing, monetization, or larger vertical work.
 
 ## 8. Questions For The User
 
@@ -102,6 +146,8 @@ Please decide these before the next major build:
 6. Should Automation v2 docs/rubrics happen before AI and vertical templates?
 7. Which AI helper should come first later: summaries, tag/category suggestions, grouping, comparison drafts, or chat-style retrieval?
 8. Which product wording feels best: "shopping board", "decision board", "saved links with context", or another phrase?
+9. Should the first capture improvement after manual paste be paste-only fast save, optional title fetch, Web Share Target, bookmarklet, or something else?
+10. Should iframe / embedded browsing remain research-only for now?
 
 ## 9. Recommended Next Move
 
@@ -110,7 +156,8 @@ Choose this path:
 1. User confirms: **AI-ready private decision board, first wedged through shopping / purchase candidates.**
 2. Run `NEXT-006` Vercel preview verification.
 3. Run `NEXT-008` to record the user's final direction choice.
-4. Start Supabase/Auth/RLS persistence for the existing MVP only.
-5. Add Automation v2 docs/rubrics before larger feature expansion.
+4. Add capture-friction baseline planning.
+5. Start Supabase/Auth/RLS persistence for the existing MVP only.
+6. Add Automation v2 docs/rubrics before larger feature expansion.
 
 Do not start AI, templates, monetization, public sharing, or hospital-specific workflows until the private persisted foundation is verified.
