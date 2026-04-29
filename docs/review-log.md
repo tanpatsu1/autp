@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-29 Product Direction Council Setup
+
+| Item | Content |
+| --- | --- |
+| Work | Created a docs-based Product Direction Council workspace with a shared brief, separate role files, Review Gate placeholder, and Orchestrator synthesis placeholder. No product direction was chosen. |
+| Changed Files | `docs/council/product-direction/brief.md`, `docs/council/product-direction/product.md`, `docs/council/product-direction/growth.md`, `docs/council/product-direction/design.md`, `docs/council/product-direction/data-model.md`, `docs/council/product-direction/implementation.md`, `docs/council/product-direction/qa.md`, `docs/council/product-direction/automation.md`, `docs/council/product-direction/review-gate.md`, `docs/council/product-direction/synthesis.md`, `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/review-log.md` |
+| Verification | Passed: pre-edit `npm install`, pre-edit `npm run verify`, Pre-PR sync with latest `origin/main`, and final `npm run verify` (`lint`, `typecheck`, `build`). |
+| Review Gate | Passed: docs-only setup, no code implementation, no new feature, no env values, no service role key, no Supabase production DB change, no SQL production execution, no RLS weakening, no billing, no external posting, and no production launch. |
+| Safety Check | Council files separate role ownership to reduce conflicts; shared docs were updated minimally. |
+| Remaining Blockers | Vercel deployment / preview behavior still needs confirmation; final public production launch remains `HumanConfirmationRequired`. |
+| Next Recommended Task | `NEXT-006`: Vercel Verification checks the URL Saving MVP deployment / preview and records the result. |
+
 ## 2026-04-29 URL Saving MVP Local Smoke QA
 
 | Item | Content |

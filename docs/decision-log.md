@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-29-009 - Create Product Direction Council Workspace Without Choosing Direction
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted |
+| Decider | Orchestrator |
+| Roles Consulted | Automation Runner, Product, Growth, Design, Data Model, Implementation, QA, Review Gate |
+| Context | autp needs a safe docs-based space where multiple roles can discuss future product direction beyond URL saving without one chat prematurely deciding the service strategy. |
+| Options Considered | Decide product direction immediately; keep discussion inside shared status docs; create per-role council files and defer synthesis. |
+| Decision | Create `docs/council/product-direction/` with a shared brief, one file per role, a Review Gate file, and an Orchestrator synthesis file. Do not choose a product direction in this setup. |
+| Rationale | Separate role files reduce conflicts and let each role contribute from its own perspective before Orchestrator integrates the discussion later. |
+| Risks / Tradeoffs | The council adds more docs to maintain, but it avoids mixing strategic debate into `current-status.md`, `task-board.md`, or `decision-log.md`. |
+| Follow-up | `NEXT-007`: each role fills only its assigned council file; Orchestrator synthesizes later after Review Gate has checked the inputs. |
+| Links | `docs/council/product-direction/brief.md`, `docs/council/product-direction/synthesis.md`, `docs/task-board.md`, `docs/review-log.md` |
+
 ### DEC-2026-04-29-008 - Accept NEXT-003 Local Smoke QA And Move To Vercel Verification
 
 | Field | Content |
