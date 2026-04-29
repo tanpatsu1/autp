@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-30-001 - Adopt URL-Only Fast Save As Capture Baseline
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-30 |
+| Status | Accepted |
+| Decider | Product / Orchestrator |
+| Roles Consulted | Product, Design, Data Model, Implementation, Growth, QA, Review Gate |
+| Context | `NEXT-009` needed a docs-only baseline for reducing the save-flow friction identified in user direction confirmation before Supabase/Auth/RLS persistence hardens the data and UX assumptions. |
+| Options Considered | Keep manual URL paste with full metadata form; adopt URL-only fast save; make title/category/tags/memo required; add optional title fetch; organize later; bookmarklet; Web Share Target; Chrome extension; iframe / embedded browsing. |
+| Decision | Adopt URL-only fast save as the initial capture baseline. URL is the only user-required save-time input; title, category, tags, memo, and favorite can be completed later; blank titles use a deterministic URL fallback; uncategorized, untagged, and memo-empty links are valid; iframe / embedded browsing remains research-only. |
+| Rationale | This reduces the biggest habit risk while keeping the next implementation small, private, verifiable, and compatible with the existing saved-link model. It also keeps richer capture channels out of the persistence PR until auth, RLS, privacy, and platform review are ready. |
+| Risks / Tradeoffs | URL-only saves can create unorganized records, so future design and implementation need a clear "organize later" or "needs review" flow. Optional title fetch, bookmarklet, Web Share Target, and extension work remain valuable but deferred. |
+| Follow-up | `NEXT-006` preview verification remains active. `NEXT-010` Supabase/Auth/RLS Persistence should support inserting owner-scoped saved URLs with URL, fallback title, defaults, and timestamps only, and should evaluate `capture_source` and organization state before migrations. |
+| Links | `docs/capture-friction-baseline.md`, `docs/product-direction.md`, `docs/roadmap.md`, `docs/feature-priority.md`, `docs/current-status.md`, `docs/task-board.md`, `docs/review-log.md` |
+
 ### DEC-2026-04-29-011 - Confirm User Direction For Private Decision Board
 
 | Field | Content |

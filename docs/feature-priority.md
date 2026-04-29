@@ -9,6 +9,8 @@ Prioritize features that make the current saved-link loop more durable, private,
 | Priority | Feature / Work | Why |
 | --- | --- | --- |
 | P0 | Vercel preview verification for current MVP | Confirms the existing app works outside local development. |
+| P0 | Capture Friction Baseline Planning | Defines the minimum acceptable save experience before persistence hardens schema and UX assumptions. |
+| P0 | URL-only fast-save baseline | Reduces the biggest save-time habit risk while keeping the first implementation small and private. |
 | P0 | Supabase/Auth persistence | Required for real private saved collections and cross-device use. |
 | P0 | RLS owner separation checks | Blocks cross-user data leakage. |
 | P0 | Public env-name diagnostics only | Keeps secrets out of repo and avoids unsafe fixes. |
@@ -73,6 +75,8 @@ Prioritize features that make the current saved-link loop more durable, private,
 | Billing / paid plans / affiliate activation | HumanGate and business-policy risk. |
 | Automatic price tracking | Data reliability, scraping, and claim risk. |
 | Automatic page scraping | Reliability, security, and prompt-injection risk. |
+| iframe / embedded browsing | Many sites block embedding; security, privacy, terms, and broken-UX risks are too high for the MVP. |
+| Bookmarklet / Web Share Target / Chrome extension implementation | Useful capture channels later, but they require persistence, auth, permission, privacy, and platform QA first. |
 | Multi-user collaboration | Permissions and RLS complexity. |
 | Hospital-specific recommendations | Medical-adjacent claim and trust risk. |
 | AI automatic classification in background | Privacy, cost, and user-control risk. |

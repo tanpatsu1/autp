@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-30 Capture Friction Baseline Planning
+
+| Item | Content |
+| --- | --- |
+| Work | Completed `NEXT-009` Capture Friction Baseline Planning. Created `docs/capture-friction-baseline.md` and documented URL-only fast save as the initial capture baseline, with title/category/tags/memo/favorite editable later, unclassified and unorganized links valid, Supabase/Auth/RLS persistence handoff notes, growth implications, deferred capture paths, and QA handoff. |
+| Changed Files | `docs/capture-friction-baseline.md`, `docs/product-direction.md`, `docs/roadmap.md`, `docs/feature-priority.md`, `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/review-log.md` |
+| Verification | Passed: `npm run verify` on 2026-04-30 after this docs update. |
+| Review Gate | Passed: docs-only planning, no code implementation, no new feature, no fast-save implementation, no iframe, no embedded browsing, no bookmarklet, no extension, no Web Share Target, no scraping, no AI, no env values, no service role key, no SQL, no Supabase production DB change, no weaker RLS, no billing, no external posting, and no production launch. |
+| Safety Check | Public sharing, SNS/external posting, billing, purchases, affiliate activation, domains, production destructive actions, weaker RLS, service role keys, real env values, and final public launch remain HumanGate. |
+| Remaining Blockers | Vercel deployment / preview behavior still needs confirmation; Supabase live connection, Auth, RLS verification, and persistence migration decisions remain future work. |
+| Next Recommended Task | `NEXT-006`: finish Vercel deployment / preview verification. Then `NEXT-010`: Supabase/Auth/RLS Persistence should preserve the URL-only fast-save baseline and decide `capture_source` / organization-state handling before migrations. |
+
 ## 2026-04-29 User Direction Confirmation Review Gate
 
 | Item | Content |

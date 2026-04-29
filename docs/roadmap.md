@@ -19,6 +19,24 @@ Exit criteria:
 - Preview result is recorded.
 - No High or Medium Review Gate issue is open for the current MVP.
 
+## Phase 0.5: Capture Friction Baseline
+
+Goal: define the minimum acceptable save experience before persistence hardens the data shape.
+
+- Treat capture friction as a first-class product risk.
+- Adopt URL-only fast save as the initial capture baseline.
+- Make title, category, tags, memo, and favorite optional at save time.
+- Allow uncategorized, untagged, memo-empty, and fallback-title records.
+- Decide how persistence will represent capture source and "needs organizing" before migrations are written.
+- Keep iframe / embedded browsing research-only.
+- Defer bookmarklet, Web Share Target, Chrome extension, scraping, AI, and automatic price tracking.
+
+Exit criteria:
+
+- `docs/capture-friction-baseline.md` exists.
+- Supabase/Auth/RLS persistence has clear fast-save assumptions.
+- Roadmap and feature priorities reflect capture work without implementing new capture channels.
+
 ## Phase 1: Supabase/Auth/RLS Persistence
 
 Goal: make the existing MVP durable and private.
@@ -142,8 +160,8 @@ Exit criteria:
 ## Recommended Immediate Sequence
 
 1. Finish `NEXT-006` preview verification.
-2. User confirms or adjusts the recommended product direction.
-3. Plan and implement Supabase/Auth/RLS persistence for the current MVP only.
+2. Complete `NEXT-009` Capture Friction Baseline Planning.
+3. Plan and implement Supabase/Auth/RLS persistence for the current MVP only, preserving the URL-only fast-save baseline.
 4. Add organization/retrieval improvements.
 5. Add generic decision support.
 6. Add Automation v2 docs and rubrics before larger AI or vertical expansion.
