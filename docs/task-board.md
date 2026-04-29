@@ -22,7 +22,8 @@
 | NEXT-004 | Open | Growth | Draft launch copy, FAQ, and onboarding text | Drafts exist locally and nothing is posted externally |
 | NEXT-005 | Open | Automation | Design docs separation plan for detailed task logs currently crowding `docs/current-status.md` | Choose between `docs/tasks/`, `docs/status/`, or `docs/logs/` and document migration rules without moving history prematurely |
 | NEXT-006 | In Progress | QA / Review Gate / Vercel Verification | Complete URL Saving MVP verification; local smoke QA has passed and Vercel deployment / preview confirmation is next | Vercel preview loads, core MVP flows are checked in deployment, no High or Medium issues are found or any blockers are logged |
-| NEXT-007 | Open | Product Direction Council | Fill role-specific product direction council files without choosing a final direction | Product, Growth, Design, Data Model, Implementation, QA, Automation, Review Gate, and Orchestrator notes are added in their assigned files only |
+| NEXT-007 | Done | Product Direction Council / Orchestrator | Fill role-specific product direction council files and synthesize the direction without implementing new features | Product, Growth, Design, Data Model, Implementation, QA, Automation, Review Gate, and Orchestrator synthesis notes exist; product direction docs are ready for the user's final decision |
+| NEXT-008 | Open | Product / Orchestrator | Confirm or revise the Product Direction Council recommendation with the user before the next major product build | User confirms whether autp should proceed as an AI-ready private decision board for saved links, first wedged through shopping / purchase candidates, or chooses a different direction |
 
 ## Later
 
@@ -51,4 +52,4 @@
 
 ## Next Selected Task
 
-`NEXT-006` is the recommended next safe task. Vercel Verification should confirm the URL Saving MVP deployment / preview loads, verify save, list, edit, favorite, search, category, tag, memo, and card/list behavior in deployment, and log any blockers.
+`NEXT-006` is the recommended next safe task. Vercel Verification should confirm the URL Saving MVP deployment / preview loads, verify save, list, edit, favorite, search, category, tag, memo, and card/list behavior in deployment, and log any blockers. After preview verification, `NEXT-008` should capture the user's final product-direction choice before Supabase/Auth persistence or new feature work begins.
