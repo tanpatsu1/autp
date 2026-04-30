@@ -25,6 +25,7 @@
 - `NEXT-010` Supabase/Auth/RLS Persistence implementation is merged: the MVP now uses Supabase Auth and owner-scoped Supabase persistence when public env names are configured and a user signs in, while preserving local demo mode when Supabase is not configured.
 - A non-production migration draft exists at `supabase/migrations/20260430000000_url_saving_persistence.sql` for `saved_urls`, `categories`, `tags`, `saved_url_tags`, RLS, owner immutability, same-owner joins, `capture_source`, and `organization_state`.
 - Post-merge QA for Supabase/Auth/RLS Persistence found and fixed one Medium RLS scope issue in the migration draft: category/tag row deletion remains deferred until category/tag management is reviewed. No High issues are recorded.
+- `NEXT-016` Token Efficiency Audit v1 is documented in `docs/token-efficiency-audit-v1.md`, with short prompt templates, a docs-reading map, Skill consolidation priorities, and script candidates.
 
 ## Open Issues
 
@@ -53,6 +54,7 @@ Next recommended task: `NEXT-015` QA / Vercel / Supabase Verification after a sa
 - Capture Friction Baseline Planning is docs-only. Verification is recorded in `docs/review-log.md`.
 - Supabase/Auth/RLS Persistence implementation: `npm install`, pre-edit `npm run verify`, final `npm run verify`, and local dev HTTP 200 at `http://localhost:3002` passed on 2026-04-30.
 - Supabase/Auth/RLS Persistence post-merge QA: `npm install`, `npm run verify`, local demo headless-browser save/list/reload persistence, Supabase-configured unsigned save denial with dummy public env names, RLS migration static review, secret scan, and final `npm run verify` passed on 2026-04-30. Vercel commit status is successful.
+- Token Efficiency Audit v1 is docs-only. `npm run verify` passed on 2026-04-30 after the audit docs update.
 
 ## Updated
 

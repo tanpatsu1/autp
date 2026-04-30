@@ -15,7 +15,7 @@ The confirmed product direction is:
 - Capture friction is a first-class product risk.
 - iframe / embedded browsing remains research-only.
 - Supabase/Auth/RLS persistence is the next major implementation foundation, but its data assumptions should account for low-friction capture.
-- Automation v2 should happen before large AI, template, sharing, or monetization expansion.
+- Token Efficiency follow-up should happen before large AI, template, sharing, or monetization expansion.
 
 ## Problem Definition
 

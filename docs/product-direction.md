@@ -58,9 +58,9 @@ Supabase/Auth/persistence should be the next major implementation foundation aft
 
 Without persistence, autp can demonstrate UI flow. With persistence, autp can become a real private decision board.
 
-## Automation v2 Position
+## Token Efficiency follow-up Position
 
-Automation v2 should be strengthened early, before large vertical or AI expansion. It should begin docs-first:
+Token Efficiency follow-up should be strengthened early, before large vertical or AI expansion. It should begin docs-first:
 
 - task scoring rubric;
 - council synthesis checklist;
@@ -70,7 +70,7 @@ Automation v2 should be strengthened early, before large vertical or AI expansio
 - AI evaluation rubric;
 - DocsSync rules for current status, task board, decision log, and review log.
 
-Automation v2 should help Codex propose, implement, verify, review, and repair small safe tasks. It must not bypass HumanGate.
+Token Efficiency follow-up should help Codex propose, implement, verify, review, and repair small safe tasks. It must not bypass HumanGate.
 
 ## Tags, Categories, Search, And UI Position
 
@@ -133,4 +133,4 @@ Open planning items:
 - Vercel deployment / preview verification.
 - Supabase/Auth/RLS persistence for the existing MVP.
 - Implementation of the URL-only fast-save baseline after persistence assumptions are clear.
-- Automation v2 docs and rubrics before large AI, template, sharing, or monetization expansion.
+- Token Efficiency follow-up docs and rubrics before large AI, template, sharing, or monetization expansion.

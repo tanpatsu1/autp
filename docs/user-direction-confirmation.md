@@ -79,7 +79,7 @@ These actions remain `HumanConfirmationRequired`:
 | --- | --- |
 | Capture Friction Baseline Planning | Add a small docs/product/design planning slice before or alongside persistence planning. Define fast paste, minimal required fields, save confirmation, mobile comfort, private-data handling, and staged capture research boundaries. |
 | Supabase/Auth/RLS Persistence | Next major implementation candidate. It should persist the current MVP only, enforce owner-scoped records, and avoid AI, sharing, billing, scraping, and production DB changes from automation. |
-| Automation v2 / Autonomous Planning System | Add docs/rubrics before large AI, template, sharing, or monetization expansion. Include task scoring, council synthesis, PR readiness, Vercel failure taxonomy, Supabase diagnostics, AI evaluation, and DocsSync rules. |
+| Token Efficiency follow-up / Autonomous Planning System | Add docs/rubrics before large AI, template, sharing, or monetization expansion. Include task scoring, council synthesis, PR readiness, Vercel failure taxonomy, Supabase diagnostics, AI evaluation, and DocsSync rules. |
 | Task-board hygiene | Clean stale task wording and make future TaskBoardLoop selection clearer without changing product behavior. |
 | Organization / retrieval improvements | After persistence, improve category/tag/favorite filters, sort, empty/loading/error/no-results states, and mobile retrieval comfort. |
 
@@ -89,7 +89,7 @@ The next major implementation candidate is Supabase/Auth/RLS persistence.
 
 Before that, or at the same time as its planning, autp should add a small capture-friction baseline planning task. This keeps the manual save-flow weakness visible without expanding the persistence PR into capture-channel implementation.
 
-Automation v2 docs/rubrics should happen before large AI, template, sharing, or monetization expansion.
+Token Efficiency follow-up docs/rubrics should happen before large AI, template, sharing, or monetization expansion.
 
 ## Decision Status
 
