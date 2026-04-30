@@ -10,7 +10,7 @@ This pack turns the Product Direction Council synthesis and the merged Review Ga
 - Review Gate result: approve equivalent.
 - High issues: 0.
 - Medium issues: 0.
-- Low follow-ups: keep Automation v2 from slipping behind larger feature expansion; clean up stale `LATER-001` wording in a later task-board hygiene pass.
+- Low follow-ups: keep Token Efficiency follow-up work from slipping behind larger feature expansion; clean up stale `LATER-001` wording in a later task-board hygiene pass.
 - HumanGate items requested or executed: 0.
 
 ## Additional User Feedback Incorporated
@@ -114,17 +114,17 @@ The listed weaknesses are not exhaustive. Future Product / Growth / QA / Automat
 | Capture-friction baseline | Defines fast paste, minimal required fields, mobile comfort, and private-data handling | Add before or alongside persistence planning |
 | Organization and retrieval improvements | Filters, sort, empty/error states, mobile polish | After persistence |
 | Generic decision-support fields | Status, decision note, pros/cons or next-check | After persistence and retrieval |
-| Automation v2 docs/rubrics | Keeps future autonomous work safer and more reliable | Do before large AI/templates expansion |
+| Token Efficiency follow-up docs/rubrics | Keeps future autonomous work safer and more reliable | Do before large AI/templates expansion |
 | Growth demo / wording validation | Makes the quiet private-board value easier to explain | Plan early; no external posting without HumanGate |
 | Task-board hygiene | Fixes the stale `LATER-001` wording noted by Review Gate | Low-priority cleanup |
 
-## 7. Automation v2 vs Supabase/Auth/Persistence
+## 7. Token Efficiency follow-up vs Supabase/Auth/Persistence
 
-Recommendation: **Supabase/Auth/RLS-backed persistence should come before Automation v2 implementation work.**
+Recommendation: **Supabase/Auth/RLS-backed persistence should come before Token Efficiency follow-up implementation work.**
 
 Reason: the product cannot become a real private decision board until saved links, categories, tags, memos, favorites, search, and owner separation are durable and verified. Supabase/Auth/RLS is the trust foundation.
 
-Important nuance from Review Gate: Automation v2 should not slip behind larger feature expansion. After persistence starts, or immediately after the first persistence slice, create the Automation v2 docs/rubrics for task scoring, PR readiness, Vercel failure taxonomy, Supabase diagnostics, AI evaluation, and DocsSync.
+Important nuance from Review Gate: Token Efficiency follow-up work should not slip behind larger feature expansion. After persistence starts, or immediately after the first persistence slice, create the Token Efficiency follow-up docs/rubrics for task scoring, PR readiness, Vercel failure taxonomy, Supabase diagnostics, AI evaluation, and DocsSync.
 
 Practical order:
 
@@ -132,7 +132,7 @@ Practical order:
 2. User direction confirmation.
 3. Capture-friction baseline as a small docs/product/design slice.
 4. Supabase/Auth/RLS persistence for the existing MVP only.
-5. Automation v2 docs/rubrics before AI, templates, sharing, monetization, or larger vertical work.
+5. Token Efficiency follow-up docs/rubrics before AI, templates, sharing, monetization, or larger vertical work.
 
 ## 8. Questions For The User
 
@@ -143,7 +143,7 @@ Please decide these before the next major build:
 3. Should fashion / brand be the first template after generic decision fields?
 4. Should hospital / life information stay a later private template with stronger privacy and claim guardrails?
 5. Should Supabase/Auth/RLS persistence be the next major implementation priority after preview verification?
-6. Should Automation v2 docs/rubrics happen before AI and vertical templates?
+6. Should Token Efficiency follow-up docs/rubrics happen before AI and vertical templates?
 7. Which AI helper should come first later: summaries, tag/category suggestions, grouping, comparison drafts, or chat-style retrieval?
 8. Which product wording feels best: "shopping board", "decision board", "saved links with context", or another phrase?
 9. Should the first capture improvement after manual paste be paste-only fast save, optional title fetch, Web Share Target, bookmarklet, or something else?
@@ -158,6 +158,6 @@ Choose this path:
 3. Run `NEXT-008` to record the user's final direction choice.
 4. Add capture-friction baseline planning.
 5. Start Supabase/Auth/RLS persistence for the existing MVP only.
-6. Add Automation v2 docs/rubrics before larger feature expansion.
+6. Add Token Efficiency follow-up docs/rubrics before larger feature expansion.
 
 Do not start AI, templates, monetization, public sharing, or hospital-specific workflows until the private persisted foundation is verified.

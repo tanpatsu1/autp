@@ -36,7 +36,7 @@ Prioritize features that make the current saved-link loop more durable, private,
 | P2 | Pros/cons or next-check fields | Supports comparison without vertical lock-in. |
 | P2 | Comparison-friendly card/list layout | Helps users evaluate options quickly. |
 
-## P3: Automation v2
+## P3: Token Efficiency follow-up
 
 | Priority | Feature / Work | Why |
 | --- | --- | --- |

@@ -48,6 +48,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 | Follow-up | `NEXT-015` should verify live Auth, persistence, reload behavior, and two-user RLS denial after a safe local/preview Supabase setup is provided. |
 | Links | `supabase/migrations/20260430000000_url_saving_persistence.sql`, `docs/rls-policy.md`, `docs/review-log.md`, `docs/task-board.md` |
 
+### DEC-2026-04-30-004 - Adopt Token Efficiency Audit v1 Reduction Plan
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-30 |
+| Status | Accepted |
+| Decider | Automation Architect / Orchestrator |
+| Roles Consulted | Automation, Review Gate, QA, Skill Discovery |
+| Context | Repeated autp work in review logs, decision logs, and task-board entries was increasing prompt length, broad docs loading, and manual PR/verification/review repetition. |
+| Options Considered | Keep long prompts and broad docs reading; only add short prompt templates; create a full automation runtime; document Token Efficiency Audit v1 with templates, reading map, Skill candidates, and script candidates. |
+| Decision | Adopt Token Efficiency Audit v1 as a docs-only reduction plan. Use short prompt templates and `docs/docs-reading-map.md` for routine work; prioritize `autp-pr-readiness`, `autp-supabase-rls-review`, and read-only helper scripts as follow-up tasks. |
+| Rationale | The audit reduces repeated context without hiding safety checks. It keeps HumanGate, Review Gate, verification, Supabase/RLS safety, and PR readiness explicit while avoiding app implementation and GitHub Actions changes. |
+| Risks / Tradeoffs | The first pass is advisory; actual token savings depend on future Skills and scripts being created and used consistently. |
+| Follow-up | `NEXT-017`: create the first Token Efficiency follow-up by scoping or implementing `autp-pr-readiness` and a read-only `scripts/pr-ready-check` helper. |
+| Links | `docs/token-efficiency-audit-v1.md`, `docs/short-prompt-templates.md`, `docs/docs-reading-map.md`, `docs/skill-consolidation-plan.md`, `docs/review-log.md`, `docs/task-board.md` |
+
 ### DEC-2026-04-30-002 - Implement Supabase Auth Persistence With RLS Draft
 
 | Field | Content |
@@ -93,7 +109,7 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 | Decision | Proceed as an AI-ready private decision board for saved links, first entered through shopping / purchase candidates. Keep fashion / brand board as an early template candidate. Defer hospital / life information because privacy, trust, and advice-risk are higher. Treat capture friction, quiet distribution, and AI-discovered weaknesses as planning inputs. Keep iframe / embedded browsing research-only. |
 | Rationale | This accepts the council's strongest direction while preserving user control and safety boundaries. Shopping / purchase candidates are clear and lower risk; fashion remains available as a visual early template; sensitive life/hospital workflows need stronger guardrails; capture friction must be addressed before the product can become habitual. |
 | Risks / Tradeoffs | Manual URL capture may remain a habit risk until baseline planning and later capture improvements are addressed. The private-board value may be harder to spread without demoable examples. Persistence still needs Auth/RLS verification. |
-| Follow-up | Add `NEXT-009` Capture Friction Baseline Planning before or alongside `NEXT-010` Supabase/Auth/RLS Persistence. Add Automation v2 docs/rubrics before large AI, template, sharing, or monetization expansion. |
+| Follow-up | Add `NEXT-009` Capture Friction Baseline Planning before or alongside `NEXT-010` Supabase/Auth/RLS Persistence. Add Token Efficiency follow-up docs/rubrics before large AI, template, sharing, or monetization expansion. |
 | Links | `docs/user-direction-confirmation.md`, `docs/user-decision-pack.md`, `docs/council/product-direction/synthesis.md`, `docs/council/product-direction/review-gate.md`, `docs/task-board.md`, `docs/review-log.md` |
 
 ### DEC-2026-04-29-010 - Synthesize Product Direction Council Recommendation

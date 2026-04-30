@@ -16,6 +16,18 @@ Codex records work history, verification status, safety checks, and next recomme
 | Remaining Blockers | Live Supabase Auth sign-in, database persistence after reload, and two-user RLS denial still require a safe local/preview Supabase project, public env values outside the repo, and reviewed migration application outside production automation. |
 | Next Recommended Task | `NEXT-015`: QA / Vercel / Supabase Verification after `BLOCKED-005` is resolved. |
 
+## 2026-04-30 Token Efficiency Audit v1
+
+| Item | Content |
+| --- | --- |
+| Work | Completed Token Efficiency Audit v1. Inventoried repeated autp work from review logs, decision logs, task board, runbook, policy, and review protocol; created short prompt templates, a docs-reading map, Skill consolidation priorities, script candidates, and a clear next token-reduction task. |
+| Changed Files | `docs/token-efficiency-audit-v1.md`, `docs/short-prompt-templates.md`, `docs/docs-reading-map.md`, `docs/skill-consolidation-plan.md`, `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/review-log.md` |
+| Verification | Passed: `npm run verify` on 2026-04-30 after the docs update. |
+| Review Gate | Passed: docs-only audit, no app feature implementation, no GitHub Actions, no env values, no service role keys, no production SQL, no RLS weakening, no billing, no external posting, and no production launch. |
+| Safety Check | Follow-up Skills and scripts are proposals only; any future helper should start read-only unless separately reviewed. |
+| Remaining Blockers | Actual token savings require a follow-up PR to create or update Skills/scripts and then use the shorter prompts in routine work. |
+| Next Recommended Task | `NEXT-017`: create the first Token Efficiency follow-up by scoping or implementing `autp-pr-readiness` and a read-only `scripts/pr-ready-check` helper. |
+
 ## 2026-04-30 Supabase/Auth/RLS Persistence Implementation
 
 | Item | Content |
@@ -83,7 +95,7 @@ Codex records work history, verification status, safety checks, and next recomme
 | Work | Reviewed the Product Direction Council synthesis as Review Gate / Product Direction Review. Checked role input reflection, roadmap consistency, HumanGate safety, automation direction, monetization boundaries, and docs alignment. |
 | Changed Files | `docs/council/product-direction/review-gate.md`, `docs/review-log.md` |
 | Verification | Passed: final `npm run verify` on 2026-04-29 after this review-log update. |
-| Review Gate | Approve equivalent: no High or Medium issues found. Low follow-ups: keep Automation v2 from slipping behind larger feature expansion; clean up stale `LATER-001` wording in a future task-board hygiene pass. |
+| Review Gate | Approve equivalent: no High or Medium issues found. Low follow-ups: keep Token Efficiency follow-up work from slipping behind larger feature expansion; clean up stale `LATER-001` wording in a future task-board hygiene pass. |
 | Safety Check | Docs-only review. No code implementation, new feature, env values, service role key, Supabase production DB change, SQL execution, RLS weakening, billing, external posting, domain purchase, or production launch. |
 | Remaining Blockers | Vercel deployment / preview behavior still needs confirmation; user final product-direction choice is still required before Supabase/Auth persistence or new feature work. |
 | Next Recommended Task | `NEXT-006`: Vercel Verification checks the URL Saving MVP deployment / preview, then `NEXT-008` captures the user's product-direction decision. |

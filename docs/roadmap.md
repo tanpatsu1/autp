@@ -88,7 +88,7 @@ Exit criteria:
 - The app can support shopping, fashion, school, service, and research decisions without vertical-specific modes.
 - The first repeat-use loop is visible: save, revisit, compare, decide.
 
-## Phase 4: Automation v2
+## Phase 4: Token Efficiency follow-up
 
 Goal: reduce user prompting and keep autonomous work safe.
 
@@ -164,4 +164,4 @@ Exit criteria:
 3. Plan and implement Supabase/Auth/RLS persistence for the current MVP only, preserving the URL-only fast-save baseline.
 4. Add organization/retrieval improvements.
 5. Add generic decision support.
-6. Add Automation v2 docs and rubrics before larger AI or vertical expansion.
+6. Add Token Efficiency follow-up docs and rubrics before larger AI or vertical expansion.
