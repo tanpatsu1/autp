@@ -32,55 +32,23 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
-### DEC-2026-04-29-009 - Create Product Direction Council Workspace Without Choosing Direction
+### DEC-2026-04-30-001 - Adopt Read-only PR Readiness Check
 
 | Field | Content |
 | --- | --- |
-| Date | 2026-04-29 |
+| Date | 2026-04-30 |
 | Status | Accepted |
 | Decider | Orchestrator |
-| Roles Consulted | Automation Runner, Product, Growth, Design, Data Model, Implementation, QA, Review Gate |
-| Context | autp needs a safe docs-based space where multiple roles can discuss future product direction beyond URL saving without one chat prematurely deciding the service strategy. |
-| Options Considered | Decide product direction immediately; keep discussion inside shared status docs; create per-role council files and defer synthesis. |
-| Decision | Create `docs/council/product-direction/` with a shared brief, one file per role, a Review Gate file, and an Orchestrator synthesis file. Do not choose a product direction in this setup. |
-| Rationale | Separate role files reduce conflicts and let each role contribute from its own perspective before Orchestrator integrates the discussion later. |
-| Risks / Tradeoffs | The council adds more docs to maintain, but it avoids mixing strategic debate into `current-status.md`, `task-board.md`, or `decision-log.md`. |
-| Follow-up | `NEXT-007`: each role fills only its assigned council file; Orchestrator synthesizes later after Review Gate has checked the inputs. |
-| Links | `docs/council/product-direction/brief.md`, `docs/council/product-direction/synthesis.md`, `docs/task-board.md`, `docs/review-log.md` |
+| Roles Consulted | Automation Architect, Implementation, QA, Review Gate |
+| Context | `NEXT-017` needed a short read-only way to decide PR readiness before Review Gate without repeatedly loading long prompts or every project doc. |
+| Options Considered | Keep manual PR preflight checks; add a GitHub Action; add a local read-only npm script plus compact docs and prompt templates. |
+| Decision | Add `npm run pr-ready` as a local read-only preflight that reports branch, changed files, blockers, High/Medium/Low risk, Review Gate need, and the next verification command. |
+| Rationale | A local script gives Codex a concise readiness summary without modifying repo state or calling external services, and it avoids adding GitHub Actions or running heavy verification by default. |
+| Risks / Tradeoffs | Secret detection is heuristic and may produce false positives or miss unusual formats, so Review Gate and `npm run verify` still remain required before completion. |
+| Follow-up | Use `npm run pr-ready` before Review Gate and PR creation; update the script if repeated false positives or missing risk categories appear. |
+| Links | `scripts/pr-ready-check.mjs`, `docs/pr-readiness-check.md`, `docs/short-prompt-templates.md`, `docs/docs-reading-map.md`, `docs/review-log.md` |
 
-### DEC-2026-04-29-008 - Accept NEXT-003 Local Smoke QA And Move To Vercel Verification
-
-| Field | Content |
-| --- | --- |
-| Date | 2026-04-29 |
-| Status | Accepted |
-| Decider | QA / CI / Vercel Verification |
-| Roles Consulted | QA, Review Gate, Vercel Verification |
-| Context | `NEXT-003` URL Saving MVP needed its local QA result formally recorded before proceeding to deployment / preview verification. |
-| Options Considered | Reopen implementation before preview checks; accept the local smoke QA result and move to Vercel verification; defer all verification until Supabase-backed persistence exists. |
-| Decision | Accept the local smoke QA result for `NEXT-003` and keep `NEXT-006` focused on Vercel deployment / preview confirmation. |
-| Rationale | Local verification has already passed for install, verify, lint, typecheck, build, dev startup, URL registration, title, category, tags, memo, favorite toggle, listing, search, card/list switching, and MVP-acceptable page-refresh behavior, with no High or Medium issues recorded. |
-| Risks / Tradeoffs | Deployment-specific runtime behavior is still unverified, and Supabase-backed persistence remains deferred until safe preview/local Supabase setup is available. |
-| Follow-up | `NEXT-006`: Vercel Verification confirms the deployment / preview loads, repeats core MVP flow checks, and logs any blocker before Product Direction or Growth Strategy Council work proceeds. |
-| Links | `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md` |
-
-### DEC-2026-04-29-007 - Implement URL Saving MVP Local-First Until Supabase Is Verified
-
-| Field | Content |
-| --- | --- |
-| Date | 2026-04-29 |
-| Status | Accepted with changes |
-| Decider | Orchestrator |
-| Roles Consulted | Implementation, Data Model, QA, Review Gate |
-| Context | `NEXT-003` needed a working URL Saving MVP while Supabase live connection, auth flow, reviewed migrations, and preview schema/RLS application were still unverified. |
-| Options Considered | Block implementation until Supabase is fully configured; write directly to Supabase from the client now; implement a local-first MVP UI and document Supabase follow-up requirements. |
-| Decision | Implement the URL Saving MVP as a local-first `localStorage` UI for this PR, keep the existing Supabase helper read-only, and document the missing Supabase setup before database-backed persistence. |
-| Rationale | This proves the required save, list, edit, favorite, search, metadata, and card/list flows without adding env values, using service role keys, changing production DB, running SQL, or weakening RLS. |
-| Risks / Tradeoffs | Data is browser-local until Supabase preview/local setup is completed, so cross-device persistence and RLS tests are deferred. |
-| Follow-up | `NEXT-006`: QA / Review Gate verifies the PR and Vercel preview, then a later implementation task can connect the UI to reviewed Supabase migrations and RLS in a safe preview/local environment. |
-| Links | `app/saved-url-manager.tsx`, `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md` |
-
-### DEC-2026-04-29-006 - Adopt URL Saving Data Model And RLS Proposal
+### DEC-2026-04-29-005 - Adopt URL Saving Data Model And RLS Proposal
 
 | Field | Content |
 | --- | --- |
@@ -96,22 +64,6 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 | Follow-up | `NEXT-003`: Implementation builds the private URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs. |
 | Links | `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/review-log.md`, `docs/task-board.md` |
 
-### DEC-2026-04-29-005 - Adopt Conflict Prevention And Branch Hygiene Rules
-
-| Field | Content |
-| --- | --- |
-| Date | 2026-04-29 |
-| Status | Accepted |
-| Decider | Orchestrator |
-| Roles Consulted | Automation Runner, Orchestrator, Review Gate, QA |
-| Context | Shared docs such as `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, and `docs/decision-log.md` were likely to conflict when multiple Codex PRs edited broad status and log sections. |
-| Options Considered | Continue ad hoc branch updates; ask humans to resolve PR conflicts; require Codex to sync from `main` at branch start, before PR creation, and while PRs wait for merge. |
-| Decision | Codex must update from `main` before new branchable work, sync with latest `main` before PR creation, keep waiting PR branches current, and resolve ordinary PR conflicts directly before pushing a follow-up commit. |
-| Rationale | Keeping branches close to `main` and narrowing shared docs edits reduces repeated conflicts without adding GitHub Actions, code implementation, env changes, Supabase production changes, billing, or launch actions. |
-| Risks / Tradeoffs | Extra verification and sync steps add time to each automation cycle, but they are cheaper than repeated manual conflict repair. |
-| Follow-up | `NEXT-005`: Automation designs a docs separation plan for detailed task logs in `docs/tasks/`, `docs/status/`, or `docs/logs/` while the next immediate task remains `NEXT-002`. |
-| Links | `docs/automation-policy.md`, `docs/automation-runbook.md`, `docs/collaboration-protocol.md`, `docs/task-board.md`, `docs/current-status.md` |
-
 ### DEC-2026-04-29-004 - Align URL Saving MVP Scope With Automation Goal
 
 | Field | Content |
@@ -120,7 +72,7 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 | Status | Accepted with changes |
 | Decider | Orchestrator |
 | Roles Consulted | Product, Data Model, Implementation, QA, Review Gate, Automation |
-| Context | After the latest automation goal update, `NEXT-001` needed a follow-up pass to ensure the MVP scope does not contradict near-autonomous safe development. |
+| Context | After `DEC-2026-04-29-003`, `NEXT-001` needed a follow-up pass to ensure the MVP scope does not contradict the near-autonomous safe development goal. |
 | Options Considered | Leave MVP scope unchanged; add automation-only implementation work to MVP; keep the MVP manual and private while making the docs and NEXT-002 handoff automation-ready. |
 | Decision | Keep the first URL-saving MVP manual, private, and docs-only for `NEXT-001`, while adding explicit compatibility with future role council review, PR auto-review, Vercel/Supabase diagnostics, and DocsSync loops. |
 | Rationale | This preserves the smallest useful MVP and avoids implementation or HumanGate actions, while giving future automation enough stable requirements, data fields, acceptance criteria, and handoff notes to operate safely. |
@@ -128,6 +80,21 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 | Follow-up | `NEXT-002`: Data Model drafts an automation-ready Supabase schema/RLS proposal with generated type expectations, RLS test cases, migration and rollback notes, search/index notes, and Supabase Preview diagnostic boundaries. |
 | Links | `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/automation-policy.md`, `docs/automation-runbook.md`, `docs/automation-registry.md`, `docs/task-board.md`, `docs/review-log.md` |
 
+### DEC-2026-04-29-003 - Adopt Near-Autonomous Safe Development Goal
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-29 |
+| Status | Accepted |
+| Decider | Orchestrator |
+| Roles Consulted | Product, Design, Data Model, Implementation, QA, Review Gate, Automation |
+| Context | autp needs a clear final automation goal that goes beyond manual prompts while preserving safety gates for dangerous actions. |
+| Options Considered | Keep on-demand `TaskBoardLoop` only; fully automate every action including dangerous operations; pursue near-autonomous safe development with strict HumanGate boundaries. |
+| Decision | Adopt near-autonomous safe development as the automation goal: Codex should periodically discover tasks, run docs-based role reviews, create safe PRs, investigate CI/Vercel/Supabase-preview failures, and update docs automatically, while humans approve direction, dangerous changes, and final production launch. |
+| Rationale | This gives autp a clear automation north star without allowing unattended billing, secrets, production DB changes, weaker RLS, external posting, or launch execution. |
+| Risks / Tradeoffs | More automation requires stronger review records and diagnostics, but the HumanGate keeps dangerous actions out of unattended execution. |
+| Follow-up | `NEXT-005`: Automation designs the implementation plan for scheduled discovery, role council review, PR merge-candidate checks, Vercel failure diagnosis, Supabase preview diagnostics, and docs sync. |
+| Links | `docs/automation-policy.md`, `docs/automation-registry.md`, `docs/automation-runbook.md`, `docs/task-board.md`, `docs/current-status.md`, `docs/review-log.md` |
 
 ### DEC-2026-04-29-002 - Define Smallest URL Saving MVP Scope
 

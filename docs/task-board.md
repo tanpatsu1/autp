@@ -10,7 +10,6 @@
 | NOW-002 | Done | QA | Run `VerificationLoop` when local npm or CI is available | lint, typecheck, and build pass or blockers are logged |
 | NOW-003 | Done | Review Gate | Review starter app readiness without implementing URL-saving MVP | Findings are classified and safe follow-up tasks are added |
 | NOW-004 | Done | Orchestrator | Establish Role Collaboration / Debate Protocol | Proposal, review, decision, handoff, and cross-role debate docs exist |
-| NOW-005 | Done | Automation | Document conflict prevention and branch hygiene rules | Branch start, Pre-PR sync, Pre-Merge sync, conflict auto-fix, and shared docs edit rules are documented |
 
 ## Next
 
@@ -18,11 +17,10 @@
 | --- | --- | --- | --- | --- |
 | NEXT-001 | Done | Product | Define smallest URL-saving MVP scope | Scope is documented without production DB changes |
 | NEXT-002 | Done | Data Model | Draft URL-saving data model and non-destructive Supabase schema/RLS proposal with automation-ready type, test, migration, rollback, and preview-diagnostic notes | Draft exists in docs only and can be reviewed by future RoleCouncil, PR auto-review, QA, and DocsSync loops |
-| NEXT-003 | Done | Implementation | Implement URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs | Local MVP UI supports URL save, list, edit, delete, favorite, search, category, tags, memo, and card/list flows; Supabase remains documented as unverified |
+| NEXT-003 | Open | Implementation | Implement URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs | Private authenticated URL save, list, edit, favorite, search, and card/list flows work with reviewed schema and RLS |
 | NEXT-004 | Open | Growth | Draft launch copy, FAQ, and onboarding text | Drafts exist locally and nothing is posted externally |
-| NEXT-005 | Open | Automation | Design docs separation plan for detailed task logs currently crowding `docs/current-status.md` | Choose between `docs/tasks/`, `docs/status/`, or `docs/logs/` and document migration rules without moving history prematurely |
-| NEXT-006 | In Progress | QA / Review Gate / Vercel Verification | Complete URL Saving MVP verification; local smoke QA has passed and Vercel deployment / preview confirmation is next | Vercel preview loads, core MVP flows are checked in deployment, no High or Medium issues are found or any blockers are logged |
-| NEXT-007 | Open | Product Direction Council | Fill role-specific product direction council files without choosing a final direction | Product, Growth, Design, Data Model, Implementation, QA, Automation, Review Gate, and Orchestrator notes are added in their assigned files only |
+| NEXT-005 | Open | Automation | Design the next automation implementation plan for scheduled task discovery, role council review, PR merge-candidate checks, Vercel failure diagnosis, Supabase preview diagnostics, and docs sync | Plan exists in docs only and does not add GitHub Actions, env values, billing, production DB changes, or launch execution |
+| NEXT-017 | Done | Automation Architect / PR Readiness Check | Add a read-only PR readiness check that reduces repeated manual Review Gate and PR preflight prompts | `npm run pr-ready` exists, PR readiness docs and short prompts exist, Review Gate need is reported, and token-efficiency impact is logged |
 
 ## Later
 
@@ -51,4 +49,8 @@
 
 ## Next Selected Task
 
-`NEXT-006` is the recommended next safe task. Vercel Verification should confirm the URL Saving MVP deployment / preview loads, verify save, list, edit, favorite, search, category, tag, memo, and card/list behavior in deployment, and log any blockers.
+`NEXT-003` is the next safe autonomous task. Implementation should build the private URL Saving MVP from `docs/mvp-scope.md`, `docs/product-spec.md`, `docs/data-model.md`, `docs/supabase-schema.md`, and `docs/rls-policy.md`. It must keep RLS enabled, avoid service role keys and real env values, avoid production DB changes from automation, and verify save, list, edit, favorite, search, and card/list behavior.
+
+## Next Automation Task
+
+`NEXT-005` is the next automation-specific implementation-planning task. It should define how to safely implement scheduled discovery, role council review, PR merge-candidate checks, Vercel failure diagnosis, Supabase preview diagnostics, and automatic docs sync without starting code implementation in this policy update.
