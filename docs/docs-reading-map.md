@@ -29,7 +29,9 @@ Use this map to reduce broad docs loading. Start with the smallest required set 
 | Growth or launch draft | `AGENTS.md`, `docs/automation-policy.md`, `docs/feedback-inbox.md`, requested copy docs | `docs/current-status.md`, `docs/review-log.md`, `docs/launch-checklist.md` if present | Implementation and migration files |
 | Docs-only audit | `AGENTS.md`, `docs/compact-context.md`, `docs/automation-policy.md`, docs named by the request | `docs/review-log.md`, `docs/decision-log.md`, `docs/task-board.md` | App code, migration SQL, unrelated council folders |
 
-## Latest-Only Rule
+For consolidated short operations, also read `docs/skill-consolidation-v1.md` only when choosing or changing the shortcut itself. Routine execution should use the operation-specific sets above.
+
+## Command Shortcuts
 
 ## PR Readiness Shortcut
 
@@ -41,12 +43,22 @@ npm run pr-ready
 
 Use its short summary to decide whether to read deeper domain docs. Run `npm run verify` only when the change is ready for full verification or when policy requires it.
 
+For PR-bound QA, Fix PR, Conflict fix, and Supabase/RLS review, start with `npm run pr-ready`, resolve blockers, then run `npm run verify`. For Fix PR and Conflict fix, run `npm run pr-ready` again after verification to confirm no conflict markers, unsafe files, secret-like values, or new high-risk blockers were introduced.
+
+## Latest-Only Rule
+
 For `docs/review-log.md` and `docs/decision-log.md`, read the latest relevant entries first. Load older entries only when:
 
 - the task asks for historical audit,
 - the latest entry links to an older decision,
 - a conflict requires preserving branch intent,
 - a repeated workflow is being counted.
+
+## Token Efficiency Rule
+
+Do not load every project doc for routine PR readiness. Prefer compact context, `npm run pr-ready` output, changed files, and only the domain docs named by the risk output.
+
+Use `docs/skill-consolidation-v1.md` to decide whether a repeated workflow belongs in an existing skill, a runbook shortcut, or a future skill proposal.
 
 ## Shared Docs Write Rule
 

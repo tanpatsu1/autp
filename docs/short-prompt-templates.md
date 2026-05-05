@@ -2,6 +2,8 @@
 
 Use these templates when the task is routine and the full project prompt would waste context. Each template assumes `AGENTS.md` and `docs/compact-context.md` remain the universal safety base.
 
+Each PR-bound prompt should start with `npm run pr-ready`; each changed-files PR should run `npm run verify` before completion.
+
 ## Universal Rules
 
 Append this only when the user prompt does not already include safety constraints:
@@ -9,6 +11,38 @@ Append this only when the user prompt does not already include safety constraint
 ```text
 Follow autp AutomationFoundation policy. Do not write real env values, use service role keys, change Supabase production DB, weaken RLS, charge money, post externally, or launch production. Use ReviewGate before finishing and run `npm run verify` when code, config, CI, or risky docs changed.
 ```
+
+## Micro Prompts
+
+```text
+autp pr-ready. Use compact context. Run npm run pr-ready; report blockers, risk, Review Gate need, and next check only.
+```
+
+```text
+autp review. Use compact context. Run npm run pr-ready, Review Gate changed files, then npm run verify if blockers are clear.
+```
+
+```text
+autp qa. Use compact context. Run npm run pr-ready, then npm run verify; log exact blockers.
+```
+
+```text
+autp fix-pr. Use compact context and review/CI output. Patch only the blocker, run npm run pr-ready, npm run verify, then npm run pr-ready again.
+```
+
+```text
+autp rls-review. Use compact context plus data-model, schema, and RLS docs. Run npm run pr-ready, review for weaker RLS/secrets/prod DB risk, then npm run verify.
+```
+
+```text
+autp conflict. Use compact context. Resolve only conflict markers, run npm run pr-ready, npm run verify, then npm run pr-ready again.
+```
+
+```text
+autp next. Use TaskBoardLoop compact set. Pick the first safe Open task, do one small batch, run npm run pr-ready and npm run verify before PR, and stop for HumanGate.
+```
+
+## Expanded Prompts
 
 ## Next Task Selection
 
@@ -25,25 +59,25 @@ Run autp Review Gate for the current diff. Read `AGENTS.md`, `docs/automation-po
 ## QA / Verification
 
 ```text
-Run autp QA for this change. Read `AGENTS.md`, `docs/verification-loop.md`, `docs/current-status.md`, and the changed files. Run `npm run verify`. If a preview or dev server is relevant, check load, obvious runtime errors, and secret visibility. Update `docs/review-log.md` and `docs/current-status.md` with pass/fail and blockers.
+Run autp QA for this change. Read `AGENTS.md`, `docs/verification-loop.md`, `docs/current-status.md`, and the changed files. Run `npm run pr-ready`, then `npm run verify`. If a preview or dev server is relevant, check load, obvious runtime errors, and secret visibility. Update `docs/review-log.md` and `docs/current-status.md` with pass/fail and blockers.
 ```
 
 ## Fix PR / CI Failure
 
 ```text
-Fix the current autp PR or CI failure. Read `AGENTS.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, `docs/review-log.md`, and the first actionable failing log. Make the smallest safe patch, rerun the failed command then `npm run verify`, update review notes, and avoid unrelated refactors.
+Fix the current autp PR or CI failure. Read `AGENTS.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, `docs/review-log.md`, and the first actionable failing log. Make the smallest safe patch, run `npm run pr-ready`, rerun the failed command then `npm run verify`, run `npm run pr-ready` again, update review notes, and avoid unrelated refactors.
 ```
 
 ## Conflict Fix
 
 ```text
-Resolve conflicts on this Codex-owned autp branch. Read `AGENTS.md`, `docs/automation-policy.md`, `docs/automation-runbook.md` conflict section, and conflicted files only. Preserve branch intent and latest main, remove markers, run `npm run verify`, and log any HumanGate blocker. Do not rewrite unrelated shared docs.
+Resolve conflicts on this Codex-owned autp branch. Read `AGENTS.md`, `docs/automation-policy.md`, `docs/automation-runbook.md` conflict section, and conflicted files only. Preserve branch intent and latest main, remove markers, run `npm run pr-ready`, `npm run verify`, then `npm run pr-ready` again, and log any HumanGate blocker. Do not rewrite unrelated shared docs.
 ```
 
 ## Supabase / RLS Review
 
 ```text
-Review Supabase/RLS safety for this autp change. Read `AGENTS.md`, `docs/automation-policy.md`, `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, changed Supabase/lib files, and migrations. Check owner scope, RLS enabled posture, destructive SQL, service role keys, real env values, production DB risk, and two-user QA needs. Do not run production SQL.
+Review Supabase/RLS safety for this autp change. Read `AGENTS.md`, `docs/automation-policy.md`, `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, changed Supabase/lib files, and migrations. Run `npm run pr-ready`, check owner scope, RLS enabled posture, destructive SQL, service role keys, real env values, production DB risk, and two-user QA needs, then run `npm run verify` when blockers are clear. Do not run production SQL.
 ```
 
 ## PR Readiness

@@ -27,6 +27,7 @@
 - A non-production migration draft exists at `supabase/migrations/20260430000000_url_saving_persistence.sql` for `saved_urls`, `categories`, `tags`, `saved_url_tags`, RLS, owner immutability, same-owner joins, `capture_source`, and `organization_state`.
 - Post-merge QA for Supabase/Auth/RLS Persistence found and fixed one Medium RLS scope issue in the migration draft: category/tag row deletion remains deferred until category/tag management is reviewed. No High issues are recorded.
 - `NEXT-016` Token Efficiency Audit v1 is documented in `docs/token-efficiency-audit-v1.md`, with short prompt templates, a docs-reading map, Skill consolidation priorities, and script candidates.
+- `NEXT-019` Skill Consolidation v1 is complete: repeated Review Gate, QA, Fix PR, Supabase-RLS review, Conflict fix, and Next task selection prompts are shortened and tied to `npm run pr-ready` plus `npm run verify` before PR-bound completion.
 
 ## Open Issues
 
@@ -39,6 +40,8 @@
 ## Next Task
 
 Next recommended task: `NEXT-015` QA / Vercel / Supabase Verification after a safe local or preview Supabase environment is provided outside the repo.
+
+For future short instructions, use `docs/short-prompt-templates.md` and `docs/skill-consolidation-v1.md` instead of pasting a long prompt.
 
 ## Verification Status
 
@@ -58,6 +61,7 @@ Next recommended task: `NEXT-015` QA / Vercel / Supabase Verification after a sa
 - Token Efficiency Audit v1 is docs-only. `npm run verify` passed on 2026-04-30 after the audit docs update.
 - `NEXT-017` PR readiness check passed on 2026-04-30: `npm run pr-ready` reports risk, blockers, Review Gate need, and the recommended verification command without running heavy verification by default; `npm run verify` also passed.
 - Fast Save / Capture implementation: `npm run lint`, `npm run typecheck`, `npm run build`, local dev HTTP 200 at `http://localhost:3004`, `npm run pr-ready`, and final `npm run verify` passed on 2026-05-05.
+- `NEXT-019` Skill Consolidation v1: `npm run pr-ready` and `npm run verify` passed on 2026-05-05. `npm run pr-ready` reported High risk because the wider working tree contains existing high-risk changes, but found no blockers.
 
 ## Updated
 

@@ -34,6 +34,7 @@
 | NEXT-016 | Done | Automation Architect | Token Efficiency Audit v1 | Repeated work inventory, short prompt templates, docs-reading map, Skill consolidation plan, script candidates, and next token-reduction task are documented |
 | NEXT-017 | Done | Automation Architect / PR Readiness Check | Create first Token Efficiency follow-up: read-only PR readiness helper and docs | `npm run pr-ready`, `docs/pr-readiness-check.md`, short prompts, and docs-reading guidance exist without GitHub Actions, app feature changes, or production changes |
 | NEXT-018 | Done | Implementation / Fast Save Capture | Implement URL-only fast save inside the existing app flow | URL-only save works with fallback title, unclassified/untagged/no-memo records remain valid and editable later, signed-out Supabase-configured saves are blocked, and no iframe, extension, Web Share Target, scraping, or AI summary is added |
+| NEXT-019 | Done | Automation Architect / Skill Consolidation v1 | Consolidate repeated Codex operations into shorter prompts, reading maps, runbook shortcuts, and skillization priorities | `docs/skill-consolidation-v1.md` exists; Review Gate, QA, Fix PR, Supabase-RLS review, Conflict fix, and Next task shortcuts include `npm run pr-ready`; skillization priorities are recorded |
 
 ## Later
 
@@ -64,3 +65,7 @@
 ## Next Selected Task
 
 `NEXT-015` is the next task, but it is blocked until `BLOCKED-005` is resolved in a safe local or preview Supabase environment.
+
+## Shortcut Rule
+
+For future short instructions, use `docs/short-prompt-templates.md` and `docs/skill-consolidation-v1.md` instead of pasting a long prompt. PR-bound work should run `npm run pr-ready` before Review Gate and `npm run verify` before PR creation when files changed.

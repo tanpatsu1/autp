@@ -2,6 +2,19 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-05-05 Skill Consolidation v1
+
+| Item | Content |
+| --- | --- |
+| Work | Consolidated repeated Codex operations into `docs/skill-consolidation-v1.md`, shorter prompt templates, operation-specific reading maps, and automation runbook shortcuts for Review Gate, QA, Fix PR, Supabase-RLS review, Conflict fix, and Next task selection. |
+| Changed Files | `docs/skill-consolidation-v1.md`, `docs/short-prompt-templates.md`, `docs/docs-reading-map.md`, `docs/automation-runbook.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/review-log.md`, `docs/current-status.md` |
+| Verification | Passed: `npm run pr-ready` exited 0 with High risk, no blockers, and Review Gate required because the wider working tree has existing high-risk changes; `npm run verify` passed (`lint`, `typecheck`, `build`) on 2026-05-05. |
+| Review Gate | Passed for this docs-only consolidation: no app implementation, no GitHub Actions additions, no env values, no service role key use, no Supabase production changes, no SQL production execution, no weaker RLS, no billing, no external posting, and no final public launch. |
+| Safety Check | Docs-only consolidation; no app feature implementation, no GitHub Actions additions, no env values, no service role key use, no Supabase production DB changes, no SQL production execution, no weaker RLS, no billing, no external posting, and no final public production launch. |
+| Missing Requested Inputs | `docs/token-efficiency-audit-v1.md` and `docs/skill-consolidation-plan.md` were not present in the original checkout, so this pass used the available `NEXT-017` docs and current automation docs. |
+| Remaining Blockers | Supabase live connection remains unverified; final public production launch remains `HumanConfirmationRequired`. |
+| Next Recommended Task | Use the new micro prompts for common operations; continue `NEXT-015` after `BLOCKED-005` is resolved. |
+
 ## 2026-05-05 Fast Save / Capture Implementation
 
 | Item | Content |
