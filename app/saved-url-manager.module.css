@@ -49,6 +49,53 @@
   margin: 0 auto 18px;
 }
 
+.authPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  max-width: 1180px;
+  margin: 0 auto 18px;
+  border: 1px solid #d7dee8;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #ffffff;
+  color: #344054;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.authPanel form {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+}
+
+.authPanel p {
+  margin: 0;
+  color: #526070;
+  font-size: 13px;
+}
+
+.authField {
+  display: grid;
+  gap: 6px;
+}
+
+.authField span {
+  color: #344054;
+  font-size: 12px;
+}
+
+.authField input {
+  width: min(300px, 58vw);
+  box-sizing: border-box;
+  border: 1px solid #c7d0dd;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: inherit;
+}
+
 .metric {
   display: flex;
   align-items: center;
@@ -190,6 +237,7 @@
 
 .primaryButton,
 .subtleButton,
+.authPanel button,
 .segmented button,
 .resultMeta button,
 .itemActions button,
@@ -211,6 +259,11 @@
   border-color: #1d4ed8;
   background: #1d4ed8;
   color: #ffffff;
+}
+
+.primaryButton:disabled {
+  cursor: wait;
+  opacity: 0.68;
 }
 
 .subtleButton,
@@ -409,6 +462,16 @@
   .toolbar {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .authPanel,
+  .authPanel form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .authField input {
+    width: 100%;
   }
 
   .metrics {

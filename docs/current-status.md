@@ -7,107 +7,58 @@
 - Stack: Next.js / TypeScript / Supabase / Vercel
 - Mode: `AutomationFoundation`
 
-## Current Setup
+## Current State
 
-- Minimal Next.js application structure is present.
-- Supabase browser client helper is present.
-- Secret values are not committed.
-- `.env.local` is intentionally not included.
-- Automation foundation docs are added.
-- `npm run verify` is defined through package scripts.
-- `npm run pr-ready` is defined as a read-only PR readiness preflight.
-- Local `npm run verify` passes.
-- GitHub Actions CI is added at `.github/workflows/ci.yml`.
-- `TaskBoardLoop`, `HumanGate`, `ReviewGate`, and `VerificationLoop` are documented as the default operating loops.
-- Role Collaboration / Debate Protocol docs are added for proposal, review, decision, handoff, and cross-role debate.
-- `NEXT-001` URL-saving MVP scope is documented in `docs/mvp-scope.md` and `docs/product-spec.md`.
+- Minimal Next.js application, Supabase browser client helper, automation docs, CI, `npm run verify`, and `npm run pr-ready` are present.
+- `TaskBoardLoop`, `HumanGate`, `ReviewGate`, and `VerificationLoop` remain the default operating loops.
+- Role collaboration, MVP scope, and automation-goal alignment are documented.
+- Branch hygiene is now documented: start from latest `main`, sync before PR creation, keep merge-waiting PRs current, and let Codex resolve ordinary PR conflicts.
+- Shared docs rules are now documented for `docs/current-status.md`, `docs/review-log.md`, `docs/task-board.md`, and `docs/decision-log.md`.
 - `NEXT-002` URL-saving data model, Supabase schema proposal, and RLS policy proposal are documented in docs only.
-
-## Automation Docs
-
-- `docs/automation-policy.md`: default automation policy and human stop rules.
-- `docs/task-board.md`: Now / Next / Later / Blocked task selection.
-- `docs/feedback-inbox.md`: human-confirmation queue.
-- `docs/review-log.md`: work history, review gate notes, and verification notes.
-- `docs/compact-context.md`: short shared context.
-- `docs/role-map.md`: Orchestrator / Product / Design / Implementation / Review Gate / QA / Growth / Launch roles.
-- `docs/verification-loop.md`: lint / typecheck / build / Vercel flow.
-- `docs/pr-readiness-check.md`: read-only PR readiness, blocker detection, risk level, and Review Gate preflight.
-- `docs/short-prompt-templates.md`: compact prompts for PR readiness, Review Gate, TaskBoardLoop, and verification.
-- `docs/docs-reading-map.md`: smaller reading sets for PR readiness, Review Gate, QA, and high-risk domains.
-- `docs/skill-consolidation-v1.md`: consolidated shortcuts, reading rules, runbook boundaries, and future skillization priorities for repeated Codex operations.
-- `docs/skill-registry.md`: English skill names and purposes.
-- `docs/automation-registry.md`: English automation loop names and triggers.
-- `docs/collaboration-protocol.md`: role collaboration, debate, Orchestrator decision flow, and HumanGate routing.
-- `docs/proposal-template.md`: standard proposal format for role-driven work.
-- `docs/review-protocol.md`: role review, counterproposal, risk, and recommendation format.
-- `docs/decision-log.md`: important decision record and decision template.
-- `docs/handoff-protocol.md`: role-to-role handoff format and checks.
-- `docs/mvp-scope.md`: smallest URL-saving MVP scope, deferred features, screens, flows, data items, and NEXT-002 handoff.
-- `docs/product-spec.md`: Product proposal/spec for the smallest URL-saving MVP and review prompts for other roles.
-- `docs/data-model.md`: URL Saving MVP entities, relationships, search/listing shape, type expectations, and Implementation handoff.
-- `docs/supabase-schema.md`: non-destructive Supabase table, column, index, migration-safety, and preview-diagnostic proposal.
-- `docs/rls-policy.md`: Supabase Auth ownership assumptions, RLS policy matrix, invariants, test cases, and Review Gate checks.
-
-## Role Skills
-
-- `.agents/skills/autp-orchestrator/SKILL.md`: task selection, role routing, and HumanGate routing.
-- `.agents/skills/autp-skill-discovery/SKILL.md`: skill auditing, registry maintenance, and future skill proposals.
-- `.agents/skills/autp-product/SKILL.md`: MVP scope, acceptance criteria, product tradeoffs, and product handoffs.
-- `.agents/skills/autp-design/SKILL.md`: bright, clean UI/UX guidance, accessibility, and responsive polish.
-- `.agents/skills/autp-data-model/SKILL.md`: safe data-model, Supabase schema, and RLS proposal workflow.
-- `.agents/skills/autp-implementation/SKILL.md`: small, verifiable implementation and CI/build fixes.
-- `.agents/skills/autp-review-gate/SKILL.md`: bug-first review, policy checks, verification gaps, and docs drift checks.
-- `.agents/skills/autp-qa/SKILL.md`: local, preview, browser, and command-based verification workflow.
-- `.agents/skills/autp-growth/SKILL.md`: local growth, onboarding, FAQ, and launch copy drafts without external posting.
-- `.agents/skills/autp-launch/SKILL.md`: release-readiness preparation with final public launch gated by human approval.
-- `.agents/skills/autp-automation-runner/SKILL.md`: routine safe automation cycles for task-board progress, CI fixes, review feedback, and docs upkeep.
-
-## Live Automation Setup
-
-- First active automation: `TaskBoardLoop`.
-- Trigger phrase: `次進めて`.
-- `docs/automation-runbook.md` now contains the exact `TaskBoardLoop` prompt, priority order, Skill selection guide, HumanGate rules, verification rules, and completion output.
-- `TaskBoardLoop` should select the first safe `Open` task from `docs/task-board.md`, choose the required Skill, route human-gated items to `docs/feedback-inbox.md`, and otherwise continue through implementation or docs work, verification, review, docs updates, and PR creation.
-- This setup did not implement the URL-saving MVP.
-
-## Automation Goal
-
-- Final target: near-autonomous AI-driven development with human approval reserved for direction, dangerous changes, unresolved tradeoffs, and final approvals.
-- Codex should eventually discover tasks periodically, start the right automation loop, coordinate docs-based role reviews, prepare safe PRs, investigate Vercel failures, detect Supabase Preview Branch limitations, and update docs automatically.
-- Product, Design, Data Model, Implementation, QA, and Review Gate should review work in sequence before Orchestrator records decisions and selects follow-up tasks.
-- PRs that pass policy, verification, Review Gate, docs, and HumanGate checks can become automatic merge candidates without bypassing repository protections.
-- Dangerous actions remain blocked by `HumanConfirmationRequired`.
-- This goal update is docs-only and did not add GitHub Actions, code implementation, env values, billing, production DB changes, or production launch.
-- `NEXT-001` MVP scope now explicitly stays compatible with this automation goal by keeping the first product boundary deterministic, docs-first, reviewable by future role loops, and safe for automated PR review inputs.
+- `NEXT-003` URL Saving MVP is implemented as a local-first UI with URL registration, title, category, tags, memo, favorite, listing, search, edit, delete, and card/list view switching.
+- `NEXT-003` URL Saving MVP local smoke QA passed for the MVP flows; no High or Medium issues are currently recorded.
+- Product Direction Council role inputs have been synthesized. The council recommendation is an AI-ready private decision board for saved links, introduced first through shopping / purchase candidates, with fashion / brand as an early template and sensitive verticals deferred.
+- Product direction planning docs now summarize candidate comparison, roadmap, feature priorities, growth strategy, and monetization notes without implementing new features.
+- `NEXT-008` user direction confirmation is recorded in `docs/user-direction-confirmation.md`: autp should proceed as an AI-ready private decision board for saved links, first entered through shopping / purchase candidates, with fashion / brand kept as an early template and hospital / life information deferred.
+- Capture friction is now a first-class product risk. The "copy URL, open autp, paste, fill fields, save, return" flow is tracked as a weakness; iframe / embedded browsing remains research-only and is not approved for implementation.
+- `NEXT-009` Capture Friction Baseline Planning is documented in `docs/capture-friction-baseline.md`. The baseline is URL-only fast save: URL is the only user-required save-time field, title/category/tags/memo/favorite can be organized later, and unclassified or unorganized links remain valid private records.
+- `NEXT-010` Supabase/Auth/RLS Persistence implementation is merged: the MVP now uses Supabase Auth and owner-scoped Supabase persistence when public env names are configured and a user signs in, while preserving local demo mode when Supabase is not configured.
+- A non-production migration draft exists at `supabase/migrations/20260430000000_url_saving_persistence.sql` for `saved_urls`, `categories`, `tags`, `saved_url_tags`, RLS, owner immutability, same-owner joins, `capture_source`, and `organization_state`.
+- Post-merge QA for Supabase/Auth/RLS Persistence found and fixed one Medium RLS scope issue in the migration draft: category/tag row deletion remains deferred until category/tag management is reviewed. No High issues are recorded.
+- `NEXT-016` Token Efficiency Audit v1 is documented in `docs/token-efficiency-audit-v1.md`, with short prompt templates, a docs-reading map, Skill consolidation priorities, and script candidates.
+- `NEXT-018` Skill Consolidation v1 is complete: repeated Review Gate, QA, Fix PR, Supabase-RLS review, Conflict fix, and Next task selection prompts are shortened and tied to `npm run pr-ready` plus `npm run verify` before PR-bound completion.
 
 ## Open Issues
 
-- Supabase live connection is not verified.
+- Supabase live connection is not verified. Runtime public env values, authenticated user flow, reviewed migrations, preview schema/RLS application, and two-user RLS checks are still needed before calling persistence fully verified.
+- Vercel deployment status for the merge commit is successful via GitHub commit status; direct preview body/browser verification still needs a usable deployment URL or Vercel project access.
 - Final public production launch remains blocked by `HumanConfirmationRequired`.
+- Detailed task logs still need a separation plan so `docs/current-status.md` can stay short.
+- Supabase migration application to production remains prohibited from automation; apply the draft only after human-reviewed local/preview setup.
 
 ## Next Task
 
-Use `TaskBoardLoop` to select the first open safe item from `docs/task-board.md`. The first selected task should be `NEXT-003`: Implementation builds the private URL Saving MVP from the accepted Product scope and reviewed Data Model / Supabase Schema / RLS docs, unless a newer safe `Now` task appears.
+Next recommended task: `NEXT-015` QA / Vercel / Supabase Verification after a safe local or preview Supabase environment is provided outside the repo.
 
-The next automation-specific task is `NEXT-005`: design the implementation plan for scheduled task discovery, role council review, PR merge-candidate checks, Vercel failure diagnosis, Supabase preview diagnostics, and docs sync.
-
-`NEXT-017` PR readiness check is complete for Automation Foundation v1 / Token Efficiency: it adds `npm run pr-ready`, docs, short prompts, and reading-map guidance without GitHub Actions, app feature changes, env values, Supabase production DB changes, commits, pushes, or PR creation.
-
-`NEXT-018` Skill Consolidation v1 is complete: repeated Review Gate, QA, Fix PR, Supabase-RLS review, Conflict fix, and Next task selection prompts are shortened and tied to `npm run pr-ready` plus `npm run verify` before PR-bound completion.
+For future short instructions, use `docs/short-prompt-templates.md` and `docs/skill-consolidation-v1.md` instead of pasting a long prompt.
 
 ## Verification Status
 
-- Automation goal update is docs-only. `npm run verify` passed on 2026-04-29.
-- Live automation setup is docs-only. `npm run verify` passed on 2026-04-29.
-- `quick_validate.py` passed for all 11 `.agents/skills/**/SKILL.md` files.
-- `.agents/skills/**/SKILL.md` contains no TODO markers and no non-ASCII characters.
-- `npm run verify` passed locally: lint, typecheck, and build completed successfully.
-- Role collaboration protocol update is docs-only. `npm run verify` passed on 2026-04-29.
-- URL-saving MVP scope update is docs-only. Verification is recorded in `docs/review-log.md`.
-- URL-saving MVP automation-goal alignment is docs-only. Verification is recorded in `docs/review-log.md`.
-- URL-saving data model and RLS proposal is docs-only. `npm run verify` passed on 2026-04-29.
-- `NEXT-017` PR readiness check: `npm run pr-ready` and `npm run verify` passed on 2026-04-30.
+- URL Saving MVP implementation: `npm run verify` passed on 2026-04-29. Local dev server responded with HTTP 200 at `http://localhost:3000`.
+- URL Saving MVP local smoke QA passed on 2026-04-29 at `http://localhost:3001`: URL registration, title, category, tags, memo, favorite toggle, listing, search, card/list switching, and MVP-acceptable page-refresh behavior were confirmed. No High or Medium issues are recorded.
+- Local smoke QA documentation update: final `npm run verify` passed on 2026-04-29.
+- URL-saving data model and RLS proposal is docs-only. Final `npm run verify` passed on 2026-04-29.
+- Branch hygiene was followed: work started from latest `origin/main`, pre-edit verification passed, and Pre-PR sync found the branch up to date.
+- Conflict prevention update is docs-only and final `npm run verify` passed on 2026-04-29.
+- Product Direction Council setup is docs-only. Pre-edit `npm install` and `npm run verify` passed on 2026-04-29.
+- Product Direction Council setup Pre-PR sync found the branch up to date with `origin/main`; final `npm run verify` passed on 2026-04-29.
+- Product Direction Council synthesis is docs-only. Pre-edit `npm install` and `npm run verify` passed on 2026-04-29; final `npm run verify` passed on 2026-04-29.
+- User direction confirmation is docs-only. `npm run verify` passed on 2026-04-29 after the confirmation docs update.
+- Capture Friction Baseline Planning is docs-only. Verification is recorded in `docs/review-log.md`.
+- Supabase/Auth/RLS Persistence implementation: `npm install`, pre-edit `npm run verify`, final `npm run verify`, and local dev HTTP 200 at `http://localhost:3002` passed on 2026-04-30.
+- Supabase/Auth/RLS Persistence post-merge QA: `npm install`, `npm run verify`, local demo headless-browser save/list/reload persistence, Supabase-configured unsigned save denial with dummy public env names, RLS migration static review, secret scan, and final `npm run verify` passed on 2026-04-30. Vercel commit status is successful.
+- Token Efficiency Audit v1 is docs-only. `npm run verify` passed on 2026-04-30 after the audit docs update.
+- `NEXT-017` PR readiness check passed on 2026-04-30: `npm run pr-ready` reports risk, blockers, Review Gate need, and the recommended verification command without running heavy verification by default; `npm run verify` also passed.
 - `NEXT-018` Skill Consolidation v1: `npm run pr-ready` and `npm run verify` passed on 2026-05-05. `npm run pr-ready` reported High risk because the wider working tree contains existing high-risk changes, but found no blockers.
 
 ## Updated

@@ -1,142 +1,68 @@
 # Docs Reading Map
 
-Use this map to reduce repeated docs loading. Read the smallest set that covers the task, then open deeper docs only when the change touches that area.
+Use this map to reduce broad docs loading. Start with the smallest required set for the task type, then add optional docs only when the task touches that area.
 
-## Always Start Small
+## Universal Base
 
-For most autp work:
+| Use | Docs |
+| --- | --- |
+| Always read | `AGENTS.md`, `docs/compact-context.md`, `docs/automation-policy.md` |
+| Read when changing files | `docs/verification-loop.md`, changed files |
+| Read before closing work | `docs/review-log.md`, `docs/current-status.md`, `docs/task-board.md` |
+| Avoid by default | Old review-log history beyond the latest relevant entries, unrelated council docs, launch/growth docs for implementation-only tasks |
 
-1. `AGENTS.md`
-2. `docs/compact-context.md`
-3. `docs/automation-policy.md`
-4. `docs/task-board.md`
-5. `docs/review-log.md`
+## Task Type Map
 
-For consolidated short operations, also read `docs/skill-consolidation-v1.md` only when choosing or changing the shortcut itself. Routine execution should use the operation-specific sets below.
+| Task type | Required docs | Optional docs | Avoid docs unless directly relevant |
+| --- | --- | --- | --- |
+| Next task selection | `AGENTS.md`, `docs/compact-context.md`, `docs/task-board.md`, `docs/automation-policy.md` | `docs/skill-registry.md`, `docs/automation-registry.md`, `docs/feedback-inbox.md` | Feature specs, council docs, old review-log entries |
+| Review Gate | `AGENTS.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, `docs/review-log.md`, changed files | `docs/task-board.md`, `docs/current-status.md`, task-specific spec docs | Growth, launch, product council docs unless changed |
+| QA / Verification | `AGENTS.md`, `docs/verification-loop.md`, `docs/current-status.md`, changed files | `docs/review-log.md`, `docs/task-board.md`, preview notes | Decision history unless a verification decision is disputed |
+| Fix PR / CI failure | `AGENTS.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, failing log, changed files | `docs/review-log.md`, `docs/current-status.md`, `docs/task-board.md` | Product strategy docs unless the failure is scope-related |
+| Conflict fix | `AGENTS.md`, `docs/automation-policy.md`, `docs/automation-runbook.md`, conflicted files | `docs/review-log.md`, `docs/decision-log.md` entries related to conflicted docs | Unconflicted feature docs |
+| Supabase/RLS review | `AGENTS.md`, `docs/automation-policy.md`, `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, changed Supabase files and migrations | `docs/verification-loop.md`, `docs/review-log.md`, `docs/feedback-inbox.md` | Growth, launch, general product direction docs |
+| PR readiness | `AGENTS.md`, `docs/compact-context.md`, `docs/pr-readiness-check.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, `docs/review-log.md`, changed files, `npm run pr-ready` output | `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/automation-runbook.md`, `docs/feedback-inbox.md` | Deep historical logs unrelated to the PR |
+| gh fallback | `AGENTS.md`, `docs/automation-policy.md`, PR readiness summary | `docs/automation-runbook.md` | Product, data, design, launch docs |
+| Vercel preview QA | `AGENTS.md`, `docs/verification-loop.md`, `docs/current-status.md`, PR/change summary | `docs/review-log.md`, `docs/task-board.md`, Vercel deployment logs | Data model docs unless persistence is under test |
+| Product scope | `AGENTS.md`, `docs/automation-policy.md`, `docs/task-board.md`, `docs/product-spec.md` or requested product doc | `docs/review-protocol.md`, `docs/decision-log.md`, `docs/roadmap.md` | Implementation files unless estimating feasibility |
+| Design review | `AGENTS.md`, `docs/automation-policy.md`, changed UI files, relevant product spec | `docs/verification-loop.md`, `docs/review-protocol.md` | Supabase/RLS docs unless data states affect UI |
+| Growth or launch draft | `AGENTS.md`, `docs/automation-policy.md`, `docs/feedback-inbox.md`, requested copy docs | `docs/current-status.md`, `docs/review-log.md`, `docs/launch-checklist.md` if present | Implementation and migration files |
+| Docs-only audit | `AGENTS.md`, `docs/compact-context.md`, `docs/automation-policy.md`, docs named by the request | `docs/review-log.md`, `docs/decision-log.md`, `docs/task-board.md` | App code, migration SQL, unrelated council folders |
 
-## PR Readiness
+For consolidated short operations, also read `docs/skill-consolidation-v1.md` only when choosing or changing the shortcut itself. Routine execution should use the operation-specific sets above.
 
-Read:
+## Command Shortcuts
 
-- `AGENTS.md`
-- `docs/compact-context.md`
-- `docs/pr-readiness-check.md`
-- `docs/automation-policy.md`
-- `docs/review-log.md`
+## PR Readiness Shortcut
 
-Run:
+For PR readiness and pre-Review Gate checks, run:
 
 ```bash
 npm run pr-ready
 ```
 
-Open additional docs only when `npm run pr-ready` reports High-risk files or Review Gate needs more context.
+Use its short summary to decide whether to read deeper domain docs. Run `npm run verify` only when the change is ready for full verification or when policy requires it.
 
-## Review Gate
+For PR-bound QA, Fix PR, Conflict fix, and Supabase/RLS review, start with `npm run pr-ready`, resolve blockers, then run `npm run verify`. For Fix PR and Conflict fix, run `npm run pr-ready` again after verification to confirm no conflict markers, unsafe files, secret-like values, or new high-risk blockers were introduced.
 
-Read:
+## Latest-Only Rule
 
-- `AGENTS.md`
-- `docs/compact-context.md`
-- `docs/review-protocol.md`
-- `docs/pr-readiness-check.md`
-- `docs/automation-policy.md`
-- `docs/review-log.md`
-- changed files
+For `docs/review-log.md` and `docs/decision-log.md`, read the latest relevant entries first. Load older entries only when:
 
-Use `npm run pr-ready` first to find blockers and risk level. Read Product, Data Model, RLS, Launch, or Growth docs only if the changed files or task scope touches those areas.
-
-## QA / Verification
-
-Read:
-
-- `AGENTS.md`
-- `docs/compact-context.md`
-- `docs/verification-loop.md`
-- `docs/pr-readiness-check.md`
-- changed files
-
-Run `npm run pr-ready` for quick blocker detection, then run `npm run verify` when the change is ready for full verification or when policy requires it.
-
-## Fix PR
-
-Read:
-
-- `AGENTS.md`
-- `docs/compact-context.md`
-- `docs/pr-readiness-check.md`
-- `docs/review-log.md`
-- failing CI output, review comments, or readiness output
-- changed files
-
-Run:
-
-```bash
-npm run pr-ready
-npm run verify
-npm run pr-ready
-```
-
-Use the second `npm run pr-ready` to confirm the fix did not introduce conflict markers, secrets, unsafe files, or new high-risk blockers.
-
-## Conflict Fix
-
-Read:
-
-- `AGENTS.md`
-- `docs/compact-context.md`
-- `docs/pr-readiness-check.md`
-- conflicting files
-
-Run:
-
-```bash
-npm run pr-ready
-npm run verify
-npm run pr-ready
-```
-
-Do not refactor while resolving conflicts unless the conflict cannot be resolved without a tiny compatibility edit.
-
-## Supabase / Auth / RLS / Env
-
-Read the core set plus the specific relevant docs:
-
-- `docs/data-model.md`
-- `docs/supabase-schema.md`
-- `docs/rls-policy.md`
-- `docs/automation-policy.md`
-
-These changes are High-risk for PR readiness and require careful Review Gate.
-
-Run:
-
-```bash
-npm run pr-ready
-npm run verify
-```
-
-Stop for HumanGate before real env values, service role keys, production DB changes, production SQL execution, DB table deletion, or weaker RLS.
-
-## Next Task Selection
-
-Read:
-
-- `AGENTS.md`
-- `docs/compact-context.md`
-- `docs/task-board.md`
-- `docs/automation-policy.md`
-- `docs/review-log.md`
-
-Run `npm run pr-ready` only after files are edited. Run `npm run verify` before PR creation when the task changes code, config, CI, scripts, security posture, or risky automation docs.
+- the task asks for historical audit,
+- the latest entry links to an older decision,
+- a conflict requires preserving branch intent,
+- a repeated workflow is being counted.
 
 ## Token Efficiency Rule
 
-Do not load every project doc for routine PR readiness. Prefer:
-
-1. Compact context.
-2. `npm run pr-ready` output.
-3. Changed files.
-4. Only the domain docs named by the risk output.
+Do not load every project doc for routine PR readiness. Prefer compact context, `npm run pr-ready` output, changed files, and only the domain docs named by the risk output.
 
 Use `docs/skill-consolidation-v1.md` to decide whether a repeated workflow belongs in an existing skill, a runbook shortcut, or a future skill proposal.
+
+## Shared Docs Write Rule
+
+- Prefer new dedicated docs for long analysis.
+- Keep `docs/current-status.md` to short current-state bullets.
+- Treat `docs/review-log.md` and `docs/decision-log.md` as append-only except for small terminology cleanups in active references.
+- In `docs/task-board.md`, add or update only the selected task row and the next task pointer.

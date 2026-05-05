@@ -13,6 +13,11 @@ Use normalized user-owned records for saved URLs, categories, and tags:
 - `tags`: user-owned tag labels.
 - `saved_url_tags`: join table connecting saved URLs to many tags.
 
+For `NEXT-010`, add two persistence fields to support the Capture Friction Baseline without schema churn:
+
+- `capture_source`: initial value `manual_form`, with later room for `fast_save`, `bookmarklet`, `web_share`, `extension`, and `import`.
+- `organization_state`: initial explicit values `needs_review` and `organized`, so URL-only saves can be stored as valid private records and organized later.
+
 Card/list display mode is presentation state, not saved URL data. For the MVP it can remain client-side local UI state. If persistent view settings are later required, add a separate `user_preferences` table after review.
 
 ## Entity Summary
@@ -39,6 +44,8 @@ Card/list display mode is presentation state, not saved URL data. For the MVP it
 | `category_id` | `uuid` | No | `null` | Optional link to one user-owned category |
 | `memo` | `text` | No | `null` | Private user note |
 | `is_favorite` | `boolean` | Yes | `false` | Favorite marker |
+| `capture_source` | `text` | Yes | `manual_form` | Save pathway; future fast-save channels can write a reviewed value |
+| `organization_state` | `text` | Yes | `needs_review` | Explicit organize-later state for URL-only saves |
 | `created_at` | `timestamptz` | Yes | `now()` | Default sort and audit timestamp |
 | `updated_at` | `timestamptz` | Yes | `now()` | Updated through trigger or app-side update path |
 
@@ -68,6 +75,7 @@ Card/list display mode is presentation state, not saved URL data. For the MVP it
 
 | Field | Type | Required | Default | Notes |
 | --- | --- | --- | --- | --- |
+| `owner_id` | `uuid` | Yes | Current authenticated user | Stored on the join table in the migration draft to simplify RLS and enforce same-owner links |
 | `saved_url_id` | `uuid` | Yes | None | References `saved_urls.id` |
 | `tag_id` | `uuid` | Yes | None | References `tags.id` |
 | `created_at` | `timestamptz` | Yes | `now()` | Link timestamp |
@@ -91,6 +99,7 @@ All user-facing records must be scoped to the authenticated user. A saved URL mu
 | Behavior | Data Rule |
 | --- | --- |
 | Save URL | Insert one `saved_urls` row, optionally create or reuse one `categories` row, optionally create or reuse `tags`, then insert `saved_url_tags` links |
+| URL-only fast-save readiness | A valid row can be inserted with URL, owner, fallback title, `capture_source = manual_form` or later `fast_save`, `organization_state = needs_review`, default favorite, nullable category, zero tag joins, and nullable memo |
 | Update URL | Update only the owner's `saved_urls` row and related category/tag links |
 | Favorite | Toggle `saved_urls.is_favorite` only |
 | Memo | Store private free text in `saved_urls.memo` |
@@ -143,9 +152,9 @@ Implementation should:
 - use the public Supabase client with anon/publishable key only;
 - rely on RLS for user ownership;
 - avoid service role keys;
-- create migrations only after review of `docs/supabase-schema.md` and `docs/rls-policy.md`;
+- use the draft migration in `supabase/migrations/20260430000000_url_saving_persistence.sql` only after review in local/preview environments, not production automation;
 - include tests or manual checks for cross-user access denial;
-- preserve the docs-only decision that no production database is changed during `NEXT-002`.
+- preserve the safety rule that no production database is changed by automation during `NEXT-010`.
 
-Recommended next task: `NEXT-003` Implementation / URL Saving MVP.
+Recommended next tasks: Review Gate / Supabase Persistence Review, then QA / Vercel / Supabase Verification.
 
