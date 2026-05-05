@@ -32,7 +32,7 @@
 | NEXT-014 | Done | Review Gate | Supabase Persistence Review | Post-merge QA reviewed code, migration draft, docs, RLS posture, env safety, local demo behavior, unsigned Supabase-configured behavior, and Vercel commit status; one Medium migration scope issue was fixed |
 | NEXT-015 | Blocked | QA / Vercel / Supabase Verification | Verify Supabase/Auth/RLS persistence in preview or safe local Supabase | Auth sign-in, URL save/list/edit/delete/favorite/search, reload persistence, and two-user RLS denial are verified after safe public env values and reviewed migration application are provided outside the repo |
 | NEXT-016 | Done | Automation Architect | Token Efficiency Audit v1 | Repeated work inventory, short prompt templates, docs-reading map, Skill consolidation plan, script candidates, and next token-reduction task are documented |
-| NEXT-017 | Open | Automation / Skill Discovery | Create first Token Efficiency follow-up: PR readiness Skill and read-only helper plan | `autp-pr-readiness` scope and `scripts/pr-ready-check` behavior are proposed or implemented in a small safe PR without GitHub Actions or production changes |
+| NEXT-017 | Done | Automation Architect / PR Readiness Check | Create first Token Efficiency follow-up: read-only PR readiness helper and docs | `npm run pr-ready`, `docs/pr-readiness-check.md`, short prompts, and docs-reading guidance exist without GitHub Actions, app feature changes, or production changes |
 
 ## Later
 

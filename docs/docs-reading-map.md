@@ -21,7 +21,7 @@ Use this map to reduce broad docs loading. Start with the smallest required set 
 | Fix PR / CI failure | `AGENTS.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, failing log, changed files | `docs/review-log.md`, `docs/current-status.md`, `docs/task-board.md` | Product strategy docs unless the failure is scope-related |
 | Conflict fix | `AGENTS.md`, `docs/automation-policy.md`, `docs/automation-runbook.md`, conflicted files | `docs/review-log.md`, `docs/decision-log.md` entries related to conflicted docs | Unconflicted feature docs |
 | Supabase/RLS review | `AGENTS.md`, `docs/automation-policy.md`, `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, changed Supabase files and migrations | `docs/verification-loop.md`, `docs/review-log.md`, `docs/feedback-inbox.md` | Growth, launch, general product direction docs |
-| PR readiness | `AGENTS.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, `docs/review-log.md`, `docs/current-status.md`, `docs/task-board.md`, changed files | `docs/decision-log.md`, `docs/automation-runbook.md`, `docs/feedback-inbox.md` | Deep historical logs unrelated to the PR |
+| PR readiness | `AGENTS.md`, `docs/compact-context.md`, `docs/pr-readiness-check.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, `docs/review-log.md`, changed files, `npm run pr-ready` output | `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/automation-runbook.md`, `docs/feedback-inbox.md` | Deep historical logs unrelated to the PR |
 | gh fallback | `AGENTS.md`, `docs/automation-policy.md`, PR readiness summary | `docs/automation-runbook.md` | Product, data, design, launch docs |
 | Vercel preview QA | `AGENTS.md`, `docs/verification-loop.md`, `docs/current-status.md`, PR/change summary | `docs/review-log.md`, `docs/task-board.md`, Vercel deployment logs | Data model docs unless persistence is under test |
 | Product scope | `AGENTS.md`, `docs/automation-policy.md`, `docs/task-board.md`, `docs/product-spec.md` or requested product doc | `docs/review-protocol.md`, `docs/decision-log.md`, `docs/roadmap.md` | Implementation files unless estimating feasibility |
@@ -30,6 +30,16 @@ Use this map to reduce broad docs loading. Start with the smallest required set 
 | Docs-only audit | `AGENTS.md`, `docs/compact-context.md`, `docs/automation-policy.md`, docs named by the request | `docs/review-log.md`, `docs/decision-log.md`, `docs/task-board.md` | App code, migration SQL, unrelated council folders |
 
 ## Latest-Only Rule
+
+## PR Readiness Shortcut
+
+For PR readiness and pre-Review Gate checks, run:
+
+```bash
+npm run pr-ready
+```
+
+Use its short summary to decide whether to read deeper domain docs. Run `npm run verify` only when the change is ready for full verification or when policy requires it.
 
 For `docs/review-log.md` and `docs/decision-log.md`, read the latest relevant entries first. Load older entries only when:
 

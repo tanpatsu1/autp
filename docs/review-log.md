@@ -2,6 +2,19 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-04-30 PR Readiness Check
+
+| Item | Content |
+| --- | --- |
+| Work | Added `NEXT-017` PR readiness preflight as a read-only local script, npm alias, docs, short prompt templates, docs-reading map updates, task-board entry, and decision record. |
+| Changed Files | `scripts/pr-ready-check.mjs`, `package.json`, `docs/pr-readiness-check.md`, `docs/short-prompt-templates.md`, `docs/docs-reading-map.md`, `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/review-log.md` |
+| Verification | Passed: `npm run pr-ready` exited 0 with no blockers and Review Gate required; `npm run verify` passed (`lint`, `typecheck`, `build`) on 2026-04-30. |
+| Review Gate | Passed: script is read-only, reports blocker/risk/Review Gate status, docs are aligned, no GitHub Actions were added, and no app feature implementation was made for `NEXT-017`. |
+| Safety Check | Script reads git status and file contents only; no env values, service role key use, Supabase production DB changes, SQL production execution, RLS weakening, billing, external posting, GitHub Actions additions, app feature implementation, or production launch. |
+| Token Efficiency Impact | Codex can use `npm run pr-ready` plus `docs/pr-readiness-check.md` and `docs/docs-reading-map.md` instead of reloading long PR-preflight prompts and unrelated docs for every Review Gate. |
+| Remaining Blockers | Supabase live connection remains unverified; final public production launch remains `HumanConfirmationRequired`. |
+| Next Recommended Task | Use `npm run pr-ready` before Review Gate and PR creation, then continue with the next safe task from `docs/task-board.md`. |
+
 ## 2026-04-30 Supabase/Auth/RLS Persistence Post-Merge QA
 
 | Item | Content |

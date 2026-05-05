@@ -49,7 +49,13 @@ Review Supabase/RLS safety for this autp change. Read `AGENTS.md`, `docs/automat
 ## PR Readiness
 
 ```text
-Prepare autp PR readiness. Read `AGENTS.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, `docs/review-log.md`, `docs/current-status.md`, `docs/task-board.md`, and changed files. Check branch sync, changed-file scope, docs drift, verification, Review Gate, HumanGate, and draft PR body. Use gh only as fallback if connector PR creation is unavailable.
+Run autp PR readiness. Read `AGENTS.md`, `docs/compact-context.md`, `docs/pr-readiness-check.md`, `docs/automation-policy.md`, and `docs/review-log.md`. Run `npm run pr-ready`, summarize blockers, risk, Review Gate need, and the recommended verification command. Do not commit, push, create a PR, or run `npm run verify` unless explicitly requested.
+```
+
+## Pre-Review Gate With PR Ready
+
+```text
+Run pre-Review Gate for autp. Read `AGENTS.md`, `docs/compact-context.md`, `docs/pr-readiness-check.md`, `docs/review-protocol.md`, and `docs/automation-policy.md`. Run `npm run pr-ready` first. If it exits 0, review the changed files for scope, safety, verification gaps, docs drift, and HumanGate triggers. If it exits 1, report blockers and stop before PR creation.
 ```
 
 ## Vercel / Preview QA

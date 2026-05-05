@@ -9,7 +9,7 @@
 
 ## Current State
 
-- Minimal Next.js application, Supabase browser client helper, automation docs, CI, and `npm run verify` are present.
+- Minimal Next.js application, Supabase browser client helper, automation docs, CI, `npm run verify`, and `npm run pr-ready` are present.
 - `TaskBoardLoop`, `HumanGate`, `ReviewGate`, and `VerificationLoop` remain the default operating loops.
 - Role collaboration, MVP scope, and automation-goal alignment are documented.
 - Branch hygiene is now documented: start from latest `main`, sync before PR creation, keep merge-waiting PRs current, and let Codex resolve ordinary PR conflicts.
@@ -55,6 +55,7 @@ Next recommended task: `NEXT-015` QA / Vercel / Supabase Verification after a sa
 - Supabase/Auth/RLS Persistence implementation: `npm install`, pre-edit `npm run verify`, final `npm run verify`, and local dev HTTP 200 at `http://localhost:3002` passed on 2026-04-30.
 - Supabase/Auth/RLS Persistence post-merge QA: `npm install`, `npm run verify`, local demo headless-browser save/list/reload persistence, Supabase-configured unsigned save denial with dummy public env names, RLS migration static review, secret scan, and final `npm run verify` passed on 2026-04-30. Vercel commit status is successful.
 - Token Efficiency Audit v1 is docs-only. `npm run verify` passed on 2026-04-30 after the audit docs update.
+- `NEXT-017` PR readiness check passed on 2026-04-30: `npm run pr-ready` reports risk, blockers, Review Gate need, and the recommended verification command without running heavy verification by default; `npm run verify` also passed.
 
 ## Updated
 

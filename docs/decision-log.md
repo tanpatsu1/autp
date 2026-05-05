@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-04-30-005 - Adopt Read-only PR Readiness Check
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-04-30 |
+| Status | Accepted |
+| Decider | Orchestrator |
+| Roles Consulted | Automation Architect, Implementation, QA, Review Gate |
+| Context | `NEXT-017` needed a short read-only way to decide PR readiness before Review Gate without repeatedly loading long prompts or every project doc. |
+| Options Considered | Keep manual PR preflight checks; add a GitHub Action; add a local read-only npm script plus compact docs and prompt templates. |
+| Decision | Add `npm run pr-ready` as a local read-only preflight that reports branch, changed files, blockers, High/Medium/Low risk, Review Gate need, and the next verification command. |
+| Rationale | A local script gives Codex a concise readiness summary without modifying repo state or calling external services, and it avoids adding GitHub Actions or running heavy verification by default. |
+| Risks / Tradeoffs | Secret detection is heuristic and may produce false positives or miss unusual formats, so Review Gate and `npm run verify` still remain required before completion. |
+| Follow-up | Use `npm run pr-ready` before Review Gate and PR creation; update the script if repeated false positives or missing risk categories appear. |
+| Links | `scripts/pr-ready-check.mjs`, `docs/pr-readiness-check.md`, `docs/short-prompt-templates.md`, `docs/docs-reading-map.md`, `docs/review-log.md` |
+
 ### DEC-2026-04-30-003 - Defer Category And Tag Delete Policies
 
 | Field | Content |
