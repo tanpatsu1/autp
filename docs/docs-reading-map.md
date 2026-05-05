@@ -1,64 +1,75 @@
 # Docs Reading Map
 
-Use this map to reduce broad docs loading. Start with the smallest required set for the task type, then add optional docs only when the task touches that area.
+Use this map after `docs/context-intake-gate.md`. The default order is capsule, map, diff, targeted search, then full docs only with a reason.
 
-## Universal Base
+## Start Here
 
-| Use | Docs |
-| --- | --- |
-| Always read | `AGENTS.md`, `docs/compact-context.md`, `docs/automation-policy.md` |
-| Read when changing files | `docs/verification-loop.md`, changed files |
-| Read before closing work | `docs/review-log.md`, `docs/current-status.md`, `docs/task-board.md` |
-| Avoid by default | Old review-log history beyond the latest relevant entries, unrelated council docs, launch/growth docs for implementation-only tasks |
+1. Pick a task type in `docs/context-intake-gate.md`.
+2. Read one capsule from `docs/task-capsules.md`.
+3. Inspect changed files or the requested files.
+4. Search `docs/review-log.md` and `docs/decision-log.md` only when prior history is needed.
+5. Open domain docs only if the task type or `npm run pr-ready` points there.
+
+## Do Not Full-Read By Default
+
+- `docs/review-log.md`
+- `docs/decision-log.md`
+- `docs/automation-runbook.md`
+- unrelated Product, Data Model, RLS, Growth, Launch, or skill docs
+- full command logs after the first actionable failure is known
 
 ## Task Type Map
 
-| Task type | Required docs | Optional docs | Avoid docs unless directly relevant |
+| Task type | Required docs | Optional docs | Avoid unless directly relevant |
 | --- | --- | --- | --- |
-| Next task selection | `AGENTS.md`, `docs/compact-context.md`, `docs/task-board.md`, `docs/automation-policy.md` | `docs/skill-registry.md`, `docs/automation-registry.md`, `docs/feedback-inbox.md` | Feature specs, council docs, old review-log entries |
-| Review Gate | `AGENTS.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, `docs/review-log.md`, changed files | `docs/task-board.md`, `docs/current-status.md`, task-specific spec docs | Growth, launch, product council docs unless changed |
-| QA / Verification | `AGENTS.md`, `docs/verification-loop.md`, `docs/current-status.md`, changed files | `docs/review-log.md`, `docs/task-board.md`, preview notes | Decision history unless a verification decision is disputed |
-| Fix PR / CI failure | `AGENTS.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, failing log, changed files | `docs/review-log.md`, `docs/current-status.md`, `docs/task-board.md` | Product strategy docs unless the failure is scope-related |
-| Conflict fix | `AGENTS.md`, `docs/automation-policy.md`, `docs/automation-runbook.md`, conflicted files | `docs/review-log.md`, `docs/decision-log.md` entries related to conflicted docs | Unconflicted feature docs |
-| Supabase/RLS review | `AGENTS.md`, `docs/automation-policy.md`, `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, changed Supabase files and migrations | `docs/verification-loop.md`, `docs/review-log.md`, `docs/feedback-inbox.md` | Growth, launch, general product direction docs |
-| PR readiness | `AGENTS.md`, `docs/compact-context.md`, `docs/pr-readiness-check.md`, `docs/automation-policy.md`, `docs/verification-loop.md`, `docs/review-log.md`, changed files, `npm run pr-ready` output | `docs/current-status.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/automation-runbook.md`, `docs/feedback-inbox.md` | Deep historical logs unrelated to the PR |
-| gh fallback | `AGENTS.md`, `docs/automation-policy.md`, PR readiness summary | `docs/automation-runbook.md` | Product, data, design, launch docs |
-| Vercel preview QA | `AGENTS.md`, `docs/verification-loop.md`, `docs/current-status.md`, PR/change summary | `docs/review-log.md`, `docs/task-board.md`, Vercel deployment logs | Data model docs unless persistence is under test |
-| Product scope | `AGENTS.md`, `docs/automation-policy.md`, `docs/task-board.md`, `docs/product-spec.md` or requested product doc | `docs/review-protocol.md`, `docs/decision-log.md`, `docs/roadmap.md` | Implementation files unless estimating feasibility |
-| Design review | `AGENTS.md`, `docs/automation-policy.md`, changed UI files, relevant product spec | `docs/verification-loop.md`, `docs/review-protocol.md` | Supabase/RLS docs unless data states affect UI |
-| Growth or launch draft | `AGENTS.md`, `docs/automation-policy.md`, `docs/feedback-inbox.md`, requested copy docs | `docs/current-status.md`, `docs/review-log.md`, `docs/launch-checklist.md` if present | Implementation and migration files |
-| Docs-only audit | `AGENTS.md`, `docs/compact-context.md`, `docs/automation-policy.md`, docs named by the request | `docs/review-log.md`, `docs/decision-log.md`, `docs/task-board.md` | App code, migration SQL, unrelated council folders |
-
-For consolidated short operations, also read `docs/skill-consolidation-v1.md` only when choosing or changing the shortcut itself. Routine execution should use the operation-specific sets above.
+| Next task selection | `AGENTS.md`, `docs/task-capsules.md` `next-task-selection`, `docs/compact-context.md`, `docs/task-board.md`, `docs/automation-policy.md` | `docs/skill-registry.md`, `docs/automation-registry.md`, `docs/feedback-inbox.md` | Product/data/RLS docs until a task is selected |
+| PR readiness | `AGENTS.md`, `docs/context-intake-gate.md`, `docs/pr-readiness-check.md`, changed-file list | Domain docs named by risk output | Full review/decision logs |
+| Review Gate | `docs/review-gate-matrix.md`, `docs/pr-readiness-check.md`, `npm run pr-ready` output, changed files | Domain docs named by High-risk changes | Full Review Gate without written reason |
+| QA / verification | `docs/task-capsules.md` `qa-verification`, `docs/verification-loop.md`, changed files or failing output | `docs/pr-readiness-check.md` when PR-bound | Decision history unless a verification decision is disputed |
+| Fix PR / CI failure | `docs/task-capsules.md`, `docs/pr-readiness-check.md`, failing log, changed files | Owning domain doc for the failing area | Product strategy docs unless scope-related |
+| Conflict fix | `docs/task-capsules.md` `conflict-fix`, `docs/pr-readiness-check.md`, conflicting files | Targeted log/decision entries for conflicted docs | Unconflicted feature docs and broad refactors |
+| Supabase / Auth / RLS / Env | `docs/task-capsules.md` `supabase-persistence`, `docs/automation-policy.md`, `docs/data-model.md`, `docs/supabase-schema.md`, `docs/rls-policy.md`, changed files | `docs/verification-loop.md`, targeted log/decision search by domain | Growth, launch, general product direction docs |
+| Vercel preview QA | `AGENTS.md`, `docs/verification-loop.md`, PR/change summary, preview/deployment output | `docs/review-log.md` targeted entry | Data model docs unless persistence is under test |
+| Product scope | `AGENTS.md`, `docs/automation-policy.md`, requested product doc | `docs/review-protocol.md`, targeted decision entry | App code unless estimating feasibility |
+| Design review | `AGENTS.md`, `docs/automation-policy.md`, changed UI files, relevant product spec | `docs/verification-loop.md` | Supabase/RLS docs unless data states affect UI |
+| Growth or launch draft | `AGENTS.md`, `docs/automation-policy.md`, `docs/feedback-inbox.md`, requested copy docs | `docs/current-status.md` targeted sections | Implementation and migration files |
+| Docs-only audit | `AGENTS.md`, `docs/context-intake-gate.md`, docs named by request | Targeted logs/decisions by task id or file | App code, migration SQL, unrelated council folders |
+| Token architecture | `AGENTS.md`, `docs/context-intake-gate.md`, `docs/task-capsules.md`, `docs/docs-reading-map.md`, `docs/short-prompt-templates.md`, `docs/review-gate-matrix.md` | Targeted log/decision entries for token, prompt, QA, Review Gate | Full logs, unrelated skills, app implementation |
 
 ## Command Shortcuts
 
-## PR Readiness Shortcut
-
-For PR readiness and pre-Review Gate checks, run:
+For PR readiness and pre-Review Gate checks:
 
 ```bash
 npm run pr-ready
 ```
 
-Use its short summary to decide whether to read deeper domain docs. Run `npm run verify` only when the change is ready for full verification or when policy requires it.
+For PR-bound QA, Fix PR, Conflict fix, and Supabase/RLS review:
 
-For PR-bound QA, Fix PR, Conflict fix, and Supabase/RLS review, start with `npm run pr-ready`, resolve blockers, then run `npm run verify`. For Fix PR and Conflict fix, run `npm run pr-ready` again after verification to confirm no conflict markers, unsafe files, secret-like values, or new high-risk blockers were introduced.
+```bash
+npm run pr-ready
+npm run verify
+npm run pr-ready
+```
 
-## Latest-Only Rule
+Skip the final `npm run pr-ready` only when no files changed after verification.
 
-For `docs/review-log.md` and `docs/decision-log.md`, read the latest relevant entries first. Load older entries only when:
+## Targeted Log Rule
 
-- the task asks for historical audit,
-- the latest entry links to an older decision,
-- a conflict requires preserving branch intent,
-- a repeated workflow is being counted.
+For `docs/review-log.md` and `docs/decision-log.md`, search by task id, date, domain, or changed file. Read only the matching entry and nearby lines.
 
 ## Token Efficiency Rule
 
-Do not load every project doc for routine PR readiness. Prefer compact context, `npm run pr-ready` output, changed files, and only the domain docs named by the risk output.
+Prefer:
 
-Use `docs/skill-consolidation-v1.md` to decide whether a repeated workflow belongs in an existing skill, a runbook shortcut, or a future skill proposal.
+1. Context Intake Gate.
+2. Task capsule.
+3. Reading map.
+4. Git diff and changed files.
+5. Targeted search.
+6. Domain docs.
+
+Full reads are exceptions, not defaults.
 
 ## Shared Docs Write Rule
 

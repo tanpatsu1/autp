@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-05-05-002 - Adopt Token Architecture v1
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-05-05 |
+| Status | Accepted |
+| Decider | Orchestrator |
+| Roles Consulted | Automation Architect, QA, Review Gate |
+| Context | Recent Codex runs reached 100k+ token scale because short prompts alone did not stop broad docs reads, skill reads, log reads, full Review Gate, broad QA, command output, or long final reports. |
+| Options Considered | Keep relying on short prompts; add more skills; create a pre-work token architecture that decides reads, Review Gate level, QA scope, and output length before work starts. |
+| Decision | Adopt `docs/token-architecture-v1.md`, `docs/context-budget-policy.md`, `docs/context-intake-gate.md`, `docs/task-capsules.md`, and `docs/review-gate-matrix.md`; update the reading map and prompt templates to prioritize capsule / map / diff / targeted search before full docs. |
+| Rationale | A mandatory intake gate lets Codex reduce context before reading, while task capsules preserve safety rules and domain handoffs without repeatedly loading long docs. |
+| Risks / Tradeoffs | Smaller intake can miss stale context if capsules drift, so high-risk domains still require targeted log/decision searches and domain docs. Full Review Gate remains available only with a written reason. |
+| Follow-up | Keep capsules current when repeated workflows appear; consider a future dedicated token-budget skill only if the docs-based gate is not enough. |
+| Links | `docs/token-architecture-v1.md`, `docs/context-budget-policy.md`, `docs/context-intake-gate.md`, `docs/task-capsules.md`, `docs/docs-reading-map.md`, `docs/short-prompt-templates.md`, `docs/review-gate-matrix.md`, `docs/review-log.md` |
+
 ### DEC-2026-05-05-001 - Adopt Skill Consolidation v1 Shortcuts
 
 | Field | Content |
