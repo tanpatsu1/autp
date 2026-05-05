@@ -134,6 +134,18 @@ Codex records work history, verification status, safety checks, and next recomme
 | Remaining Blockers | Supabase live connection is not verified; final public production launch requires human confirmation |
 | Next Recommended Task | `NEXT-001`: define the smallest URL-saving MVP scope in docs only |
 
+## 2026-05-05 Fast Save QA
+
+| Item | Content |
+| --- | --- |
+| Work | Ran Fast Save QA in Token Architecture v1 minimal-context mode on branch `codex/qa-fast-save`; no app implementation was changed |
+| Changed Files | `docs/current-status.md`, `docs/review-log.md` |
+| Verification | Passed: `npm run pr-ready` (blockers 0, High risk due existing changed files, Review Gate required); passed: `npm run verify` (`lint`, `typecheck`, `build`) |
+| Fast Save Check | Blocked: a fresh local server on `127.0.0.1:3010` rendered the starter page (`URL Manager Automation Ready`) and did not expose Fast Save UI elements (`Fast save`, `Saved URLs`, URL input, submit button) |
+| Safety Check | QA/docs-only change; no app implementation, no env values, no billing, no external posting, no Supabase production DB changes, no weaker RLS, no service role key use, and no final production launch |
+| Remaining Blockers | Fast Save primary behavior cannot be fully verified because the current worktree does not expose the Fast Save UI; GitHub CLI `gh` is not installed, so PR creation must use the GitHub connector or remain blocked |
+| Next Recommended Task | Restore or implement the Fast Save UI in `NEXT-003`, then rerun `npm run pr-ready`, `npm run verify`, and targeted local UI QA |
+
 ## Entry Template
 
 | Item | Content |

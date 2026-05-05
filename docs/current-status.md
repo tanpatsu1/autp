@@ -89,6 +89,7 @@
 ## Open Issues
 
 - Supabase live connection is not verified.
+- Fast Save primary behavior is not verified on 2026-05-05 because the fresh local app render showed the starter page and no Fast Save UI elements.
 - Final public production launch remains blocked by `HumanConfirmationRequired`.
 
 ## Next Task
@@ -117,6 +118,7 @@ The next automation-specific task is `NEXT-005`: design the implementation plan 
 - `NEXT-017` PR readiness check: `npm run pr-ready` and `npm run verify` passed on 2026-04-30.
 - `NEXT-018` Skill Consolidation v1: `npm run pr-ready` and `npm run verify` passed on 2026-05-05. `npm run pr-ready` reported High risk because the wider working tree contains existing high-risk changes, but found no blockers.
 - `NEXT-019` Token Architecture v1: verification is recorded in `docs/review-log.md`.
+- Fast Save QA on branch `codex/qa-fast-save`: `npm run pr-ready` passed with blockers 0 and High risk from existing changed files; `npm run verify` passed; targeted local UI QA is blocked because Fast Save UI elements are absent from the fresh local render.
 
 ## Updated
 
