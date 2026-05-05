@@ -35,6 +35,7 @@
 - `docs/pr-readiness-check.md`: read-only PR readiness, blocker detection, risk level, and Review Gate preflight.
 - `docs/short-prompt-templates.md`: compact prompts for PR readiness, Review Gate, TaskBoardLoop, and verification.
 - `docs/docs-reading-map.md`: smaller reading sets for PR readiness, Review Gate, QA, and high-risk domains.
+- `docs/skill-consolidation-v1.md`: consolidated shortcuts, reading rules, runbook boundaries, and future skillization priorities for repeated Codex operations.
 - `docs/skill-registry.md`: English skill names and purposes.
 - `docs/automation-registry.md`: English automation loop names and triggers.
 - `docs/collaboration-protocol.md`: role collaboration, debate, Orchestrator decision flow, and HumanGate routing.
@@ -93,6 +94,8 @@ The next automation-specific task is `NEXT-005`: design the implementation plan 
 
 `NEXT-017` PR readiness check is complete for Automation Foundation v1 / Token Efficiency: it adds `npm run pr-ready`, docs, short prompts, and reading-map guidance without GitHub Actions, app feature changes, env values, Supabase production DB changes, commits, pushes, or PR creation.
 
+`NEXT-018` Skill Consolidation v1 is complete: repeated Review Gate, QA, Fix PR, Supabase-RLS review, Conflict fix, and Next task selection prompts are shortened and tied to `npm run pr-ready` plus `npm run verify` before PR-bound completion.
+
 ## Verification Status
 
 - Automation goal update is docs-only. `npm run verify` passed on 2026-04-29.
@@ -105,7 +108,8 @@ The next automation-specific task is `NEXT-005`: design the implementation plan 
 - URL-saving MVP automation-goal alignment is docs-only. Verification is recorded in `docs/review-log.md`.
 - URL-saving data model and RLS proposal is docs-only. `npm run verify` passed on 2026-04-29.
 - `NEXT-017` PR readiness check: `npm run pr-ready` and `npm run verify` passed on 2026-04-30.
+- `NEXT-018` Skill Consolidation v1: `npm run pr-ready` and `npm run verify` passed on 2026-05-05. `npm run pr-ready` reported High risk because the wider working tree contains existing high-risk changes, but found no blockers.
 
 ## Updated
 
-- 2026-04-30
+- 2026-05-05

@@ -21,6 +21,7 @@
 | NEXT-004 | Open | Growth | Draft launch copy, FAQ, and onboarding text | Drafts exist locally and nothing is posted externally |
 | NEXT-005 | Open | Automation | Design the next automation implementation plan for scheduled task discovery, role council review, PR merge-candidate checks, Vercel failure diagnosis, Supabase preview diagnostics, and docs sync | Plan exists in docs only and does not add GitHub Actions, env values, billing, production DB changes, or launch execution |
 | NEXT-017 | Done | Automation Architect / PR Readiness Check | Add a read-only PR readiness check that reduces repeated manual Review Gate and PR preflight prompts | `npm run pr-ready` exists, PR readiness docs and short prompts exist, Review Gate need is reported, and token-efficiency impact is logged |
+| NEXT-018 | Done | Automation Architect / Skill Consolidation v1 | Consolidate repeated Codex operations into shorter prompts, reading maps, runbook shortcuts, and skillization priorities | `docs/skill-consolidation-v1.md` exists; Review Gate, QA, Fix PR, Supabase-RLS review, Conflict fix, and Next task shortcuts include `npm run pr-ready`; skillization priorities are recorded |
 
 ## Later
 
@@ -54,3 +55,7 @@
 ## Next Automation Task
 
 `NEXT-005` is the next automation-specific implementation-planning task. It should define how to safely implement scheduled discovery, role council review, PR merge-candidate checks, Vercel failure diagnosis, Supabase preview diagnostics, and automatic docs sync without starting code implementation in this policy update.
+
+## Shortcut Rule
+
+For future short instructions, use `docs/short-prompt-templates.md` and `docs/skill-consolidation-v1.md` instead of pasting a long prompt. PR-bound work should run `npm run pr-ready` before Review Gate and `npm run verify` before PR creation when files changed.

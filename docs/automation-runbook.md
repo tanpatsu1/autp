@@ -21,6 +21,22 @@ This runbook turns the automation registry into live Codex operation. The first 
 | 5 | `CIFixLoop` | On demand | Fixes safe CI, lint, typecheck, or build failures. |
 | 6 | `LaunchPrepLoop` | Later | Drafts local launch materials, but never launches publicly. |
 
+## Skill Consolidation v1 Shortcuts
+
+Use these shortcuts when the user asks for a common operation and does not paste a long prompt. The detailed prompt text lives in `docs/short-prompt-templates.md`; the reading sets live in `docs/docs-reading-map.md`; the consolidation rationale lives in `docs/skill-consolidation-v1.md`.
+
+| Shortcut | Meaning | Required Check Sequence |
+| --- | --- | --- |
+| `autp pr-ready` | Run read-only PR readiness only. | `npm run pr-ready` |
+| `autp review` | Run Review Gate on changed files. | `npm run pr-ready` then `npm run verify` when blockers are clear |
+| `autp qa` | Run local verification and log blockers. | `npm run pr-ready` then `npm run verify` |
+| `autp fix-pr` | Fix review, CI, readiness, or docs-drift blockers. | `npm run pr-ready`, targeted fix, `npm run verify`, `npm run pr-ready` |
+| `autp rls-review` | Review Supabase, Auth, env, SQL, migration, and RLS risk. | `npm run pr-ready`, focused Review Gate, `npm run verify` |
+| `autp conflict` | Resolve conflict markers only. | `npm run pr-ready`, conflict fix, `npm run verify`, `npm run pr-ready` |
+| `autp next` | Run compact TaskBoardLoop. | Verify according to the selected task, then `npm run pr-ready` before PR |
+
+Shortcuts never bypass `HumanGate`.
+
 ## Branch Hygiene And Conflict Prevention
 
 Use this section for every Codex-owned work branch and PR.
@@ -86,6 +102,14 @@ Use this exact prompt when the user says `次進めて` or asks Codex to continu
 
 ```text
 Run TaskBoardLoop for autp. Read AGENTS.md, docs/current-status.md, docs/automation-policy.md, docs/automation-registry.md, docs/task-board.md, docs/skill-registry.md, docs/feedback-inbox.md, docs/verification-loop.md, and docs/review-log.md. Before starting a new branchable task, update main, run npm install, run npm run verify, and branch from latest main; preserve unrelated local work with a clean worktree if needed. Select the first Open safe task from docs/task-board.md in this order: Now, then Next, then Later. Skip Done, Waiting, and Blocked items. Choose the required autp Skill or Skills from docs/skill-registry.md. If the selected task requires HumanConfirmationRequired, do not perform it; add it to docs/feedback-inbox.md and record the stop in docs/review-log.md. Otherwise complete one small safe batch, run verification when relevant, use ReviewGate before finishing, update docs/current-status.md, docs/review-log.md, and docs/task-board.md, sync the PR branch with latest main, resolve conflicts directly, run npm run verify, and create a PR if files changed. Do not implement the full URL-saving MVP during automation-foundation work. Do not add real env values, charge money, post externally, change production DB, delete production data, weaken RLS, use service role keys, or execute final public production launch.
+```
+
+## Compact TaskBoardLoop Prompt
+
+Use this when the user says `autp next`:
+
+```text
+autp next. Use AGENTS.md, compact context, task board, automation policy, and review log. Pick the first safe Open task, complete one small reversible batch, run npm run pr-ready and npm run verify before PR, update docs, and stop for HumanGate.
 ```
 
 ## TaskBoardLoop Steps

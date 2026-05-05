@@ -32,6 +32,22 @@ Do not record routine typo fixes, formatting changes, or purely mechanical updat
 
 ## Decisions
 
+### DEC-2026-05-05-001 - Adopt Skill Consolidation v1 Shortcuts
+
+| Field | Content |
+| --- | --- |
+| Date | 2026-05-05 |
+| Status | Accepted |
+| Decider | Orchestrator |
+| Roles Consulted | Automation Architect, Skill Discovery, QA, Review Gate |
+| Context | Future autp work should require less pasted prompt text for repeated Review Gate, QA, PR fix, Supabase-RLS review, conflict fix, and next-task selection operations. |
+| Options Considered | Keep long prompts; create many new skills immediately; consolidate into short prompts and runbook shortcuts first, then propose new skills only for repeated gaps. |
+| Decision | Adopt `docs/skill-consolidation-v1.md`, micro prompts in `docs/short-prompt-templates.md`, expanded operation reading sets in `docs/docs-reading-map.md`, and runbook shortcuts in `docs/automation-runbook.md`. |
+| Rationale | Existing `autp-review-gate`, `autp-qa`, and `autp-orchestrator` skills already cover common work. A lighter prompt layer reduces token load while keeping policy, `npm run pr-ready`, `npm run verify`, and HumanGate visible. |
+| Risks / Tradeoffs | Short prompts depend on Codex correctly honoring project docs; Review Gate and `npm run pr-ready` remain required to catch scope, secret, conflict, and high-risk-area issues. |
+| Follow-up | Consider future `autp-supabase-rls-review` and `autp-fix-pr` skills if those workflows repeat often. |
+| Links | `docs/skill-consolidation-v1.md`, `docs/short-prompt-templates.md`, `docs/docs-reading-map.md`, `docs/automation-runbook.md`, `docs/task-board.md`, `docs/current-status.md`, `docs/review-log.md` |
+
 ### DEC-2026-04-30-001 - Adopt Read-only PR Readiness Check
 
 | Field | Content |
