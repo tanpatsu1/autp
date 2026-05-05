@@ -11,9 +11,21 @@ Codex records work history, verification status, safety checks, and next recomme
 | Verification | Passed: `npm run pr-ready` exited 0 with High risk, no blockers, and Review Gate required because the wider working tree has existing high-risk changes; `npm run verify` passed (`lint`, `typecheck`, `build`) on 2026-05-05. |
 | Review Gate | Passed for this docs-only consolidation: no app implementation, no GitHub Actions additions, no env values, no service role key use, no Supabase production changes, no SQL production execution, no weaker RLS, no billing, no external posting, and no final public launch. |
 | Safety Check | Docs-only consolidation; no app feature implementation, no GitHub Actions additions, no env values, no service role key use, no Supabase production DB changes, no SQL production execution, no weaker RLS, no billing, no external posting, and no final public production launch. |
-| Missing Requested Inputs | `docs/token-efficiency-audit-v1.md` and `docs/skill-consolidation-plan.md` are not present in this checkout, so this pass used the available `NEXT-017` docs and current automation docs. |
+| Missing Requested Inputs | `docs/token-efficiency-audit-v1.md` and `docs/skill-consolidation-plan.md` were not present in the original checkout, so this pass used the available `NEXT-017` docs and current automation docs. |
 | Remaining Blockers | Supabase live connection remains unverified; final public production launch remains `HumanConfirmationRequired`. |
-| Next Recommended Task | Use the new micro prompts for common operations; continue `NEXT-005` as the next automation-specific planning task or `NEXT-003` as the next product implementation task when appropriate. |
+| Next Recommended Task | Use the new micro prompts for common operations; continue `NEXT-015` after `BLOCKED-005` is resolved. |
+
+## 2026-05-05 Fast Save / Capture Implementation
+
+| Item | Content |
+| --- | --- |
+| Work | Implemented the first in-app Fast Save / Capture slice. The new-save form is URL-first, optional title/category/tags/memo/favorite fields are collapsed behind organization controls, new URL-only saves record `capture_source = fast_save`, fallback titles are still generated from the URL, and unorganized records display as `needs_review` with later editing available. |
+| Changed Files | `app/saved-url-manager.tsx`, `app/saved-url-manager.module.css`, `lib/supabase/saved-urls.ts`, `docs/current-status.md`, `docs/task-board.md`, `docs/review-log.md` |
+| Verification | Passed: `npm run lint`, `npm run typecheck`, `npm run build`, local dev HTTP 200 at `http://localhost:3004`, `npm run pr-ready`, and final `npm run verify` on 2026-05-05. |
+| Review Gate | Required because `npm run pr-ready` reported High risk from Supabase/Auth/RLS-adjacent app helper changes. Review found no High or Medium issues: owner-scoped queries remain in place, signed-out Supabase-configured saves remain blocked, and the migration/RLS posture is not weakened. |
+| Safety Check | No real env values, service role key, Supabase production DB change, SQL execution, RLS weakening, iframe, embedded browsing, bookmarklet, Chrome extension, Web Share Target, scraping, AI summary, billing, external posting, domain purchase, or production launch. |
+| Remaining Blockers | Live Supabase Auth sign-in, persistence reload, and two-user RLS denial remain blocked on safe local/preview Supabase configuration outside the repo. |
+| Next Recommended Task | `NEXT-015`: QA / Vercel / Supabase Verification after `BLOCKED-005` is resolved. |
 
 ## 2026-04-30 PR Readiness Check
 
