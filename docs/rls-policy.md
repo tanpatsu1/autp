@@ -2,7 +2,7 @@
 
 ## Scope
 
-This document defines the RLS posture for the private URL-saving MVP. It is a proposal only: no SQL policy is created here and no Supabase project is changed.
+This document defines the RLS posture for the private URL-saving MVP. `NEXT-010` converts the posture into a reviewed migration draft at `supabase/migrations/20260430000000_url_saving_persistence.sql`, but no SQL was run against any Supabase project by automation.
 
 ## Security Goal
 
@@ -53,10 +53,10 @@ Saved URLs must not be assigned to categories owned by another user. Enforce thr
 
 | Operation | Proposed Rule |
 | --- | --- |
-| Select | Allow only when the linked saved URL is owned by `auth.uid()` |
-| Insert | Allow only when both linked saved URL and linked tag are owned by `auth.uid()` |
+| Select | Allow only when `owner_id = auth.uid()`; composite FKs ensure the linked saved URL and tag share that owner |
+| Insert | Allow only when `owner_id = auth.uid()` and both linked saved URL and linked tag are owned by `auth.uid()` |
 | Update | No update needed for MVP; replace links by deleting and inserting owned links |
-| Delete | Allow only when the linked saved URL is owned by `auth.uid()` |
+| Delete | Allow only when `owner_id = auth.uid()` |
 
 The join table must prevent cross-user links. A user must never be able to connect their saved URL to another user's tag, or another user's saved URL to their tag.
 
@@ -67,8 +67,9 @@ The join table must prevent cross-user links. A user must never be able to conne
 | `owner_id` is required on every user-owned table | Enables simple RLS predicates |
 | `owner_id` is immutable after insert | Prevents record transfer or ownership spoofing |
 | Category and tag labels are unique per user, not globally | Prevents cross-user leakage and naming conflicts |
-| Join rows require same-owner saved URL and tag | Prevents cross-user relationship leaks |
+| Join rows carry `owner_id` and require same-owner saved URL and tag through composite foreign keys | Prevents cross-user relationship leaks |
 | App queries still pass explicit owner filters where practical | Makes intent clear and helps review, while RLS remains the hard boundary |
+| URL-only saves use `organization_state = needs_review` instead of weakening required URL/title/owner constraints | Keeps fast save compatible with RLS and later organization |
 
 ## RLS Test Cases For QA And Review Gate
 
@@ -84,6 +85,7 @@ The join table must prevent cross-user links. A user must never be able to conne
 | User A links own URL to User B tag | Denied |
 | User A searches by a keyword matching User B data | User B data remains invisible |
 | User A deletes own saved URL if delete is implemented | Only User A row and related join rows are removed |
+| User A creates a URL-only save with fallback title and no category/tags/memo | Success, with `capture_source = manual_form` and `organization_state = needs_review` |
 
 ## Review Gate Checks
 
@@ -98,6 +100,7 @@ Before Implementation closes the first URL-saving PR, Review Gate should confirm
 - no policy permits cross-user category/tag/join access;
 - search queries cannot return another user's rows;
 - delete behavior, if included, only affects the authenticated user's own rows.
+- `capture_source` and `organization_state` do not create alternate access paths or public visibility.
 
 ## Rollback And Failure Notes
 
