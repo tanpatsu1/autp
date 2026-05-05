@@ -1,28 +1,31 @@
 # Docs Reading Map
 
-Use this map to reduce repeated docs loading. Read the smallest set that covers the task, then open deeper docs only when the change touches that area.
+Use this map after `docs/context-intake-gate.md`. The default order is capsule, map, diff, targeted search, then full docs only with a reason.
 
-## Always Start Small
+## Start Here
 
-For most autp work:
+1. Pick a task type in `docs/context-intake-gate.md`.
+2. Read one capsule from `docs/task-capsules.md`.
+3. Inspect changed files or the requested files.
+4. Search `docs/review-log.md` and `docs/decision-log.md` only when prior history is needed.
+5. Open domain docs only if the task type or `npm run pr-ready` points there.
 
-1. `AGENTS.md`
-2. `docs/compact-context.md`
-3. `docs/automation-policy.md`
-4. `docs/task-board.md`
-5. `docs/review-log.md`
+## Do Not Full-Read By Default
 
-For consolidated short operations, also read `docs/skill-consolidation-v1.md` only when choosing or changing the shortcut itself. Routine execution should use the operation-specific sets below.
+- `docs/review-log.md`
+- `docs/decision-log.md`
+- `docs/automation-runbook.md`
+- unrelated Product, Data Model, RLS, Growth, Launch, or skill docs
+- full command logs after the first actionable failure is known
 
 ## PR Readiness
 
 Read:
 
 - `AGENTS.md`
-- `docs/compact-context.md`
+- `docs/context-intake-gate.md`
 - `docs/pr-readiness-check.md`
-- `docs/automation-policy.md`
-- `docs/review-log.md`
+- changed-file list
 
 Run:
 
@@ -30,42 +33,40 @@ Run:
 npm run pr-ready
 ```
 
-Open additional docs only when `npm run pr-ready` reports High-risk files or Review Gate needs more context.
+Open extra docs only when risk output names a domain or blocker.
 
 ## Review Gate
 
 Read:
 
-- `AGENTS.md`
-- `docs/compact-context.md`
-- `docs/review-protocol.md`
+- `docs/review-gate-matrix.md`
 - `docs/pr-readiness-check.md`
-- `docs/automation-policy.md`
-- `docs/review-log.md`
+- `npm run pr-ready` output
 - changed files
 
-Use `npm run pr-ready` first to find blockers and risk level. Read Product, Data Model, RLS, Launch, or Growth docs only if the changed files or task scope touches those areas.
+Use targeted domain docs only for High-risk areas. Full Review Gate requires a written reason.
 
 ## QA / Verification
 
 Read:
 
-- `AGENTS.md`
-- `docs/compact-context.md`
+- `docs/task-capsules.md` `qa-verification`
 - `docs/verification-loop.md`
-- `docs/pr-readiness-check.md`
-- changed files
+- changed files or failing output
 
-Run `npm run pr-ready` for quick blocker detection, then run `npm run verify` when the change is ready for full verification or when policy requires it.
+Run the requested check first. For PR-bound changed files, run:
+
+```bash
+npm run pr-ready
+npm run verify
+```
 
 ## Fix PR
 
 Read:
 
-- `AGENTS.md`
-- `docs/compact-context.md`
+- `docs/task-capsules.md`
 - `docs/pr-readiness-check.md`
-- `docs/review-log.md`
 - failing CI output, review comments, or readiness output
 - changed files
 
@@ -77,14 +78,13 @@ npm run verify
 npm run pr-ready
 ```
 
-Use the second `npm run pr-ready` to confirm the fix did not introduce conflict markers, secrets, unsafe files, or new high-risk blockers.
+Patch only the blocker.
 
 ## Conflict Fix
 
 Read:
 
-- `AGENTS.md`
-- `docs/compact-context.md`
+- `docs/task-capsules.md` `conflict-fix`
 - `docs/pr-readiness-check.md`
 - conflicting files
 
@@ -100,43 +100,38 @@ Do not refactor while resolving conflicts unless the conflict cannot be resolved
 
 ## Supabase / Auth / RLS / Env
 
-Read the core set plus the specific relevant docs:
+Read:
 
+- `docs/task-capsules.md` `supabase-persistence`
+- `docs/automation-policy.md`
 - `docs/data-model.md`
 - `docs/supabase-schema.md`
 - `docs/rls-policy.md`
-- `docs/automation-policy.md`
+- changed files
 
-These changes are High-risk for PR readiness and require careful Review Gate.
-
-Run:
-
-```bash
-npm run pr-ready
-npm run verify
-```
-
-Stop for HumanGate before real env values, service role keys, production DB changes, production SQL execution, DB table deletion, or weaker RLS.
+Search logs and decisions by `Supabase`, `Auth`, `RLS`, `env`, `SQL`, and changed file names. Stop for HumanGate before real env values, service role keys, production DB changes, production SQL execution, DB deletion, or weaker RLS.
 
 ## Next Task Selection
 
 Read:
 
 - `AGENTS.md`
+- `docs/task-capsules.md` `next-task-selection`
 - `docs/compact-context.md`
 - `docs/task-board.md`
 - `docs/automation-policy.md`
-- `docs/review-log.md`
 
-Run `npm run pr-ready` only after files are edited. Run `npm run verify` before PR creation when the task changes code, config, CI, scripts, security posture, or risky automation docs.
+Do not read product/data/RLS docs until a task is selected.
 
 ## Token Efficiency Rule
 
-Do not load every project doc for routine PR readiness. Prefer:
+Prefer:
 
-1. Compact context.
-2. `npm run pr-ready` output.
-3. Changed files.
-4. Only the domain docs named by the risk output.
+1. Context Intake Gate.
+2. Task capsule.
+3. Reading map.
+4. Git diff and changed files.
+5. Targeted search.
+6. Domain docs.
 
-Use `docs/skill-consolidation-v1.md` to decide whether a repeated workflow belongs in an existing skill, a runbook shortcut, or a future skill proposal.
+Full reads are exceptions, not defaults.

@@ -2,6 +2,19 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-05-05 Token Architecture v1
+
+| Item | Content |
+| --- | --- |
+| Work | Added a token architecture that classifies 100k+ token causes, defines Token Budget Classes, adds a Context Intake Gate, introduces task capsules, updates the reading map and prompt templates, and creates a risk-based Review Gate matrix. |
+| Changed Files | `docs/token-architecture-v1.md`, `docs/context-budget-policy.md`, `docs/context-intake-gate.md`, `docs/task-capsules.md`, `docs/docs-reading-map.md`, `docs/short-prompt-templates.md`, `docs/review-gate-matrix.md`, `docs/task-board.md`, `docs/decision-log.md`, `docs/review-log.md`, `docs/current-status.md` |
+| Verification | Passed: `npm run pr-ready` exited 0 with High risk, no blockers, and Review Gate required because the wider working tree contains existing high-risk changes; `npm run verify` passed (`lint`, `typecheck`, `build`) on 2026-05-05. |
+| Review Gate | Lightweight pass for this medium-risk automation-docs change: low-risk work can skip dedicated Review Gate, medium-risk work uses `npm run pr-ready` to decide, high-risk Supabase/Auth/RLS work requires lightweight Review Gate, and full Review Gate is allowed only with a written reason. |
+| Safety Check | Docs-only; no app feature implementation, no GitHub Actions additions, no env values, no service role key use, no Supabase production DB changes, no SQL production execution, no weaker RLS, no billing, no external posting, and no final public production launch. |
+| Token Efficiency Impact | Future Codex runs can choose required docs, optional docs, forbidden full reads, Review Gate level, QA scope, command output budget, and final output length before reading long docs. |
+| Remaining Blockers | Supabase live connection remains unverified; final public production launch remains `HumanConfirmationRequired`. |
+| Next Recommended Task | Use Context Intake Gate plus task capsules for the next Codex run; continue `NEXT-005` for automation planning or `NEXT-003` for product implementation when appropriate. |
+
 ## 2026-05-05 Skill Consolidation v1
 
 | Item | Content |

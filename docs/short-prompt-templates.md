@@ -1,63 +1,61 @@
 # Short Prompt Templates
 
-Use these prompts instead of pasting a long project brief. Each PR-bound prompt starts with `npm run pr-ready`; each changed-files PR should run `npm run verify` before completion.
+Use these instead of long project briefs. Codex should run `docs/context-intake-gate.md` first, then choose the capsule and checks.
 
 ## Micro Prompts
 
 ### PR Readiness
 
 ```text
-autp pr-ready. Use compact context. Run npm run pr-ready; report blockers, risk, Review Gate need, and next check only.
+autp pr-ready. Gate first. Run npm run pr-ready. Report blockers, risk, Review Gate level, next check.
 ```
 
 ### Review Gate
 
 ```text
-autp review. Use compact context. Run npm run pr-ready, Review Gate changed files, then npm run verify if blockers are clear.
+autp review. Gate first. Use review-gate-matrix, pr-ready output, changed files. Full Review Gate only with reason.
 ```
 
 ### QA
 
 ```text
-autp qa. Use compact context. Run npm run pr-ready, then npm run verify; log exact blockers.
+autp qa. Gate first. Use qa capsule. Run requested check, then npm run verify if PR-bound. Log blockers only.
 ```
 
 ### Fix PR
 
 ```text
-autp fix-pr. Use compact context and review/CI output. Patch only the blocker, run npm run pr-ready, npm run verify, then npm run pr-ready again.
+autp fix-pr. Gate first. Patch only blocker. Run pr-ready, verify, pr-ready. Keep output short.
 ```
 
 ### Supabase / RLS Review
 
 ```text
-autp rls-review. Use compact context plus data-model, schema, and RLS docs. Run npm run pr-ready, review for weaker RLS/secrets/prod DB risk, then npm run verify.
+autp rls-review. Gate high-risk. Use supabase capsule. No secrets, service role, prod SQL, prod DB, or weaker RLS.
 ```
 
 ### Conflict Fix
 
 ```text
-autp conflict. Use compact context. Resolve only conflict markers, run npm run pr-ready, npm run verify, then npm run pr-ready again.
+autp conflict. Gate first. Resolve markers only. Run pr-ready, verify, pr-ready.
 ```
 
 ### Next Task
 
 ```text
-autp next. Use TaskBoardLoop compact set. Pick the first safe Open task, do one small batch, run npm run pr-ready and npm run verify before PR, and stop for HumanGate.
+autp next. Gate first. Use next-task capsule. Pick first safe Open task. Do one small batch.
 ```
 
-## Expanded Prompts
-
-Use these only when a new Codex thread needs more explicit direction.
-
-### PR Readiness Check
+### Token Architecture
 
 ```text
-Run PR readiness for autp. Read AGENTS.md, docs/compact-context.md, docs/pr-readiness-check.md, docs/automation-policy.md, and docs/review-log.md. Run npm run pr-ready, summarize risk, blockers, Review Gate need, and the recommended verification command. Do not commit, push, create a PR, or run npm run verify unless explicitly asked.
+autp token. Gate first. Update token budgets, capsules, reading map, review matrix, prompts. No app code.
 ```
 
-### Pre-Review Gate With `npm run pr-ready`
+## Expanded Prompt
+
+Use only when starting a fresh thread that lacks repo context:
 
 ```text
-Run pre-Review Gate for autp. Read AGENTS.md, docs/compact-context.md, docs/pr-readiness-check.md, docs/review-protocol.md, and docs/automation-policy.md. Run npm run pr-ready first. If it exits 0, review changed files for scope, safety, verification gaps, docs drift, and HumanGate triggers. Then run npm run verify if files changed and no blocker remains.
+autp task. Read AGENTS.md, run Context Intake Gate, choose one task capsule, read only required docs, search logs instead of full-reading them, run pr-ready and verify when PR-bound, use risk-based Review Gate, and report changed files/checks/risk/blockers/next only.
 ```

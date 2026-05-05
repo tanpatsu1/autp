@@ -34,7 +34,12 @@
 - `docs/verification-loop.md`: lint / typecheck / build / Vercel flow.
 - `docs/pr-readiness-check.md`: read-only PR readiness, blocker detection, risk level, and Review Gate preflight.
 - `docs/short-prompt-templates.md`: compact prompts for PR readiness, Review Gate, TaskBoardLoop, and verification.
-- `docs/docs-reading-map.md`: smaller reading sets for PR readiness, Review Gate, QA, and high-risk domains.
+- `docs/docs-reading-map.md`: capsule-first reading sets for PR readiness, Review Gate, QA, and high-risk domains.
+- `docs/token-architecture-v1.md`: token budget classes, 100k+ cause classification, intake sequence, and output budget rule.
+- `docs/context-budget-policy.md`: context intake, skill intake, command output, and final report budgets.
+- `docs/context-intake-gate.md`: pre-work gate for task type, risk, required docs, forbidden full reads, Review Gate, QA, and output length.
+- `docs/task-capsules.md`: short reusable capsules for fast-save, Supabase persistence, high-risk review, QA, conflict fix, and next-task selection.
+- `docs/review-gate-matrix.md`: risk-based Review Gate levels that avoid full Review Gate by default.
 - `docs/skill-consolidation-v1.md`: consolidated shortcuts, reading rules, runbook boundaries, and future skillization priorities for repeated Codex operations.
 - `docs/skill-registry.md`: English skill names and purposes.
 - `docs/automation-registry.md`: English automation loop names and triggers.
@@ -96,6 +101,8 @@ The next automation-specific task is `NEXT-005`: design the implementation plan 
 
 `NEXT-018` Skill Consolidation v1 is complete: repeated Review Gate, QA, Fix PR, Supabase-RLS review, Conflict fix, and Next task selection prompts are shortened and tied to `npm run pr-ready` plus `npm run verify` before PR-bound completion.
 
+`NEXT-019` Token Architecture v1 is complete: Codex should run the Context Intake Gate before substantial reading, choose a Token Budget Class, prefer task capsules / reading map / diff / targeted search, use risk-based Review Gate, scope QA by class, and keep final reports to changed files, checks, risk, blockers, and next.
+
 ## Verification Status
 
 - Automation goal update is docs-only. `npm run verify` passed on 2026-04-29.
@@ -109,6 +116,7 @@ The next automation-specific task is `NEXT-005`: design the implementation plan 
 - URL-saving data model and RLS proposal is docs-only. `npm run verify` passed on 2026-04-29.
 - `NEXT-017` PR readiness check: `npm run pr-ready` and `npm run verify` passed on 2026-04-30.
 - `NEXT-018` Skill Consolidation v1: `npm run pr-ready` and `npm run verify` passed on 2026-05-05. `npm run pr-ready` reported High risk because the wider working tree contains existing high-risk changes, but found no blockers.
+- `NEXT-019` Token Architecture v1: verification is recorded in `docs/review-log.md`.
 
 ## Updated
 
