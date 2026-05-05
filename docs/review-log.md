@@ -2,6 +2,18 @@
 
 Codex records work history, verification status, safety checks, and next recommended tasks here.
 
+## 2026-05-05 Fast Save / Capture Implementation
+
+| Item | Content |
+| --- | --- |
+| Work | Implemented the first in-app Fast Save / Capture slice. The new-save form is URL-first, optional title/category/tags/memo/favorite fields are collapsed behind organization controls, new URL-only saves record `capture_source = fast_save`, fallback titles are still generated from the URL, and unorganized records display as `needs_review` with later editing available. |
+| Changed Files | `app/saved-url-manager.tsx`, `app/saved-url-manager.module.css`, `lib/supabase/saved-urls.ts`, `docs/current-status.md`, `docs/task-board.md`, `docs/review-log.md` |
+| Verification | Passed: `npm run lint`, `npm run typecheck`, `npm run build`, local dev HTTP 200 at `http://localhost:3004`, `npm run pr-ready`, and final `npm run verify` on 2026-05-05. |
+| Review Gate | Required because `npm run pr-ready` reported High risk from Supabase/Auth/RLS-adjacent app helper changes. Review found no High or Medium issues: owner-scoped queries remain in place, signed-out Supabase-configured saves remain blocked, and the migration/RLS posture is not weakened. |
+| Safety Check | No real env values, service role key, Supabase production DB change, SQL execution, RLS weakening, iframe, embedded browsing, bookmarklet, Chrome extension, Web Share Target, scraping, AI summary, billing, external posting, domain purchase, or production launch. |
+| Remaining Blockers | Live Supabase Auth sign-in, persistence reload, and two-user RLS denial remain blocked on safe local/preview Supabase configuration outside the repo. |
+| Next Recommended Task | `NEXT-015`: QA / Vercel / Supabase Verification after `BLOCKED-005` is resolved. |
+
 ## 2026-04-30 PR Readiness Check
 
 | Item | Content |

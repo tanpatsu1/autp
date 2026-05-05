@@ -220,6 +220,24 @@
   gap: 12px;
 }
 
+.optionalDetails {
+  display: grid;
+  gap: 14px;
+}
+
+.optionalDetails[open] {
+  border-top: 1px solid #e4eaf2;
+  padding-top: 14px;
+}
+
+.optionalDetails summary {
+  width: fit-content;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
 .checkbox {
   display: flex;
   align-items: center;
@@ -262,7 +280,7 @@
 }
 
 .primaryButton:disabled {
-  cursor: wait;
+  cursor: not-allowed;
   opacity: 0.68;
 }
 
@@ -280,6 +298,25 @@
   color: #b42318;
   font-size: 14px;
   font-weight: 700;
+}
+
+.success,
+.notice {
+  margin: 0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.success {
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+.notice {
+  background: #f2f4f7;
+  color: #526070;
 }
 
 .searchField {
@@ -408,6 +445,12 @@
   background: #eef2f6;
 }
 
+.metaLine .reviewBadge {
+  background: #fff7ed;
+  color: #92400e;
+  font-weight: 800;
+}
+
 .memo {
   margin: 0;
   color: #344054;
@@ -425,6 +468,10 @@
   color: #155e75;
   font-size: 12px;
   font-weight: 700;
+}
+
+.tags .placeholderTag {
+  color: #667085;
 }
 
 .itemActions {

@@ -45,6 +45,8 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
   const [search, setSearch] = useState("");
   const [viewMode, setViewMode] = useState<ViewMode>("cards");
   const [error, setError] = useState("");
+  const [savedMessage, setSavedMessage] = useState("");
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -163,9 +165,11 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
   const tagCount = new Set(items.flatMap((item) => item.tags)).size;
   const favoriteCount = items.filter((item) => item.isFavorite).length;
   const isEditing = Boolean(editingId);
+  const requiresSignIn = Boolean(supabase && !user);
 
   function updateForm(field: keyof UrlForm, value: string | boolean) {
     setError("");
+    setSavedMessage("");
     setForm((current) => ({ ...current, [field]: value }));
   }
 
@@ -181,6 +185,9 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
 
     const now = new Date().toISOString();
     const title = form.title.trim() || fallbackTitle(parsedUrl);
+    const currentItem = editingId
+      ? items.find((item) => item.id === editingId)
+      : undefined;
     const nextItem: ViewSavedUrl = {
       id: editingId ?? crypto.randomUUID(),
       url: parsedUrl,
@@ -189,10 +196,10 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
       tags: parseTags(form.tags),
       memo: form.memo.trim(),
       isFavorite: form.isFavorite,
-      captureSource: "manual_form",
+      captureSource: currentItem?.captureSource ?? "fast_save",
       organizationState: getOrganizationState(form),
       createdAt: editingId
-        ? items.find((item) => item.id === editingId)?.createdAt ?? now
+        ? currentItem?.createdAt ?? now
         : now,
       updatedAt: now
     };
@@ -209,12 +216,14 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
             category: nextItem.category,
             tags: nextItem.tags,
             memo: nextItem.memo,
-            isFavorite: nextItem.isFavorite
+            isFavorite: nextItem.isFavorite,
+            captureSource: nextItem.captureSource
           },
           editingId ?? undefined
         );
         setItems(await fetchSavedUrls(supabase, user.id));
-        resetForm();
+        resetForm({ keepMessage: true });
+        setSavedMessage(isEditing ? "Changes saved." : "Saved. Organize later.");
       } catch (saveError) {
         setError(saveError instanceof Error ? saveError.message : "Unable to save URL.");
       } finally {
@@ -236,7 +245,8 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
       return current.map((item) => (item.id === editingId ? nextItem : item));
     });
 
-    resetForm();
+    resetForm({ keepMessage: true });
+    setSavedMessage(isEditing ? "Changes saved." : "Saved. Organize later.");
   }
 
   function startEdit(item: ViewSavedUrl) {
@@ -249,13 +259,19 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
       memo: item.memo,
       isFavorite: item.isFavorite
     });
+    setIsDetailsOpen(true);
     setError("");
+    setSavedMessage("");
   }
 
-  function resetForm() {
+  function resetForm(options?: { keepMessage?: boolean }) {
     setEditingId(null);
     setForm(emptyForm);
+    setIsDetailsOpen(false);
     setError("");
+    if (!options?.keepMessage) {
+      setSavedMessage("");
+    }
   }
 
   async function toggleFavorite(targetItem: ViewSavedUrl) {
@@ -401,9 +417,13 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
       <section className={styles.workspace}>
         <form className={styles.formPanel} onSubmit={handleSubmit}>
           <div className={styles.panelHeader}>
-            <h2>{isEditing ? "Edit URL" : "Add URL"}</h2>
+            <h2>{isEditing ? "Organize URL" : "Fast save"}</h2>
             {isEditing ? (
-              <button className={styles.subtleButton} type="button" onClick={resetForm}>
+              <button
+                className={styles.subtleButton}
+                type="button"
+                onClick={() => resetForm()}
+              >
                 Cancel
               </button>
             ) : null}
@@ -419,61 +439,77 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
             />
           </label>
 
-          <label className={styles.field}>
-            <span>Title</span>
-            <input
-              type="text"
-              value={form.title}
-              onChange={(event) => updateForm("title", event.target.value)}
-              placeholder="Readable title"
-            />
-          </label>
+          <details
+            className={styles.optionalDetails}
+            open={isDetailsOpen}
+            onToggle={(event) => setIsDetailsOpen(event.currentTarget.open)}
+          >
+            <summary>{isEditing ? "Edit details" : "Organize now"}</summary>
 
-          <div className={styles.fieldGrid}>
             <label className={styles.field}>
-              <span>Category</span>
+              <span>Title</span>
               <input
                 type="text"
-                value={form.category}
-                onChange={(event) => updateForm("category", event.target.value)}
-                placeholder="Research"
+                value={form.title}
+                onChange={(event) => updateForm("title", event.target.value)}
+                placeholder="Readable title"
               />
             </label>
 
+            <div className={styles.fieldGrid}>
+              <label className={styles.field}>
+                <span>Category</span>
+                <input
+                  type="text"
+                  value={form.category}
+                  onChange={(event) => updateForm("category", event.target.value)}
+                  placeholder="Research"
+                />
+              </label>
+
+              <label className={styles.field}>
+                <span>Tags</span>
+                <input
+                  type="text"
+                  value={form.tags}
+                  onChange={(event) => updateForm("tags", event.target.value)}
+                  placeholder="docs, product"
+                />
+              </label>
+            </div>
+
             <label className={styles.field}>
-              <span>Tags</span>
-              <input
-                type="text"
-                value={form.tags}
-                onChange={(event) => updateForm("tags", event.target.value)}
-                placeholder="docs, product"
+              <span>Memo</span>
+              <textarea
+                value={form.memo}
+                onChange={(event) => updateForm("memo", event.target.value)}
+                placeholder="Private note"
+                rows={5}
               />
             </label>
-          </div>
 
-          <label className={styles.field}>
-            <span>Memo</span>
-            <textarea
-              value={form.memo}
-              onChange={(event) => updateForm("memo", event.target.value)}
-              placeholder="Private note"
-              rows={5}
-            />
-          </label>
-
-          <label className={styles.checkbox}>
-            <input
-              type="checkbox"
-              checked={form.isFavorite}
-              onChange={(event) => updateForm("isFavorite", event.target.checked)}
-            />
-            <span>Favorite</span>
-          </label>
+            <label className={styles.checkbox}>
+              <input
+                type="checkbox"
+                checked={form.isFavorite}
+                onChange={(event) => updateForm("isFavorite", event.target.checked)}
+              />
+              <span>Favorite</span>
+            </label>
+          </details>
 
           {error ? <p className={styles.error}>{error}</p> : null}
+          {savedMessage ? <p className={styles.success}>{savedMessage}</p> : null}
+          {requiresSignIn ? (
+            <p className={styles.notice}>Sign in to save private URLs.</p>
+          ) : null}
 
-          <button className={styles.primaryButton} type="submit" disabled={isSaving}>
-            {isSaving ? "Saving..." : isEditing ? "Save changes" : "Save URL"}
+          <button
+            className={styles.primaryButton}
+            type="submit"
+            disabled={isSaving || requiresSignIn}
+          >
+            {isSaving ? "Saving..." : isEditing ? "Save changes" : "Fast save"}
           </button>
         </form>
 
@@ -563,6 +599,8 @@ function SavedUrlItem({
   onEdit: (item: ViewSavedUrl) => void;
   onToggleFavorite: (item: ViewSavedUrl) => void;
 }) {
+  const needsReview = item.organizationState === "needs_review";
+
   return (
     <article className={mode === "cards" ? styles.card : styles.listRow}>
       <div className={styles.itemMain}>
@@ -584,7 +622,8 @@ function SavedUrlItem({
         </div>
 
         <div className={styles.metaLine}>
-          {item.category ? <span>{item.category}</span> : null}
+          <span>{item.category || "Uncategorized"}</span>
+          {needsReview ? <span className={styles.reviewBadge}>Needs review</span> : null}
           <span>Updated {formatDate(item.updatedAt)}</span>
         </div>
 
@@ -595,6 +634,10 @@ function SavedUrlItem({
             {item.tags.map((tag) => (
               <span key={tag}>{tag}</span>
             ))}
+          </div>
+        ) : needsReview ? (
+          <div className={styles.tags}>
+            <span className={styles.placeholderTag}>No tags</span>
           </div>
         ) : null}
       </div>
