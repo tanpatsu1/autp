@@ -23,6 +23,7 @@
 - Capture friction is now a first-class product risk. The "copy URL, open autp, paste, fill fields, save, return" flow is tracked as a weakness; iframe / embedded browsing remains research-only and is not approved for implementation.
 - `NEXT-009` Capture Friction Baseline Planning is documented in `docs/capture-friction-baseline.md`. The baseline is URL-only fast save: URL is the only user-required save-time field, title/category/tags/memo/favorite can be organized later, and unclassified or unorganized links remain valid private records.
 - `NEXT-010` Supabase/Auth/RLS Persistence implementation is merged: the MVP now uses Supabase Auth and owner-scoped Supabase persistence when public env names are configured and a user signs in, while preserving local demo mode when Supabase is not configured.
+- Fast Save / Capture implementation now makes the new-save path URL-first: URL is the only visible required save-time field, optional title/category/tags/memo/favorite fields are collapsed for organization, URL-only saves use fallback titles plus `needs_review`, and Supabase-configured signed-out saves remain blocked.
 - A non-production migration draft exists at `supabase/migrations/20260430000000_url_saving_persistence.sql` for `saved_urls`, `categories`, `tags`, `saved_url_tags`, RLS, owner immutability, same-owner joins, `capture_source`, and `organization_state`.
 - Post-merge QA for Supabase/Auth/RLS Persistence found and fixed one Medium RLS scope issue in the migration draft: category/tag row deletion remains deferred until category/tag management is reviewed. No High issues are recorded.
 - `NEXT-016` Token Efficiency Audit v1 is documented in `docs/token-efficiency-audit-v1.md`, with short prompt templates, a docs-reading map, Skill consolidation priorities, and script candidates.
@@ -56,7 +57,8 @@ Next recommended task: `NEXT-015` QA / Vercel / Supabase Verification after a sa
 - Supabase/Auth/RLS Persistence post-merge QA: `npm install`, `npm run verify`, local demo headless-browser save/list/reload persistence, Supabase-configured unsigned save denial with dummy public env names, RLS migration static review, secret scan, and final `npm run verify` passed on 2026-04-30. Vercel commit status is successful.
 - Token Efficiency Audit v1 is docs-only. `npm run verify` passed on 2026-04-30 after the audit docs update.
 - `NEXT-017` PR readiness check passed on 2026-04-30: `npm run pr-ready` reports risk, blockers, Review Gate need, and the recommended verification command without running heavy verification by default; `npm run verify` also passed.
+- Fast Save / Capture implementation: `npm run lint`, `npm run typecheck`, `npm run build`, local dev HTTP 200 at `http://localhost:3004`, `npm run pr-ready`, and final `npm run verify` passed on 2026-05-05.
 
 ## Updated
 
-- 2026-04-30
+- 2026-05-05

@@ -21,6 +21,7 @@ export type SavedUrlInput = {
   tags: string[];
   memo: string;
   isFavorite: boolean;
+  captureSource: string;
 };
 
 type CategoryRelation = {
@@ -89,7 +90,7 @@ export async function saveSavedUrl(
     category_id: categoryId,
     memo: input.memo || null,
     is_favorite: input.isFavorite,
-    capture_source: "manual_form",
+    capture_source: input.captureSource,
     organization_state: organizationState,
     updated_at: now
   };
