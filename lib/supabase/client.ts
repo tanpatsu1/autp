@@ -10,5 +10,11 @@ export function createBrowserSupabaseClient() {
     return null;
   }
 
-  return createClient(supabaseUrl, supabasePublishableKey);
+  return createClient(supabaseUrl, supabasePublishableKey, {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
+    }
+  });
 }

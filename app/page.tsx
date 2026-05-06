@@ -1,6 +1,5 @@
-import { isSupabaseConfigured } from "@/lib/supabase/client";
-import { SavedUrlManager } from "./saved-url-manager";
+import { FitStudio } from "@/components/fit-studio";
 
 export default function Home() {
-  return <SavedUrlManager isSupabaseConfigured={isSupabaseConfigured} />;
+  return <FitStudio />;
 }
