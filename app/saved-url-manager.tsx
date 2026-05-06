@@ -13,6 +13,16 @@ import { createBrowserSupabaseClient } from "@/lib/supabase/client";
 import styles from "./saved-url-manager.module.css";
 
 type ViewMode = "cards" | "list";
+type DecisionStatus = "considering" | "shortlisted" | "decided" | "passed";
+type PurchasePriority = "low" | "medium" | "high";
+
+type PurchaseDecisionFields = {
+  decisionStatus: DecisionStatus;
+  price: string;
+  priority: PurchasePriority;
+  pros: string;
+  cons: string;
+};
 
 type UrlForm = {
   url: string;
@@ -21,13 +31,37 @@ type UrlForm = {
   tags: string;
   memo: string;
   isFavorite: boolean;
-};
+} & PurchaseDecisionFields;
+
+type DecisionSavedUrl = ViewSavedUrl & PurchaseDecisionFields;
 
 type SavedUrlManagerProps = {
   isSupabaseConfigured: boolean;
 };
 
 const storageKey = "autp.savedUrls.v1";
+const decisionStorageKey = "autp.purchaseDecisions.v1";
+
+const defaultPurchaseDecision: PurchaseDecisionFields = {
+  decisionStatus: "considering",
+  price: "",
+  priority: "medium",
+  pros: "",
+  cons: ""
+};
+
+const decisionStatusLabels: Record<DecisionStatus, string> = {
+  considering: "Considering",
+  shortlisted: "Shortlisted",
+  decided: "Decided",
+  passed: "Passed"
+};
+
+const priorityLabels: Record<PurchasePriority, string> = {
+  low: "Low",
+  medium: "Medium",
+  high: "High"
+};
 
 const emptyForm: UrlForm = {
   url: "",
@@ -35,11 +69,12 @@ const emptyForm: UrlForm = {
   category: "",
   tags: "",
   memo: "",
-  isFavorite: false
+  isFavorite: false,
+  ...defaultPurchaseDecision
 };
 
 export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) {
-  const [items, setItems] = useState<ViewSavedUrl[]>([]);
+  const [items, setItems] = useState<DecisionSavedUrl[]>([]);
   const [form, setForm] = useState<UrlForm>(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -79,7 +114,7 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
 
       if (stored) {
         try {
-          setItems(JSON.parse(stored) as ViewSavedUrl[]);
+          setItems(normalizeSavedItems(JSON.parse(stored) as ViewSavedUrl[]));
         } catch {
           setItems([]);
         }
@@ -110,7 +145,7 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
     fetchSavedUrls(supabase, user.id)
       .then((savedUrls) => {
         if (isMounted) {
-          setItems(savedUrls);
+          setItems(mergePurchaseDecisions(savedUrls));
           setHasLoaded(true);
         }
       })
@@ -146,6 +181,11 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
           item.title,
           item.category,
           item.memo,
+          decisionStatusLabels[item.decisionStatus],
+          item.price,
+          priorityLabels[item.priority],
+          item.pros,
+          item.cons,
           item.tags.join(" ")
         ]
           .join(" ")
@@ -185,10 +225,11 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
 
     const now = new Date().toISOString();
     const title = form.title.trim() || fallbackTitle(parsedUrl);
+    const purchaseDecision = buildPurchaseDecision(form);
     const currentItem = editingId
       ? items.find((item) => item.id === editingId)
       : undefined;
-    const nextItem: ViewSavedUrl = {
+    const nextItem: DecisionSavedUrl = {
       id: editingId ?? crypto.randomUUID(),
       url: parsedUrl,
       title,
@@ -196,6 +237,7 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
       tags: parseTags(form.tags),
       memo: form.memo.trim(),
       isFavorite: form.isFavorite,
+      ...purchaseDecision,
       captureSource: currentItem?.captureSource ?? "fast_save",
       organizationState: getOrganizationState(form),
       createdAt: editingId
@@ -221,7 +263,8 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
           },
           editingId ?? undefined
         );
-        setItems(await fetchSavedUrls(supabase, user.id));
+        persistPurchaseDecision(nextItem);
+        setItems(mergePurchaseDecisions(await fetchSavedUrls(supabase, user.id)));
         resetForm({ keepMessage: true });
         setSavedMessage(isEditing ? "Changes saved." : "Saved. Organize later.");
       } catch (saveError) {
@@ -249,7 +292,7 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
     setSavedMessage(isEditing ? "Changes saved." : "Saved. Organize later.");
   }
 
-  function startEdit(item: ViewSavedUrl) {
+  function startEdit(item: DecisionSavedUrl) {
     setEditingId(item.id);
     setForm({
       url: item.url,
@@ -257,7 +300,12 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
       category: item.category,
       tags: item.tags.join(", "),
       memo: item.memo,
-      isFavorite: item.isFavorite
+      isFavorite: item.isFavorite,
+      decisionStatus: item.decisionStatus,
+      price: item.price,
+      priority: item.priority,
+      pros: item.pros,
+      cons: item.cons
     });
     setIsDetailsOpen(true);
     setError("");
@@ -274,11 +322,11 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
     }
   }
 
-  async function toggleFavorite(targetItem: ViewSavedUrl) {
+  async function toggleFavorite(targetItem: DecisionSavedUrl) {
     if (supabase && user) {
       try {
         await toggleSavedUrlFavorite(supabase, user.id, targetItem);
-        setItems(await fetchSavedUrls(supabase, user.id));
+        setItems(mergePurchaseDecisions(await fetchSavedUrls(supabase, user.id)));
       } catch (favoriteError) {
         setError(
           favoriteError instanceof Error
@@ -305,10 +353,15 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
   }
 
   async function deleteItem(id: string) {
+    const targetItem = items.find((item) => item.id === id);
+
     if (supabase && user) {
       try {
         await deleteSavedUrl(supabase, user.id, id);
-        setItems(await fetchSavedUrls(supabase, user.id));
+        if (targetItem) {
+          removePurchaseDecision(targetItem);
+        }
+        setItems(mergePurchaseDecisions(await fetchSavedUrls(supabase, user.id)));
       } catch (deleteError) {
         setError(
           deleteError instanceof Error ? deleteError.message : "Unable to delete URL."
@@ -319,6 +372,10 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
         resetForm();
       }
       return;
+    }
+
+    if (targetItem) {
+      removePurchaseDecision(targetItem);
     }
 
     setItems((current) => current.filter((item) => item.id !== id));
@@ -478,6 +535,74 @@ export function SavedUrlManager({ isSupabaseConfigured }: SavedUrlManagerProps) 
               </label>
             </div>
 
+            <div className={styles.purchaseFields} aria-label="Purchase decision">
+              <div className={styles.fieldGrid}>
+                <label className={styles.field}>
+                  <span>Decision status</span>
+                  <select
+                    value={form.decisionStatus}
+                    onChange={(event) =>
+                      updateForm(
+                        "decisionStatus",
+                        event.target.value as DecisionStatus
+                      )
+                    }
+                  >
+                    <option value="considering">Considering</option>
+                    <option value="shortlisted">Shortlisted</option>
+                    <option value="decided">Decided</option>
+                    <option value="passed">Passed</option>
+                  </select>
+                </label>
+
+                <label className={styles.field}>
+                  <span>Priority</span>
+                  <select
+                    value={form.priority}
+                    onChange={(event) =>
+                      updateForm("priority", event.target.value as PurchasePriority)
+                    }
+                  >
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                  </select>
+                </label>
+              </div>
+
+              <label className={styles.field}>
+                <span>Price</span>
+                <input
+                  type="text"
+                  value={form.price}
+                  onChange={(event) => updateForm("price", event.target.value)}
+                  placeholder="$120, JPY 18,000, sale pending"
+                />
+              </label>
+
+              <div className={styles.fieldGrid}>
+                <label className={styles.field}>
+                  <span>Pros memo</span>
+                  <textarea
+                    value={form.pros}
+                    onChange={(event) => updateForm("pros", event.target.value)}
+                    placeholder="Why it might be worth buying"
+                    rows={3}
+                  />
+                </label>
+
+                <label className={styles.field}>
+                  <span>Cons memo</span>
+                  <textarea
+                    value={form.cons}
+                    onChange={(event) => updateForm("cons", event.target.value)}
+                    placeholder="Tradeoffs, sizing, shipping, doubts"
+                    rows={3}
+                  />
+                </label>
+              </div>
+            </div>
+
             <label className={styles.field}>
               <span>Memo</span>
               <textarea
@@ -593,13 +718,14 @@ function SavedUrlItem({
   onEdit,
   onToggleFavorite
 }: {
-  item: ViewSavedUrl;
+  item: DecisionSavedUrl;
   mode: ViewMode;
   onDelete: (id: string) => void;
-  onEdit: (item: ViewSavedUrl) => void;
-  onToggleFavorite: (item: ViewSavedUrl) => void;
+  onEdit: (item: DecisionSavedUrl) => void;
+  onToggleFavorite: (item: DecisionSavedUrl) => void;
 }) {
   const needsReview = item.organizationState === "needs_review";
+  const hasDecisionDetails = hasPurchaseDecisionDetails(item);
 
   return (
     <article className={mode === "cards" ? styles.card : styles.listRow}>
@@ -627,7 +753,28 @@ function SavedUrlItem({
           <span>Updated {formatDate(item.updatedAt)}</span>
         </div>
 
+        <div className={styles.decisionLine}>
+          <span>{decisionStatusLabels[item.decisionStatus]}</span>
+          <span>{priorityLabels[item.priority]} priority</span>
+          {item.price ? <span>{item.price}</span> : null}
+        </div>
+
         {item.memo ? <p className={styles.memo}>{item.memo}</p> : null}
+
+        {hasDecisionDetails ? (
+          <div className={styles.decisionNotes}>
+            {item.pros ? (
+              <p>
+                <strong>Pros</strong> {item.pros}
+              </p>
+            ) : null}
+            {item.cons ? (
+              <p>
+                <strong>Cons</strong> {item.cons}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
 
         {item.tags.length ? (
           <div className={styles.tags}>
@@ -652,6 +799,114 @@ function SavedUrlItem({
       </div>
     </article>
   );
+}
+
+function normalizeSavedItems(savedItems: ViewSavedUrl[]): DecisionSavedUrl[] {
+  return savedItems.map((item) => ({
+    ...item,
+    ...sanitizePurchaseDecision(item as Partial<PurchaseDecisionFields>)
+  }));
+}
+
+function mergePurchaseDecisions(savedItems: ViewSavedUrl[]): DecisionSavedUrl[] {
+  const decisions = readPurchaseDecisionMap();
+
+  return savedItems.map((item) => ({
+    ...item,
+    ...defaultPurchaseDecision,
+    ...sanitizePurchaseDecision(decisions[`url:${item.url}`] ?? {}),
+    ...sanitizePurchaseDecision(decisions[item.id] ?? {})
+  }));
+}
+
+function buildPurchaseDecision(form: UrlForm): PurchaseDecisionFields {
+  return {
+    decisionStatus: form.decisionStatus,
+    price: form.price.trim(),
+    priority: form.priority,
+    pros: form.pros.trim(),
+    cons: form.cons.trim()
+  };
+}
+
+function hasPurchaseDecisionDetails(item: PurchaseDecisionFields) {
+  return Boolean(item.pros || item.cons);
+}
+
+function hasPurchaseDecision(form: UrlForm) {
+  return (
+    form.decisionStatus !== defaultPurchaseDecision.decisionStatus ||
+    form.price.trim() ||
+    form.priority !== defaultPurchaseDecision.priority ||
+    form.pros.trim() ||
+    form.cons.trim()
+  );
+}
+
+function readPurchaseDecisionMap(): Record<string, PurchaseDecisionFields> {
+  try {
+    return JSON.parse(
+      window.localStorage.getItem(decisionStorageKey) ?? "{}"
+    ) as Record<string, PurchaseDecisionFields>;
+  } catch {
+    return {};
+  }
+}
+
+function persistPurchaseDecision(item: DecisionSavedUrl) {
+  const decisions = readPurchaseDecisionMap();
+  const purchaseDecision = pickPurchaseDecision(item);
+
+  decisions[item.id] = purchaseDecision;
+  decisions[`url:${item.url}`] = purchaseDecision;
+  window.localStorage.setItem(decisionStorageKey, JSON.stringify(decisions));
+}
+
+function removePurchaseDecision(item: DecisionSavedUrl) {
+  const decisions = readPurchaseDecisionMap();
+
+  delete decisions[item.id];
+  delete decisions[`url:${item.url}`];
+  window.localStorage.setItem(decisionStorageKey, JSON.stringify(decisions));
+}
+
+function sanitizePurchaseDecision(
+  value: Partial<PurchaseDecisionFields>
+): PurchaseDecisionFields {
+  return {
+    decisionStatus: isDecisionStatus(value.decisionStatus)
+      ? value.decisionStatus
+      : defaultPurchaseDecision.decisionStatus,
+    price: typeof value.price === "string" ? value.price : "",
+    priority: isPurchasePriority(value.priority)
+      ? value.priority
+      : defaultPurchaseDecision.priority,
+    pros: typeof value.pros === "string" ? value.pros : "",
+    cons: typeof value.cons === "string" ? value.cons : ""
+  };
+}
+
+function pickPurchaseDecision(item: DecisionSavedUrl): PurchaseDecisionFields {
+  return {
+    decisionStatus: item.decisionStatus,
+    price: item.price,
+    priority: item.priority,
+    pros: item.pros,
+    cons: item.cons
+  };
+}
+
+function isDecisionStatus(value: unknown): value is DecisionStatus {
+  return (
+    value === "considering" ||
+    value === "shortlisted" ||
+    value === "decided" ||
+    value === "passed"
+  );
+}
+
+function isPurchasePriority(value: unknown): value is PurchasePriority {
+  return value === "low" || value === "medium" || value === "high";
 }
 
 function parseUrl(value: string) {
@@ -704,7 +959,10 @@ function parseTags(value: string) {
 }
 
 function getOrganizationState(form: UrlForm): "needs_review" | "organized" {
-  return form.category.trim() || form.tags.trim() || form.memo.trim()
+  return form.category.trim() ||
+    form.tags.trim() ||
+    form.memo.trim() ||
+    hasPurchaseDecision(form)
     ? "organized"
     : "needs_review";
 }
