@@ -192,6 +192,7 @@
 
 .field input,
 .field textarea,
+.field select,
 .searchField input {
   width: 100%;
   box-sizing: border-box;
@@ -209,6 +210,7 @@
 
 .field input:focus,
 .field textarea:focus,
+.field select:focus,
 .searchField input:focus {
   border-color: #2563eb;
   outline: 3px solid rgba(37, 99, 235, 0.14);
@@ -236,6 +238,13 @@
   font-size: 14px;
   font-weight: 800;
   cursor: pointer;
+}
+
+.purchaseFields {
+  display: grid;
+  gap: 12px;
+  border-top: 1px solid #e4eaf2;
+  padding-top: 14px;
 }
 
 .checkbox {
@@ -439,6 +448,7 @@
 }
 
 .metaLine span,
+.decisionLine span,
 .tags span {
   border-radius: 999px;
   padding: 5px 8px;
@@ -457,6 +467,38 @@
   font-size: 14px;
   line-height: 1.5;
   overflow-wrap: anywhere;
+}
+
+.decisionLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.decisionLine span:first-child {
+  background: #e9f1ff;
+  color: #1d4ed8;
+}
+
+.decisionNotes {
+  display: grid;
+  gap: 6px;
+}
+
+.decisionNotes p {
+  margin: 0;
+  color: #344054;
+  font-size: 13px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.decisionNotes strong {
+  margin-right: 6px;
+  color: #17202a;
 }
 
 .tags {
