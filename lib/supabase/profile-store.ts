@@ -48,7 +48,7 @@ export async function saveBodyProfile(
 export async function loadHistory(supabase: SupabaseClient, ownerId: string) {
   const { data, error } = await supabase
     .from("measurement_histories")
-    .select("id,title,brand,source_url,category,size_label,created_at")
+    .select("id,title,brand,source_url,category,size_label,measurement_payload,created_at")
     .eq("owner_id", ownerId)
     .order("created_at", { ascending: false })
     .limit(6);
@@ -57,15 +57,28 @@ export async function loadHistory(supabase: SupabaseClient, ownerId: string) {
     throw new Error(error.message);
   }
 
-  return ((data ?? []) as Array<Record<string, string | null>>).map(
+  return (
+    (data ?? []) as Array<{
+      id: string;
+      title: string;
+      brand: string | null;
+      source_url: string;
+      category: string;
+      size_label: string;
+      measurement_payload: ProductMeasurement | null;
+      created_at: string;
+    }>
+  ).map(
     (entry): MeasurementHistoryItem => ({
       id: String(entry.id),
       title: String(entry.title),
       brand: entry.brand ? String(entry.brand) : "",
       sourceUrl: String(entry.source_url),
       category: String(entry.category) === "pants" ? "pants" : "tops",
+      garmentType: entry.measurement_payload?.garmentType ?? "unknown",
       sizeLabel: String(entry.size_label),
-      savedAt: String(entry.created_at)
+      savedAt: String(entry.created_at),
+      measurement: entry.measurement_payload ?? undefined
     })
   );
 }

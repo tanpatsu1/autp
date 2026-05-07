@@ -1,5 +1,17 @@
 export type GarmentCategory = "tops" | "pants";
 
+export type GarmentType =
+  | "t_shirt"
+  | "shirt"
+  | "sweatshirt"
+  | "knit"
+  | "outerwear"
+  | "pants"
+  | "shorts"
+  | "skirt"
+  | "dress"
+  | "unknown";
+
 export type MaterialPreset = "structured" | "standard" | "draped" | "heavy";
 
 export type FitPreference = "regular" | "relaxed" | "slim";
@@ -30,6 +42,7 @@ export type MeasurementField =
 
 export type ProductMeasurement = {
   category: GarmentCategory;
+  garmentType: GarmentType;
   sizeLabel: string;
   waist: number | null;
   inseam: number | null;
@@ -47,15 +60,32 @@ export type ProductMeasurement = {
   missingFields: MeasurementField[];
 };
 
+export type ExtractionConfidenceSummary = {
+  expectedFields: MeasurementField[];
+  filledFields: MeasurementField[];
+  missingFields: MeasurementField[];
+  completionRatio: number;
+  quality: "high" | "medium" | "low";
+  message: string;
+};
+
 export type ProductAnalysisResult = {
   title: string;
   brand: string;
   sourceUrl: string;
   category: GarmentCategory;
+  garmentType: GarmentType;
+  garmentTypeConfidence: number;
+  garmentTypeEvidence: string[];
   summary: string;
   measurements: ProductMeasurement[];
   extractionNotes: string[];
-  usedLlmFallback: boolean;
+  extractionMode: "rule_based";
+  extractionStatus: "complete" | "partial" | "failed";
+  extractionBlockers: string[];
+  extractionAlternatives: string[];
+  confidenceSummary: ExtractionConfidenceSummary;
+  siteLimitations: string[];
 };
 
 export type MeasurementHistoryItem = {
@@ -64,8 +94,10 @@ export type MeasurementHistoryItem = {
   brand: string;
   sourceUrl: string;
   category: GarmentCategory;
+  garmentType: GarmentType;
   sizeLabel: string;
   savedAt: string;
+  measurement?: ProductMeasurement;
 };
 
 export const BODY_PROFILE_DEFAULTS: BodyProfile = {

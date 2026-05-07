@@ -18,3 +18,17 @@ export function toNumber(value: string) {
 export function formatCentimeters(value: number | null) {
   return value == null ? "未取得" : `${value.toFixed(1)} cm`;
 }
+
+export function formatDateTime(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return "保存日時なし";
+  }
+
+  return new Intl.DateTimeFormat("ja-JP", {
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(date);
+}
